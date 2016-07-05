@@ -1,0 +1,68 @@
+<html>
+<head>
+
+<title>AllSky camera web interface</title>
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles -->
+<link href="sticky-footer.css" rel="stylesheet">
+<link href="justified-nav.css" rel="stylesheet">
+
+<script type="text/javascript" src="imagerefresh.js"></script>
+<script type="text/javascript">
+        window.onload = function () {
+            imgRefresh.init('refreshable');
+        }
+</script>
+
+</head>
+
+<body bgcolor="white" text="black">
+
+<div class="container">
+      <!-- The justified navigation menu is meant for single line per list item.
+           Multiple lines will require custom code not provided by Bootstrap. -->
+      <div class="masthead">
+        <h3 class="text-muted">AllSky 2.0</h3>
+        <nav>
+          <ul class="nav nav-justified">
+            <li class="active"><a href="#">Camera</a></li>
+            <li><a href="#">Status</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Archive</a></li>
+          </ul>
+        </nav>
+      </div>
+
+</div> <!-- /container -->
+
+<center><h3>Camera view and status</h3></center>
+
+<p style="text-align: center;">
+	<a href="cam1.jpg">
+		<img id="refreshable" src="cam1.jpg" style="width: 40%; height: 40%"/>
+	</a>
+</p>
+
+<p style="text-align: center;">
+	<a href="cam2.jpg">
+		<img id="refreshable" src="cam2.jpg" style="width: 40%; height: 40%"/>
+	</a>
+</p>
+
+<p style="text-align: center; font-size: 70%">Click on the images to view full resolution</p>
+
+<footer class="footer">
+	<div class="container">
+		<p class="text-muted-footer" style="center">
+			Hardware/software design and production: <a href="mailto:kutkov.o@yandex.ru?Subject=AllSky">Kutkov Oleg</a>
+			<br>Crimean astrophysical observatory, 2016
+		</p>
+	</div>
+</footer>
+
+</body>
+</html>
+
