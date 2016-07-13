@@ -10,11 +10,18 @@
 <link href="sticky-footer.css" rel="stylesheet">
 <link href="justified-nav.css" rel="stylesheet">
 
-<script type="text/javascript" src="imagerefresh.js"></script>
 <script type="text/javascript">
-        window.onload = function () {
-            imgRefresh.init('refreshable');
-        }
+window.onload = function() {
+    function updateImage() {
+        var cam1_image = document.getElementById('cam1');
+        var cam2_image = document.getElementById('cam2');
+
+        cam1_image.src = cam1_image.src.split("?")[0] + "?" + new Date().getTime();
+        cam2_image.src = cam2_image.src.split("?")[0] + "?" + new Date().getTime();
+    }
+
+    setInterval(updateImage, 40000);
+}
 </script>
 
 </head>
@@ -43,12 +50,12 @@
 	<div class="row">
 		<div class="col-md-4 col-md-pull-9">
 			<h3>Cam 1</h3>
-			<a href="cam1.jpg"><img id="refreshable" src="cam1.jpg" height="350"/></a>
+			<a href="cam1.jpg"><img id="cam1" src="cam1.jpg" height="350"/></a>
 		</div>
 
 		<div class="col-md-4 col-md-push-2">
 			<h3>Cam 2</h3>
-			<a href="cam2.jpg"><img id="refreshable" src="cam2.jpg" height="350"/></a>
+			<a href="cam2.jpg"><img id="cam2" src="cam2.jpg" height="350"/></a>
 		</div>
 	</div> <!-- /row- -->
 
