@@ -136,7 +136,7 @@ int readDHT(int pin) {
 			f *= -1;
 		}
 
-		printf("temp=%.1f, humidity=%.1f\n", f, h);
+		printf("temp=%.1f humidity=%.1f\n", f, h);
     
 		return 1;
 	}
