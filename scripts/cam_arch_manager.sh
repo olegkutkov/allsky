@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#
+# Allsky camera simple archive manager
+#  - create new directory for next day
+#  - cleanup old files and directories
+#
+#
+
 ####
 
 next_date=`date +"%d.%m.%Y" --date="next day"`
