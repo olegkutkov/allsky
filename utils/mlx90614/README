@@ -1,0 +1,30 @@
+
+====
+ MLX90614 sensor utility using /dev/i2c-x driver interface
+ Supports reading of the object and ambient temperature, useful eeprom params reading and writing
+
+---
+ Building:
+	make
+
+ * * *
+
+ Important note before usage!!!
+  This device requires combined write/read request, which is disabled in i2c_bcm2708 driver by default (tested on Raspberry PI model B+)
+  To activate combined mode please run this command as root (not sudo):
+  # echo -n 1 > /sys/module/i2c_bcm2708/parameters/combined
+
+ * * *
+
+---
+ Usage:
+ Read IR temp: 
+	$ ./read_mlx90614 --bus 1 --i2c_addr 0x2a -i
+    or
+    $ ./read_mlx90614 --bus 1 --i2c_addr 0x2a --get_ir_temp
+
+	where bus - number of the actual i2c bus in system
+    i2c_addr - address of the slave device (0x5e is factory default)
+    get_ir_temp - what we want to read
+
+
