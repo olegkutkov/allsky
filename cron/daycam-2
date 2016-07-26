@@ -1,1 +1,1 @@
-* * * * *	oleg	raspistill -o /storage/web/cam2.jpg && /opt/allsky/bin/cam_to_arch.sh
+* * * * *	oleg	raspistill -w 1024 -h 768 -sh 60 --awb sun -ev 4 -o /storage/web/cam2.jpg && /opt/allsky/bin/cam_to_arch.sh
