@@ -14,13 +14,8 @@ next_date=`date +"%d.%m.%Y" --date="next day"`
 archdir=/storage/web/archive
 archpath=${archdir}/${next_date}
 
-if [ ! -d ${archpath} ]
-then
-	echo "Creating archive directory " ${archpath}
-	mkdir -p ${archpath}
-fi
 
-#####
+# Cleanup old directories
 
 arch_dirs=`ls /storage/web/archive/`
 
@@ -46,4 +41,12 @@ do
 	echo -e "\n"
 
 done
+
+#  Create directory for next day
+
+if [ ! -d ${archpath} ]
+then
+	echo "Creating archive directory " ${archpath}
+	mkdir -p ${archpath}
+fi
 
