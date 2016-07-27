@@ -139,6 +139,7 @@ int read_data_from_sensor(const int fdev, const char command)
 
 		case MLX90614_EMISS:
 			printf("Emissivity correction coefficient = %i\n", data.word);
+			break;
 
 		case MLX90614_PWMCTRL:
 			if (!(data.word & (1 << 1))) {
