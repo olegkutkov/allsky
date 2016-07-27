@@ -32,7 +32,7 @@
     or
     $ ./read_mlx90614 --bus 1 --i2c_addr 0x2a --get_ir_temp
 
-	where bus - number of the actual i2c bus in system
+    where bus - number of the actual i2c bus in system
     i2c_addr - address of the slave device (0x5e is factory default)
     get_ir_temp - what we want to read
 
