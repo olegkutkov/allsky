@@ -1,7 +1,7 @@
 
 ====
- MLX90614 sensor utility for Raspberyy PI.
- Supports reading of the object and ambient temperature, useful eeprom params reading and writing
+ MLX90614 sensor utility for Raspberry PI.
+ Supports reading of the object and ambient temperature, reading and writing of the useful eeprom params 
  Currently supported only Axx sensors with one IR module
 
  Tested on Raspbian with Linux kernel 4.4.15+
