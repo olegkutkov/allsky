@@ -34,6 +34,8 @@ typedef union i2c_smbus_data i2c_data;
 
 
 static int DEBUG_MODE = 0;
+
+extern const char* __progname;
 ///
 
 int get_device(const int bus_num, const unsigned char i2c_addr)
@@ -146,7 +148,7 @@ int read_data_from_sensor(const int fdev, const char command)
 				printf("PWM mode - disabled\n");
 			} else {
 				printf("PWM mode - enabled\n");
-				printf("In order to disable pwm mode - pull down SCL for >1 microsecond and change EEPROM setting.\n");
+				printf("In order to disable pwm mode - pull down SCL for >=1.2 ms and change EEPROM setting.\n");
 			}
 
 			break;
@@ -159,11 +161,25 @@ int write_data_to_sensor(const int fdev, const char command, const unsigned shor
 {
 	i2c_data msg;
 
+    // get current value of the register
+	if (talk_to_device(fdev, 1, command, &msg) < 0) {
+		return  -1;
+	}
+
+	unsigned short current_val = msg.word;
+
+    if (DEBUG_MODE) {
+        fprintf(stderr, "EEPROM cell = 0x%02X current value = 0x%04X\n", command, current_val);
+    }
+
 	msg.word = 0x0;
 
 	if (DEBUG_MODE) {
 		fprintf(stderr, "Erasing EEPROM cell = 0x%02X\n", command);
 	}
+
+    // provide some time for device
+	usleep(1000);
 
 	if (talk_to_device(fdev, 0, command, &msg) < 0) {
 		fprintf(stderr, "Unable to erase EEPROM cell\n");
@@ -176,7 +192,15 @@ int write_data_to_sensor(const int fdev, const char command, const unsigned shor
 
 	if (command == MLX90614_ADDR) {
 		msg.word = 0xFFFF;
-		msg.word = msg.word << 8 | write_arg;
+		msg.word = msg.word << 8 | write_arg;  // MLX devices uses LSByte only for address, other bits are ignored
+    } else if(command == MLX90614_PWMCTRL) {
+		if (write_arg) {   // enable PWM bit
+			current_val |= (1 << 1);
+		} else {     //disable PWM bit
+			current_val &= ~(1 << 1);
+		}
+
+		msg.word = current_val;
 	} else {
 		msg.word = write_arg;
 	}
@@ -197,9 +221,28 @@ int write_data_to_sensor(const int fdev, const char command, const unsigned shor
 		printf("Please, power off and power on again the device to apply changes\n");
 	} else if (command == MLX90614_EMISS) {
 		printf("Warning! Emissivity correction coefficient was changed to %i\n", msg.word);
+	} else if (command == MLX90614_PWMCTRL) {
+		printf("PWM mode is now %s\n", (write_arg ? "enabled" : "disabled"));
 	}
 
 	return 0;
+}
+
+void show_usage()
+{
+	printf("Usage\n");
+	printf("\t%s --bus [0-1] --i2c_addr [0x00-0x7F] command|command=values wflag\n", __progname);
+	printf("\n");
+	printf("\t\t-b, --bus\t\t- set i2c bus number (0 for Raspbery PI model A, 1 for Raspberry PI model B, default is 0)\n");
+	printf("\t\t-c, --i2c_addr\t\t- set slave device address (default = 0x5A)\n");
+	printf("\t\t-r, --new_addr=ADDR\t- set new i2c ADDR for the device\n");
+	printf("\t\t-w, --write\t\t- perfom writing to the device (wflag)\n");
+	printf("\t\t-i, --get_ir_temp\t- get temperature in C from the infrared sensor\n");
+	printf("\t\t-a, --get_ambient_temp\t- get temperature in C from the PTAT element\n");
+	printf("\t\t-e, --emissivity_coefficient\t- get value of the emissivity coefficient\n");
+	printf("\t\t--emissivity_coefficient=VALUE\t- set new VALUE for emissivity coefficient, use with --write argument\n");
+	printf("\t\t-p, --pwm_mode\t\t- check current state of the PWM\n");
+	printf("\t\t--pwm_mode=1|0\t\t- disable (0) or enable (1) PWM mode, use with --write argument\n");
 }
 
 int main(int argc, char **argv)
@@ -214,6 +257,7 @@ int main(int argc, char **argv)
 	unsigned short write_arg = 0x00;
 
 	static struct option long_options[] = {
+		{ "help", no_argument, NULL, 'h' },
 		{ "bus", required_argument, NULL, 'b' },
 		{ "i2c_addr", required_argument, NULL, 'c' },
 		{ "new_addr", required_argument, NULL, 'r'},
@@ -226,10 +270,14 @@ int main(int argc, char **argv)
 	};
 
 	int option_index = 0;
-	int opt = getopt_long(argc, argv, "bc:r:wiae:p:d", long_options, &option_index);
+	int opt = getopt_long(argc, argv, "hbc:r:wiae:p:d", long_options, &option_index);
 
 	while (opt != -1) {
 		switch (opt) {
+			case 'h':
+				show_usage();
+				return 0;
+
 			case 'b':
 				bus_num = atoi(optarg);
 				break;
@@ -282,6 +330,7 @@ int main(int argc, char **argv)
 				break;
 
 			default:
+				show_usage();
 				abort();
 		}
 
