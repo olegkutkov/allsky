@@ -1,1 +1,1 @@
-59 23 * * *	root	/opt/allsky/bin/cam_arch_manager.sh
+59 23 * * *	allsky	/opt/allsky/bin/cam_arch_manager.sh
