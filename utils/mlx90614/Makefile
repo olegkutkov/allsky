@@ -5,7 +5,7 @@
 CC := gcc
 PROGRAM = read_mlx90614
 SRC := mlx90614.c
-CFLAGS := -Wall -std=gnu99 -g -ggdb
+CFLAGS := -Wall -std=gnu99
 LDFLAG := -l bcm2835
 TARGET_DIR := /opt/allsky/bin
 
