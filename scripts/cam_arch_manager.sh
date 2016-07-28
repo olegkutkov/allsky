@@ -31,7 +31,7 @@ do
 		continue
 	fi
 
-	if [ $days_between_days -ge 3 ]
+	if [ $days_between_days -ge 4 ]
 	then
 		echo ${dir}" is "$days_between_days" days old and will be removed"
 
