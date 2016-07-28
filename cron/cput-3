@@ -1,0 +1,1 @@
+*/5 * * * *	root	/opt/allsky/bin/cpu_temp_to_db.sh
