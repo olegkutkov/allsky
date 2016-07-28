@@ -18,7 +18,7 @@
 #ifndef MLX_ADDRS_H
 #define MLX_ADDRS_H
 
-#define MLX90614_I2CADDR 0x2A
+#define MLX90614_I2CADDR 0x5A
 
 // RAM
 #define MLX90614_RAWIR1 0x04
