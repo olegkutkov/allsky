@@ -1,9 +1,7 @@
 /*
  DHT-22 sensor read from Raspberyy GPIO
 
- Copyright 2016  Oleg Kutkov <elenbert@gmail.com>
-
- Based on the source code of Dom and Gert (15-January-2012)
+ Copyright 2016  Oleg Kutkov <kutkov.o@yandex.ru>
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

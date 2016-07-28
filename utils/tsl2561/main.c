@@ -1,7 +1,7 @@
 /*
  TSL2561 sensor read from Raspberyy GPIO
 
- Copyright 2016  Oleg Kutkov <elenbert@gmail.com>
+ Copyright 2016  Oleg Kutkov <kutkov.o@yandex.ru>
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ int main() {
 	// set the integration time 
 	// (TSL2561_INTEGRATIONTIME_402MS or TSL2561_INTEGRATIONTIME_101MS or TSL2561_INTEGRATIONTIME_13MS)
 	// TSL2561_INTEGRATIONTIME_402MS is slower but more precise, TSL2561_INTEGRATIONTIME_13MS is very fast but not so precise
-	rc = TSL2561_SETINTEGRATIONTIME(&light1, TSL2561_INTEGRATIONTIME_101MS);
+	rc = TSL2561_SETINTEGRATIONTIME(&light1, TSL2561_INTEGRATIONTIME_402MS);
 	
 	// sense the luminosity from the sensor (lux is the luminosity taken in "lux" measure units)
 	// the last parameter can be 1 to enable library auto gain, or 0 to disable it
