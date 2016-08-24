@@ -1,0 +1,1 @@
+*/5 * * * *	root	/opt/allsky/bin/ambient_sensor_to_db.sh
