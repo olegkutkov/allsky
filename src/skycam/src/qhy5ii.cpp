@@ -184,6 +184,11 @@ int Qhy5II::InitDevice()
 	return QHYCCD_SUCCESS;
 }
 
+void Qhy5II::UninitDevice()
+{
+	StopVideo();
+}
+
 bool Qhy5II::IsColor()
 {
 	return is_color;

@@ -35,6 +35,7 @@ public:
 	void CloseDevice();
 
 	int InitDevice();
+	void UninitDevice();
 
 	bool IsColor();
 
