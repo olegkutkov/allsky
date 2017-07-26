@@ -32,6 +32,7 @@ public:
 	virtual void CloseDevice() =0;
 
 	virtual int InitDevice() =0;
+	virtual void UninitDevice() =0;
 
 	virtual size_t GetImageMemorySize() =0;
 
