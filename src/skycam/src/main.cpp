@@ -99,8 +99,8 @@ int main(int argc, char **argv)
 	int opt = getopt_long(argc, argv, "hdlm:e:g:r:o:ck:s:", long_options, &option_index);
 
 	std::string model_camera, output_filename, darkframe_file;
-	unsigned int expo_time = 10;
-	unsigned short gain = 1;
+	unsigned int expo_time = 100;
+	unsigned short gain = 0;
 	int res_w = 1280, res_h = 960;
 	bool color_mode = false;
 	int stack_frames = 0;
