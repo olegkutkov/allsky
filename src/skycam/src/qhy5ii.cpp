@@ -45,8 +45,8 @@ Qhy5II::Qhy5II()
 	, usb_traf (0)
 	, usb_speed (0)
 	, transfer_bit (8)
-	, exp_time (10)
-	, gain (1)
+	, exp_time (100)
+	, gain (0)
 	, width (1280)
 	, height (960)
 	, wbblue (145)
@@ -104,13 +104,19 @@ int Qhy5II::OpenDevice()
 
 	if (dev_type == DEVICETYPE_QHY5LII || dev_type == DEVICETYPE_QHY5RII)
 	{
+		unsigned char buf[4] = { 0, 0, 0, 0 };
+		CtrlMsg(handle, QHYCCD_REQUEST_WRITE, 0xc1, 0, 0, buf, 4 );
+
 		log_status("Succesfully connected to QHY5LII/QHY5RII device");
 
 		#ifdef __arm__
-			usb_traf = 40;
+			usb_traf = 150;
 		#else
-			usb_traf = 5;
+			usb_traf = 1;//30;
 		#endif
+
+		is_color = false;
+		transfer_bit = 8;
 	}
 	else if (dev_type == DEVICETYPE_QHY5II)
 	{
@@ -164,6 +170,13 @@ int Qhy5II::InitDevice()
 
 	SetUsbTraffic(usb_traf);
 
+	StopVideo();
+
+	SetExposureTime(exp_time);
+
+	SetGain(gain);
+	SetUsbTraffic(usb_traf);
+
 	StartVideo();
 
 	log_status("Device was initialized and ready to work");
@@ -186,6 +199,7 @@ int Qhy5II::SetParam(const DEVICE_PARAMS param, const param_val_t &value)
 	switch (param) {
 		case CONTROL_RESOLUTION:
 			SetResolution(value.values[0], value.values[1]);
+			break;
 
 		case CONTROL_GAIN:
 			return SetGain(value.values[0]);
@@ -314,6 +328,8 @@ int Qhy5II::GetFrame(unsigned char *data, unsigned int data_size)
 	if (!handle) {
 		return QHYCCD_ERROR_EXPFAILED;
 	}
+
+	data_size = 1280 * 960;
 
 	log_status("Getting frame from the camera");
 
@@ -570,6 +586,8 @@ int Qhy5II::SetGain(const unsigned short new_gain)
 {
 	int ret = QHYCCD_ERROR_SETGAIN;
 
+	StopVideo();
+
 	/* TO BE CLARIFIED: set_gain strange cludge to fix XXXX issuses on ARM MK808,
 	though this is not needed on x86. */
 #ifdef __arm__
@@ -590,7 +608,11 @@ int Qhy5II::SetGain(const unsigned short new_gain)
 		gain = new_gain;
 	}
 
-	log_status("Set gain = %i  wbblue = %i  wbred = %i", gain, wbblue, wbred);
+	if (is_color) {
+		log_status("Set gain = %i  wbblue = %i  wbred = %i", gain, wbblue, wbred);
+	} else {
+		log_status("Set gain = %i\n", gain);
+	}
 
 	StartVideo();
 
