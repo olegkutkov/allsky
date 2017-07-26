@@ -159,6 +159,7 @@ int QhyCam::ConnectCamera(const DEVICE_TYPE dev_type)
 void QhyCam::DisconnectCamera()
 {
 	if (camera_interface) {
+		camera_interface->UninitDevice();
 		camera_interface->CloseDevice();
 		camera_connected = false;
 	}
