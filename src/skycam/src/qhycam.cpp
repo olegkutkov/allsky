@@ -263,8 +263,6 @@ int QhyCam::GetFrame(cv::Mat &result_image)
 
 	buf = (unsigned char*) malloc(data_size);
 
-	camera_interface->StartVideo();
-
 	int res = camera_interface->GetFrame(buf, data_size);
 
 	if (res != QHYCCD_SUCCESS) {
