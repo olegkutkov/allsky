@@ -279,8 +279,7 @@ int QhyCam::GetFrame(cv::Mat &result_image)
 		cv::cvtColor(bayer_image, result_image, CV_BayerGR2RGB);
 	} else {
 		log_status("Camera is in grayscale mode");
-
-		result_image = bayer_image;
+		result_image = bayer_image.clone();
 	}
 
 	free(buf);
