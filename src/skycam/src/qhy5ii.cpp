@@ -140,6 +140,8 @@ void Qhy5II::CloseDevice()
 	log_debug("--> Qhy5II::CloseDevice()");
 #endif
 	if (handle) {
+		InitCmos();
+
 		libusb_release_interface(handle, 0);
 		libusb_close(handle);
 		handle = NULL;
