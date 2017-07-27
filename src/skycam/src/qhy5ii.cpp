@@ -110,13 +110,10 @@ int Qhy5II::OpenDevice()
 		log_status("Succesfully connected to QHY5LII/QHY5RII device");
 
 		#ifdef __arm__
-			usb_traf = 150;
+			usb_traf = 40;
 		#else
-			usb_traf = 1;//30;
+			usb_traf = 5;
 		#endif
-
-		is_color = false;
-		transfer_bit = 8;
 	}
 	else if (dev_type == DEVICETYPE_QHY5II)
 	{
@@ -165,6 +162,8 @@ int Qhy5II::InitDevice()
 	SetTransferBit(8);
 	SetSpeed((usb_speed != 0));
 
+	SetQHY5LIIHDR(false);
+
 	SetResolution(width, height);
 	SetGain(gain);
 
@@ -178,6 +177,8 @@ int Qhy5II::InitDevice()
 	SetUsbTraffic(usb_traf);
 
 	StartVideo();
+
+	SetExposureTime(exp_time);
 
 	log_status("Device was initialized and ready to work");
 
@@ -484,6 +485,15 @@ int Qhy5II::EepromRead(struct libusb_device_handle *handle
 	return Qhy5II::CtrlMsg(handle, QHYCCD_REQUEST_READ, 0xCA, 0, addr, data, len);
 }
 
+void Qhy5II::SetQHY5LIIHDR(bool on)
+{
+	if (on) {
+		I2CTwoWrite(0x3082, 0x0028);
+	} else {
+		I2CTwoWrite(0x3082, 0x0001);
+	}
+}
+
 void Qhy5II::SetResolution(const int w, const int h)
 {
 	if (dev_type == DEVICETYPE_QHY5LII) {
@@ -707,7 +717,7 @@ void Qhy5II::SetGainMonoQHY5LII(const double set_gain)
 
 	double real_gain = (Gain_Max - Gain_Min) * set_gain / 1000;
 
-	real_gain = gain / 10; // range:0-39.8
+	real_gain = real_gain / 10; // range:0-39.8
 
 	unsigned short REG30B0;
 

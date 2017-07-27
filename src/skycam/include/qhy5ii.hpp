@@ -74,6 +74,8 @@ private:
 	void I2CTwoWrite(uint16_t addr, uint16_t value);
 	uint16_t I2CTwoRead( uint16_t addr);
 
+	void SetQHY5LIIHDR(bool on);
+
 	void SetResolution(const int w, const int h);
 	void SetSpeed(const bool high_speed);
 	void SetUsbTraffic(const int i);
