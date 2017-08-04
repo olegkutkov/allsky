@@ -339,7 +339,8 @@ int Qhy5II::GetFrame(unsigned char *data, unsigned int data_size)
 
 	data_size = 1280 * 960;
 
-	log_status("Getting frame from the camera");
+	log_status("Camera is in %i bit mode\n", transfer_bit);
+	log_status("Capturing %ix%i frame with gain = %i and exposure = %i\n", width, height, gain, exp_time);
 
 	int transfered = 0;
 	int try_cnt = 0;
@@ -522,7 +523,7 @@ void Qhy5II::SetSpeed(const bool high_speed)
 		usb_speed = 0;
 	}
 
-	log_status("Set speed mode = %i", usb_speed);
+	log_debug("Set speed mode = %i", usb_speed);
 
 	if (dev_type == DEVICETYPE_QHY5LII || dev_type == DEVICETYPE_QHY5II)
 	{
@@ -554,7 +555,7 @@ void Qhy5II::SetUsbTraffic(const int i)
 			I2CTwoWrite(0x300c, 1388 + i*50);
 	}
 
-	log_status("Set usb traffic = %i", usb_traf);
+	log_debug("Set usb traffic = %i", usb_traf);
 
 	usb_traf = i;
 }
@@ -575,20 +576,20 @@ void Qhy5II::SetTransferBit(const int bit)
 		transfer_bit = 8;
 	}
 
-	log_status("Set transfer bit = %i", transfer_bit);
+	log_debug("Set transfer bit = %i", transfer_bit);
 }
 
-int Qhy5II::SetExposureTime(const unsigned int exptime)
+int Qhy5II::SetExposureTime(const int exptime)
 {
 	bool err = false;
 
 	if (dev_type == DEVICETYPE_QHY5LII) {
-		log_status("Set QHY5LII exposure time = %i ms", exptime);
+		log_debug("Set QHY5LII exposure time = %i ms", exptime);
 
 		SetExposureTime_QHY5LII(exptime);
 		exp_time = exptime;
 	} else if (dev_type == DEVICETYPE_QHY5II) {
-		log_status("Set QHY5II exposure time = %i ms", exptime);
+		log_debug("Set QHY5II exposure time = %i ms", exptime);
 
 		SetExposureTime_QHY5II(exptime);
 		exp_time = exptime;
@@ -626,9 +627,9 @@ int Qhy5II::SetGain(const unsigned short new_gain)
 	}
 
 	if (is_color) {
-		log_status("Set gain = %i  wbblue = %i  wbred = %i", gain, wbblue, wbred);
+		log_debug("Set gain = %i  wbblue = %i  wbred = %i", gain, wbblue, wbred);
 	} else {
-		log_status("Set gain = %i\n", gain);
+		log_debug("Set gain = %i\n", gain);
 	}
 
 	StartVideo();
@@ -979,7 +980,7 @@ void Qhy5II::SetGainColorQHY5LII(const double set_gain, const double RG, const d
 #endif
 }
 
-void Qhy5II::SetExposureTime_QHY5LII(const unsigned int val)
+void Qhy5II::SetExposureTime_QHY5LII(const int val)
 {
 #ifdef ANNIYING_DEBUG
 	log_debug("--> Qhy5II::SetExposureTime_QHY5LII()");

@@ -80,7 +80,7 @@ private:
 	void SetSpeed(const bool high_speed);
 	void SetUsbTraffic(const int i);
 	void SetTransferBit(const int bit);
-	int SetExposureTime(const unsigned int exptime);
+	int SetExposureTime(const int exptime);
 	int SetGain(const unsigned short new_gain);
 	int SetGainCore(const unsigned short new_gain);
 	void CorrectQHY5LIIWH(const int w, const int h);
@@ -93,7 +93,7 @@ private:
 	double SetQHY5LREG_PLL(unsigned char clk);
 	void SetGainMonoQHY5LII(const double set_gain);
 	void SetGainColorQHY5LII(const double set_gain, const double RG, const double BG);
-	void SetExposureTime_QHY5LII(const unsigned int val);
+	void SetExposureTime_QHY5LII(int val);
 
 	void InitQHY5LII_XGA();
 	void InitQHY5LII_1280X960();
@@ -118,7 +118,7 @@ private:
 	int usb_traf;
 	int usb_speed;
 	int transfer_bit;
-	unsigned int exp_time;
+	int exp_time;
 	unsigned short gain;
 	int width;
 	int height;

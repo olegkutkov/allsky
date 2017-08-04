@@ -221,7 +221,7 @@ int QhyCam::SetCameraResolution(const int w, const int h)
 	return res;
 }
 
-int QhyCam::SetCameraExposureTime(const unsigned int time_ms)
+int QhyCam::SetCameraExposureTime(const int time_ms)
 {
 	if (!camera_connected) {
 		log_error("Camera is not connected");

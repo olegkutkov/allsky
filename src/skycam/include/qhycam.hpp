@@ -43,7 +43,7 @@ public:
 	void SetGrayscaleMode();
 
 	int SetCameraResolution(const int w, const int h);
-	int SetCameraExposureTime(const unsigned int time_ms);
+	int SetCameraExposureTime(const int time_ms);
 	int SetCameraGain(const unsigned short gain);
 
 	void StartCapture();
