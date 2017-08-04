@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <unistd.h>
 #include <getopt.h>
+#include <opencv2/imgproc/imgproc.hpp>
 #include "qhycam.hpp"
 #include "logger.h"
 
@@ -92,18 +93,21 @@ int main(int argc, char **argv)
 		{ "output_file", required_argument, NULL, 'o' },
 		{ "color_required", no_argument, NULL, 'c' },
 		{ "darkframe_subtraction", required_argument, NULL, 'k' },
-		{ "stack_frames", required_argument, NULL, 's' }
+		{ "stack_frames", required_argument, NULL, 's' },
+		{ "blur_gaussian", required_argument, NULL, 'b' }
 	};
 
 	int option_index = 0;
-	int opt = getopt_long(argc, argv, "hdlm:e:g:r:o:ck:s:", long_options, &option_index);
+	int opt = getopt_long(argc, argv, "hdlm:e:g:r:o:ck:s:b:", long_options, &option_index);
 
 	std::string model_camera, output_filename, darkframe_file;
-	unsigned int expo_time = 100;
+	int expo_time = 100;
 	unsigned short gain = 0;
 	int res_w = 1280, res_h = 960;
 	bool color_mode = false;
 	int stack_frames = 0;
+	bool use_blur = false;
+	unsigned short blur_kernel = 1;
 
     while (opt != -1) {
 		switch (opt) {
@@ -159,12 +163,17 @@ int main(int argc, char **argv)
 				stack_frames = atoi(optarg);
 				break;
 
+			case 'b':
+				use_blur = true;
+				blur_kernel = atoi(optarg);
+				break;
+
 			default:
 				show_usage();
 				abort();
 		}
 
-		opt = getopt_long(argc, argv, "dlm:e:g:r:o:ck:s:", long_options, &option_index);
+		opt = getopt_long(argc, argv, "dlm:e:g:r:o:ck:s:b:", long_options, &option_index);
 	}
 
 	if (!model_camera.size() || !output_filename.size()) {
@@ -205,7 +214,6 @@ int main(int argc, char **argv)
 	cv::Mat dark;
 
 	if (darkframe_file.size()) {
-		std::cout << "substracting dark frame " << darkframe_file << std::endl;
 		dark = cv::imread(darkframe_file.c_str(), 0);
 	}
 
@@ -220,22 +228,34 @@ int main(int argc, char **argv)
 
 	if (!stack_frames) {
 
-//		if (darkframe_file.size()) {
-//			std::cout << "substracting dark framne " << darkframe_file << std::endl;
-//			dark = cv::imread(darkframe_file.c_str(), 0);
-//			cv::Mat dark_grey;
+		if (darkframe_file.size()) {
+			log_status("Substracting dark frame %s\n", darkframe_file.c_str());
+			dark = cv::imread(darkframe_file.c_str(), 0);
+			cv::Mat dark_grey;
 
-//			cvtColor(dark, dark_grey, CV_BGR2GRAY);
+///			cvtColor(dark, dark_grey, CV_BGR2GRAY);
 
-//			cam_image -= dark;
-//		}
+			cam_image -= dark;
+		}
 
-		cv::Mat result;
+//		cv::Mat result;
 
-		cv::fastNlMeansDenoising(cam_image, result, 3.0f, 7, 21);
+//		cv::fastNlMeansDenoising(cam_image, result, 3.0f, 7, 21);
+
+		cv::Mat blured = cam_image.clone();
+
+		if (use_blur) {
+			log_status("Applying Gaussian blur with kernel size = %i\n", blur_kernel);
+
+			for ( int i = 1; i < blur_kernel; i = i + 2 ) {
+				cv::GaussianBlur(cam_image, blured, cv::Size(i, i), 0, 0);
+			}
+
+			cv::addWeighted(cam_image, 1.5, blured, -0.5, 0, blured);
+		}
 
 		log_status("Writing captured data to %s", output_filename.c_str());
-		cv::imwrite(output_filename.c_str(), result);
+		cv::imwrite(output_filename.c_str(), blured /*cam_image*/);
 	}
 
 	return 0;
