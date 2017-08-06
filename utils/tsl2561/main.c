@@ -46,7 +46,7 @@ int main() {
 	// set the integration time 
 	// (TSL2561_INTEGRATIONTIME_402MS or TSL2561_INTEGRATIONTIME_101MS or TSL2561_INTEGRATIONTIME_13MS)
 	// TSL2561_INTEGRATIONTIME_402MS is slower but more precise, TSL2561_INTEGRATIONTIME_13MS is very fast but not so precise
-	rc = TSL2561_SETINTEGRATIONTIME(&light1, TSL2561_INTEGRATIONTIME_402MS);
+	rc = TSL2561_SETINTEGRATIONTIME(&light1, TSL2561_INTEGRATIONTIME_101MS);
 	
 	// sense the luminosity from the sensor (lux is the luminosity taken in "lux" measure units)
 	// the last parameter can be 1 to enable library auto gain, or 0 to disable it
