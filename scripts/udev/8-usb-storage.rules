@@ -1,0 +1,1 @@
+KERNEL=="sd*", ATTRS{serial}=="3", ATTRS{idVendor}=="090c", ATTRS{idProduct}=="1000" SYMLINK+="sda%n"
