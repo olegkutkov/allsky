@@ -1,1 +1,1 @@
-*/5 * * * *	root	/opt/allsky/bin/dht_to_db.sh
+*/5 * * * *	root	/opt/allsky/bin/dht_to_db.sh && sleep 1 && /opt/allsky/bin/fancontrol >> /var/log/fancontrol.log

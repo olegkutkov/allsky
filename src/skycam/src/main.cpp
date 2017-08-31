@@ -238,9 +238,9 @@ int main(int argc, char **argv)
 			cam_image -= dark;
 		}
 
-//		cv::Mat result;
+		cv::Mat result;
 
-//		cv::fastNlMeansDenoising(cam_image, result, 3.0f, 7, 21);
+//		cv::fastNlMeansDenoising(cam_image, result, 3);
 
 		cv::Mat blured = cam_image.clone();
 
@@ -251,7 +251,7 @@ int main(int argc, char **argv)
 				cv::GaussianBlur(cam_image, blured, cv::Size(i, i), 0, 0);
 			}
 
-			cv::addWeighted(cam_image, 1.5, blured, -0.5, 0, blured);
+//			cv::addWeighted(cam_image, 1.5, blured, -0.5, 0, blured);
 		}
 
 		log_status("Writing captured data to %s", output_filename.c_str());
