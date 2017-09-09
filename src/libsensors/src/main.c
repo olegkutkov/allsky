@@ -20,6 +20,7 @@
 #include <sys/sem.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <string.h>
 #include "libsensors_allsky.h"
 #include "sensors.h"
 
@@ -66,6 +67,7 @@ libsensors_allsky_t* get_sensors()
 	}
 
 	sens->__semid = sem_id;
+	sens->__sensors = __build_sensors_list();
 
 	return sens;
 }
@@ -73,8 +75,35 @@ libsensors_allsky_t* get_sensors()
 void free_sensors(libsensors_allsky_t* sens)
 {
 	if (sens) {
+		if (sens->__sensors) {
+			free(sens->__sensors);
+			sens->__sensors = NULL;
+		}
+
 		free(sens);
+		sens = NULL;
 	}
+}
+
+char* get_sensor_name(sensor_info_t* sinf)
+{
+	return sinf->sensor_name;
+}
+
+char* get_sensor_description(sensor_info_t* sinf)
+{
+	return sinf->sensor_description;
+}
+
+sensor_info_t* __build_sensors_list(void)
+{
+	int i;
+	sensor_info_t sens_tmp[SENSORS_COUNT] = SENSORS_LIST_DESCRIPTION;
+	sensor_info_t* sensors_list = (sensor_info_t*) malloc(sizeof(sensor_info_t) * SENSORS_COUNT);
+
+	memcpy(sensors_list, &sens_tmp, sizeof(sensor_info_t) * SENSORS_COUNT);
+
+	return sensors_list;
 }
 
 void __sema_lock_wait(const int semid, const int semnum)
@@ -107,15 +136,17 @@ void __sema_unlock(const int semid, const int semnum)
 	semop(semid, op, 1);
 }
 
-sensor_t* get_sensors_list(void)
+sensor_info_t* get_sensors_list(libsensors_allsky_t* sens)
 {
-	sensor_t* sensors_list = (sensor_t*) malloc(sizeof(sensor_t));
+	return sens->__sensors;
 
-	return sensors_list;
+//	sensor_info_t* sensors_list = (sensor_info_t*) malloc(sizeof(sensor_info_t));
+
+//	return sensors_list;
 }
 
-void free_sensors_list(sensor_t* list)
-{
-	free(list);
-}
+//void free_sensors_list(sensor_info_t* list)
+//{
+//	free(list);
+//}
 

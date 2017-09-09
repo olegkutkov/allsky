@@ -21,7 +21,54 @@
 
 #define SENSORS_COUNT 5
 
+#ifdef USE_DHT22
+	#define DHT22_SENSOR_ID 0x0
+	#define DHT22_DESCRIPTION \
+		{ DHT22_SENSOR_ID, "DHT22", "Temperature and humidity sensor"},
+#else
+	#define DHT22_DESCRIPTION
+#endif
 
+#ifdef USE_TSL_2561
+	#define TSL_2561_SENSOR_ID 0x1
+	#define TSL_261_DESCRIPTION \
+		{ TSL_2561_SENSOR_ID, "TSL 2561", "Luminosity/Lux/Light sensor" },
+#else
+	#define TSL_261_DESCRIPTION
+#endif
+
+#ifdef USE_MLX_90614
+	#define MLX_90614_SENSOR_ID 0x2
+	#define MLX_90614_DESCRIPTION \
+		{ MLX_90614_SENSOR_ID, "MLX 90614", "Infrared thermometer" },
+#else
+	#define MLX_90614_DESCRIPTION
+#endif
+
+#ifdef USE_TACHO
+	#define TACHOMETER_SENSOR_ID 0x3
+	#define TACHO_DESCRIPTION \
+		{ TACHOMETER_SENSOR_ID, "Tacho", "FAN's rpm sensor" },
+#else
+	#define TACHO_DESCRIPTION
+#endif
+
+#ifdef USE_RASPI_VCGEN
+	#define RASPI_VCGEN_SENSOR_ID 0x4
+	#define RASPI_VCGEN_DESCRIPTION \
+		{ RASPI_VCGEN_SENSOR_ID, "Vcgen", "Raspberry pi temperature and voltages sensor" },
+#else
+	#define RASPI_VCGEN_DESCRIPTION
+#endif
+
+#define SENSORS_LIST_DESCRIPTION \
+			{ \
+				DHT22_DESCRIPTION \
+				TSL_261_DESCRIPTION \
+				MLX_90614_DESCRIPTION \
+				TACHO_DESCRIPTION \
+				RASPI_VCGEN_DESCRIPTION \
+			}
 
 #endif
 

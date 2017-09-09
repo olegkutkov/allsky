@@ -25,22 +25,31 @@
 extern “C” {
 #endif
 
-typedef struct sensor {
+typedef struct sensor_info {
+	int id;
 	char* sensor_name;
 	char* sensor_description;
-} sensor_t;
+} sensor_info_t;
 
 typedef struct libsensors_allsky {
 	int __semid;
-	sensor_t* __sensors;
+	sensor_info_t* __sensors;
 } libsensors_allsky_t;
 
 libsensors_allsky_t* get_sensors(void);
 void free_sensors(libsensors_allsky_t* sens);
 
-sensor_t* get_sensors_list(void);
-void free_sensors_list(sensor_t* list);
+sensor_info_t* get_sensors_list(libsensors_allsky_t* sens);
 
+char* get_sensor_name(sensor_info_t* sinf);
+char* get_sensor_description(sensor_info_t* sinf);
+
+//void free_sensors_list(sensor_info_t* list);
+
+
+/* private functions */
+
+sensor_info_t* __build_sensors_list(void);
 
 void __sema_lock_wait(const int semid, const int semnum);
 void __sema_unlock(const int semid, const int semnum);

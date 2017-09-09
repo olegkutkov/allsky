@@ -14,7 +14,7 @@ int main()
 		return -1;
 	}
 
-	printf("Locking library...\n");
+/*	printf("Locking library...\n");
 
 	lock_lib(sens);
 
@@ -27,7 +27,7 @@ int main()
 	unlock_lib(sens);
 
 	printf("Ok\n");
-
+*/
 	free_sensors(sens);
 
 	return 0;

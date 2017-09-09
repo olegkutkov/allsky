@@ -3,7 +3,9 @@
 # Oleg Kutkov <elenbert@gmail.com>
 #
 
-CFLAGS := -fPIC -O2 -Wall -Werror -I./include -g -ggdb
+CFLAGS := -fPIC -O2 -Wno-unused-variable -Wall -Werror -I./include -g -ggdb \
+	-DUSE_DHT22 -DUSE_TSL_2561 -DUSE_MLX_90614 -DUSE_TACHO -DUSE_RASPI_VCGEN
+
 LDFLAGS = -shared
 CC := gcc
 RM = rm -f
