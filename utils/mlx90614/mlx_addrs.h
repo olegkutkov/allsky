@@ -1,7 +1,7 @@
 /*
  MLX90614 sensor read from Raspberyy I2C
 
- Copyright 2016  Oleg Kutkov <kutkov.o@yandex.ru>
+ Copyright 2016  Oleg Kutkov <elenbert@gmail.com>
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
