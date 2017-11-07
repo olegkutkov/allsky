@@ -1,5 +1,5 @@
 #
-# Kutkov Oleg (kutkov.o@yandex.ru) (July 2016)
+# Oleg Kutkov <elenbert@gmail.com> (July 2016)
 #
 
 CC := gcc
