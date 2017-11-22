@@ -7,8 +7,12 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles -->
-<link href="sticky-footer.css" rel="stylesheet">
-<link href="justified-nav.css" rel="stylesheet">
+<link href="css/sticky-footer.css" rel="stylesheet">
+<link href="css/justified-nav.css" rel="stylesheet">
+
+<link href="css/margin.css" rel="stylesheet">
+
+<script src="js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -28,9 +32,83 @@ window.onload = function() {
 
 <body bgcolor="white" text="black">
 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">AllSky 2.0</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Main</a></li>
+      <li><a href="#">Sensors</a></li>
+      <li><a href="#">System</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="row" id="left-margin">
+  <div class="col-md-5">
+	<h3>Camera 1: zenith</h3>
+	<a href="cam1.jpg">
+		<img id="cam1" src="cam1.jpg" height="390"/>
+	</a>
+  </div>
+  <div class="col-md-6" id="left-margin">
+	<h3>Sky temperature</h3>
+    <a href="cloud_sensor_day.png">
+		<img id="cloud" src="cloud_sensor_day.png" height="350"/>
+	</a>
+  </div>
+</div>
+
+<div class="row" id="left-margin">
+  <div class="col-md-5">
+	<h3>Camera 2: south</h3>
+	<a href="cam2.jpg">
+		<img id="cam2" src="cam2.jpg" height="390"/>
+	</a>
+  </div>
+  <div class="col-md-6" id="left-margin">
+	<h3>Ambient temperature and humidity</h3>
+    <a href="cloud_sensor_day.png">
+		<img id="ambient" src="cloud_sensor_day.png" height="350"/>
+	</a>
+  </div>
+</div>
+ 
+
 <div class="container">
+
+<!--
+		<div class="col-md-4 col-md-pull-12">
+			<h3>Cam 1</h3>
+			<a href="cam1.jpg"><img id="cam1" src="cam1.jpg" height="350"/></a>
+		</div>
+
+		<div class="col-md-4 col-md-push-0">
+			<h3>Sky temp</h3>
+			<a href="cam2.jpg"><img id="cam2" src="cloud_sensor_day.png" height="350"/></a>
+		</div>
+	</div>
+
+	<br><p style="text-align: center; font-size: 70%">Click on the images to view full resolution</p>
+
+	<div class="row">
+		<div class="col-md-4 col-md-pull-12">
+			<h3>Cam 2</h3>
+			<a href="cloud_sensor_day.png"><img id="cam1" src="cam2.jpg" height="350"/></a>
+		</div>
+
+		<div class="col-md-4 col-md-push-0">
+			<h3>Ambient tempterature</h3>
+			<a href="cloud_sensor_day.png"><img id="cam2" src="cloud_sensor_day.png" height="350"/></a>
+		</div>
+	</div>
+
+-->
       <!-- The justified navigation menu is meant for single line per list item.
            Multiple lines will require custom code not provided by Bootstrap. -->
+<!--
       <div class="masthead">
         <h3 class="text-muted">AllSky 2.0</h3>
         <nav>
@@ -57,12 +135,13 @@ window.onload = function() {
 			<h3>Cam 2</h3>
 			<a href="cam2.jpg"><img id="cam2" src="cam2.jpg" height="350"/></a>
 		</div>
-	</div> <!-- /row- -->
+	</div>
 
 	<br><p style="text-align: center; font-size: 70%">Click on the images to view full resolution</p>
 
-</div> <!-- /container -->
+</div>  /container -->
 
+<!--
 <footer class="footer">
 	<div class="container">
 		<p class="text-muted-footer" style="center">
@@ -71,6 +150,7 @@ window.onload = function() {
 		</p>
 	</div>
 </footer>
+-->
 
 </body>
 </html>
