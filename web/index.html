@@ -1,5 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
+
+<meta charset="utf-8">
 
 <title>AllSky camera web interface</title>
 
@@ -8,149 +11,143 @@
 
 <!-- Custom styles -->
 <link href="css/sticky-footer.css" rel="stylesheet">
-<link href="css/justified-nav.css" rel="stylesheet">
-
 <link href="css/margin.css" rel="stylesheet">
+<link href="css/gallery.css" rel="stylesheet">
 
+<!-- JS stuffs -->
+<script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/gallery.js"></script>
+<script src="js/img-autoreload.js"></script>
 
-<script type="text/javascript">
-window.onload = function() {
-    function updateImage() {
-        var cam1_image = document.getElementById('cam1');
-        var cam2_image = document.getElementById('cam2');
+<!-- Meta -->
+<meta name="description" content="Allsky camera web interface. Crimean astrophysical observatory">
+<meta name="author" content="Oleg Kutkov">
 
-        cam1_image.src = cam1_image.src.split("?")[0] + "?" + new Date().getTime();
-        cam2_image.src = cam2_image.src.split("?")[0] + "?" + new Date().getTime();
-    }
-
-    setInterval(updateImage, 40000);
-}
-</script>
+<!--
+                     (____) 
+                     (oo  )  
+          /---------^^\  /   
+         / ||       |  \/    
+        /  ||       ||||     
+       *   ||||-----||||     
+           /\/\     /\/\     
+      This cow belonged      
+       to Pablo Picasso      
+-->
 
 </head>
 
-<body bgcolor="white" text="black">
-
+<body>
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">AllSky 2.0</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Main</a></li>
-      <li><a href="#">Sensors</a></li>
-      <li><a href="#">System</a></li>
-      <li><a href="#">About</a></li>
-    </ul>
-  </div>
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="index.html">AllSky 2.0</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a href="#">Main</a></li>
+			<li><a href="sensors.html">Sensors</a></li>
+			<li><a href="#">System</a></li>
+			<li><a href="#">About</a></li>
+		</ul>
+	</div>
 </nav>
 
-<div class="row" id="left-margin">
-  <div class="col-md-5">
-	<h3>Camera 1: zenith</h3>
-	<a href="cam1.jpg">
-		<img id="cam1" src="cam1.jpg" height="390"/>
-	</a>
-  </div>
-  <div class="col-md-6" id="left-margin">
-	<h3>Sky temperature</h3>
-    <a href="cloud_sensor_day.png">
-		<img id="cloud" src="cloud_sensor_day.png" height="350"/>
-	</a>
-  </div>
+<h5 class="sky_left-margin">Note: All images reloads automatically</h5>
+
+<div class="row sky_left-margin">
+	<div class="col-md-5">
+		<h3>Camera 1: Zenith</h3>
+		<h4>Observation conditions: <span id="current_cond"></span></h4>
+		<img id="cam1" src="cam1.jpg" height="420" onclick="openModal();currentSlide(1)" class="hover-shadow cursor" alt="Camera 1: Zenith">
+	</div>
+	<div class="col-md-6">
+		<h3>Cloud sensor</h3>
+		<h4>Current sky temperature: <span id="sky_temp"></span></h4>
+		<img id="cloud" src="cloud_sensor_day.png" height="430" onclick="openModal();currentSlide(3)" class="hover-shadow cursor" alt="Cloud sensor plot">
+		<br>
+		<a href="cloud_sensor_day.csv" download>
+			<h5>Download csv</h5>
+		</a>
+	</div>
+</div>
+<p>
+<div class="row sky_left-margin">
+	<div class="col-md-5">
+		<h3>Camera 2: South</h3>
+		<img id="cam2" src="cam2.jpg" height="420" onclick="openModal();currentSlide(2)" class="hover-shadow cursor" alt="Camera 2: South">
+	</div>
+	<div class="col-md-6">
+		<h3>Ambient sensor</h3>
+		<h4>Current air temperature: <span id="air_temp"></span></h4>
+		<img id="ambient" src="external_dh22_day.png" height="450" onclick="openModal();currentSlide(4)" class="hover-shadow cursor" alt="Temperature/humidity plot">
+		<br>
+		<a href="external_dh22_day.csv" download>
+			<h5>Download csv</h5>
+		</a>
+	</div>
 </div>
 
-<div class="row" id="left-margin">
-  <div class="col-md-5">
-	<h3>Camera 2: south</h3>
-	<a href="cam2.jpg">
-		<img id="cam2" src="cam2.jpg" height="390"/>
-	</a>
-  </div>
-  <div class="col-md-6" id="left-margin">
-	<h3>Ambient temperature and humidity</h3>
-    <a href="cloud_sensor_day.png">
-		<img id="ambient" src="cloud_sensor_day.png" height="350"/>
-	</a>
-  </div>
+<div id="modal" class="modal">
+	<span class="close cursor" onclick="closeModal()">&times;</span>
+	<div class="modal-content">
+
+		<div class="imgSlides">
+			<div class="numbertext">1 / 4</div>
+			<img id="cam1_modal" src="cam1.jpg" style="width:100%">
+	    </div>
+
+		<div class="imgSlides">
+			<div class="numbertext">2 / 4</div>
+			<img id="cam2_modal" src="cam2.jpg" style="width:100%">
+		</div>
+
+		<div class="imgSlides">
+			<div class="numbertext">3 / 4</div>
+			<img id="cloud_modal" src="cloud_sensor_day.png" style="width:100%">
+		</div>
+
+		<div class="imgSlides">
+			<div class="numbertext">4 / 4</div>
+			<img id="ambient_modal" src="external_dh22_day.png" style="width:100%">
+		</div>
+
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+		<div class="caption-container">
+			<p id="caption"></p>
+		</div>
+
+		<div class="column">
+			<img id="cam1_column" class="demo cursor" src="cam1.jpg" style="width:40%" onclick="currentSlide(1)">
+		</div>
+
+		<div class="column">
+			<img id="cam2_column" class="demo cursor" src="cam2.jpg" style="width:40%" onclick="currentSlide(2)">
+		</div>
+
+		<div class="column">
+			<img id="cloud_column" class="demo cursor" src="cloud_sensor_day.png" style="width:40%" onclick="currentSlide(3)">
+		</div>
+
+		<div class="column">
+			<img id="ambient_column" class="demo cursor" src="external_dh22_day.png" style="width:40%" onclick="currentSlide(4)">
+		</div>
+
+	</div>
 </div>
- 
 
-<div class="container">
+<br><br><br><br><br>
 
-<!--
-		<div class="col-md-4 col-md-pull-12">
-			<h3>Cam 1</h3>
-			<a href="cam1.jpg"><img id="cam1" src="cam1.jpg" height="350"/></a>
-		</div>
-
-		<div class="col-md-4 col-md-push-0">
-			<h3>Sky temp</h3>
-			<a href="cam2.jpg"><img id="cam2" src="cloud_sensor_day.png" height="350"/></a>
-		</div>
-	</div>
-
-	<br><p style="text-align: center; font-size: 70%">Click on the images to view full resolution</p>
-
-	<div class="row">
-		<div class="col-md-4 col-md-pull-12">
-			<h3>Cam 2</h3>
-			<a href="cloud_sensor_day.png"><img id="cam1" src="cam2.jpg" height="350"/></a>
-		</div>
-
-		<div class="col-md-4 col-md-push-0">
-			<h3>Ambient tempterature</h3>
-			<a href="cloud_sensor_day.png"><img id="cam2" src="cloud_sensor_day.png" height="350"/></a>
-		</div>
-	</div>
-
--->
-      <!-- The justified navigation menu is meant for single line per list item.
-           Multiple lines will require custom code not provided by Bootstrap. -->
-<!--
-      <div class="masthead">
-        <h3 class="text-muted">AllSky 2.0</h3>
-        <nav>
-          <ul class="nav nav-justified">
-            <li class="active"><a href="#">Camera</a></li>
-            <li><a href="status.html">Status</a></li>
-            <li><a href="settings.html">Settings</a></li>
-            <li><a href="archive.html">Archive</a></li>
-          </ul>
-        </nav>
-      </div>
-
-	<div align="center">
-		<h3>Cameras view</h3>
-	</div>
-
-	<div class="row">
-		<div class="col-md-4 col-md-pull-9">
-			<h3>Cam 1</h3>
-			<a href="cam1.jpg"><img id="cam1" src="cam1.jpg" height="350"/></a>
-		</div>
-
-		<div class="col-md-4 col-md-push-2">
-			<h3>Cam 2</h3>
-			<a href="cam2.jpg"><img id="cam2" src="cam2.jpg" height="350"/></a>
-		</div>
-	</div>
-
-	<br><p style="text-align: center; font-size: 70%">Click on the images to view full resolution</p>
-
-</div>  /container -->
-
-<!--
 <footer class="footer">
 	<div class="container">
 		<p class="text-muted-footer" style="center">
-			Hardware/software design and production: <a href="mailto:kutkov.o@yandex.ru?Subject=AllSky">Kutkov Oleg</a>
-			<br>Crimean astrophysical observatory, 2016
+			<br><br>Camera development: <a href="mailto:kutkov.o@yandex.ru?Subject=AllSky">Oleg Kutkov</a>
+			<br>Crimean astrophysical observatory, 2017
 		</p>
 	</div>
 </footer>
--->
 
 </body>
 </html>
