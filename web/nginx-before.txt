@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>AllSky camera archive</title>
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles -->
+<link href="sticky-footer.css" rel="stylesheet">
+<link href="justified-nav.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<h1>Allsky camera archive</h1>
+
+<a href="/" title="Back to the Home page"><b>HOME</b></a> | <a href="javascript:history.back()" title="To the previous page"><b>BACK</b></a>
+
+<div class="container">
+

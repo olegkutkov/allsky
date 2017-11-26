@@ -1,0 +1,12 @@
+
+        <div class="row-fluid">
+            <div class="col-md-2 col-md-offset-5">
+                <small><center>Powered by nginx web server</center></small>
+                <small><center>Kutkov Oleg, 2016</center></small>
+            </div>
+        </div>
+
+    </div> <!-- container -->
+
+</body>
+</html>
