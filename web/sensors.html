@@ -3,179 +3,188 @@
 <head>
 
 <meta charset="utf-8">
+	<title>AllSky camera web interface - All sensors</title>
 
-<title>AllSky camera web interface - All sensors</title>
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom styles -->
+	<link href="css/sticky-footer.css" rel="stylesheet">
+	<link href="css/margin.css" rel="stylesheet">
+	<link href="css/gallery.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
 
-<!-- Custom styles -->
-<link href="css/sticky-footer.css" rel="stylesheet">
-<link href="css/margin.css" rel="stylesheet">
-<link href="css/gallery.css" rel="stylesheet">
-
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/gallery.js"></script>
-
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/gallery.js"></script>
 </head>
 
 <body>
 <nav class="navbar navbar-default">
-<div class="container-fluid">
-	<div class="navbar-header">
-		<a class="navbar-brand" href="index.html">AllSky 2.0</a>
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="index.html">AllSky 2.0</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="index.html">Main</a></li>
+			<li class="active"><a href="#">Sensors</a></li>
+			<li><a href="#">System</a></li>
+			<li><a href="#">About</a></li>
+		</ul>
 	</div>
-	<ul class="nav navbar-nav">
-		<li><a href="index.html">Main</a></li>
-		<li class="active"><a href="#">Sensors</a></li>
-		<li><a href="#">System</a></li>
-		<li><a href="#">About</a></li>
-	</ul>
-</div>
 </nav>
+<div class="container container-footer-offset">
+	<h3>Cloud sensor - all data</h3>
 
-<h3 class="sky_left-margin">Cloud sensor - all data</h3>
-<div class="row sky_left-margin">
-	<div class="col-md-5">
-		<h4>Day</h4>
-		<a href="cloud_sensor_day.png">
-			<img id="cloud_day" src="cloud_sensor_day.png" height="400"/>
-		</a>
-		<a href="cloud_sensor_day.csv" download>
-			<h5>Download csv</h5>
-		</a>
+	<div class="row">
+		<div class="col-md-6">
+			<h4>Day</h4>
+			<a href="cloud_sensor_day.png">
+				<img id="cloud_day" class="img-responsive layered-image hover-shadow cursor" 
+					src="cloud_sensor_day.png"/>
+			</a>
+			<a href="cloud_sensor_day.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
+		<div class="col-md-6">
+			<h4>Week</h4>
+		    <a href="cloud_sensor_week.png">
+				<img id="cloud_week" class="img-responsive layered-image hover-shadow cursor"
+					src="cloud_sensor_week.png"/>
+			</a>
+			<br>
+			<a href="cloud_sensor_week.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
 	</div>
-	<div class="col-md-6">
-		<h4>Week</h4>
-	    <a href="cloud_sensor_week.png">
-			<img id="cloud_week" src="cloud_sensor_week.png" height="400"/>
-		</a>
-		<br>
-		<a href="cloud_sensor_week.csv" download>
-			<h5>Download csv</h5>
-		</a>
-	  </div>
-</div>
-<div class="row sky_left-margin">
-	<div class="col-md-5">
-		<h4>Month</h4>
-		<a href="cloud_sensor_month.png">
-			<img id="cloud_month" src="cloud_sensor_month.png" height="400"/>
-		</a>
-		<a href="cloud_sensor_month.csv" download>
-			<h5>Download csv</h5>
-		</a>
+	<div class="row">
+		<div class="col-md-6">
+			<h4>Month</h4>
+			<a href="cloud_sensor_month.png">
+				<img id="cloud_month" class="img-responsive layered-image hover-shadow cursor"
+					src="cloud_sensor_month.png"/>
+			</a>
+			<a href="cloud_sensor_month.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
+		<div class="col-md-6">
+			<h4>Year</h4>
+		    <a href="cloud_sensor_year.png">
+				<img id="cloud_year" class="img-responsive layered-image hover-shadow cursor"
+					src="cloud_sensor_year.png"/>
+			</a>
+			<br>
+			<a href="cloud_sensor_year.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
 	</div>
-	<div class="col-md-6">
-		<h4>Year</h4>
-	    <a href="cloud_sensor_year.png">
-			<img id="cloud_year" src="cloud_sensor_year.png" height="400"/>
-		</a>
-		<br>
-		<a href="cloud_sensor_year.csv" download>
-			<h5>Download csv</h5>
-		</a>
-	</div>
-</div>
+	<br>
 
-<br>
-
-<h3 class="sky_left-margin">Ambient sensor - all data</h3>
-<div class="row sky_left-margin">
-	<div class="col-md-5">
-		<h4>Day</h4>
-		<a href="external_dh22_day.png">
-			<img id="ambient_day" src="external_dh22_day.png" height="400"/>
-		</a>
-		<a href="external_dh22_day.csv" download>
-			<h5>Download csv</h5>
-		</a>
+	<h3 class="sky_left-margin">Ambient sensor - all data</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<h4>Day</h4>
+			<a href="external_dh22_day.png">
+				<img id="ambient_day" class="img-responsive layered-image hover-shadow cursor"
+					src="external_dh22_day.png"/>
+			</a>
+			<a href="external_dh22_day.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
+		<div class="col-md-6">
+			<h4>Week</h4>
+			<a href="external_dh22_week.png">
+				<img id="ambient_week" class="img-responsive layered-image hover-shadow cursor"
+					src="external_dh22_week.png"/>
+			</a>
+			<br>
+			<a href="external_dh22_week.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
 	</div>
-	<div class="col-md-6">
-		<h4>Week</h4>
-	    <a href="external_dh22_week.png">
-			<img id="ambient_week" src="external_dh22_week.png" height="400"/>
-		</a>
-		<br>
-		<a href="external_dh22_week.csv" download>
-			<h5>Download csv</h5>
-		</a>
+	<div class="row">
+		<div class="col-md-6">
+			<h4>Month</h4>
+			<a href="external_dh22_month.png">
+				<img id="ambient_month" class="img-responsive layered-image hover-shadow cursor"
+					src="external_dh22_month.png"/>
+			</a>
+			<a href="external_dh22_month.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
+		<div class="col-md-6">
+			<h4>Year</h4>
+			<a href="external_dh22_year.png">
+				<img id="ambient_year" class="img-responsive layered-image hover-shadow cursor"
+					src="external_dh22_year.png"/>
+			</a>
+			<br>
+			<a href="external_dh22_year.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
+	</div>
+	<br>
+
+	<h3 class="sky_left-margin">Light sensor - all data</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<h4>Day</h4>
+			<a href="ambient_light_day.png">
+				<img id="light_day" class="img-responsive layered-image hover-shadow cursor"
+					src="ambient_light_day.png"/>
+			</a>
+			<a href="ambient_light_day.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
+		<div class="col-md-6">
+			<h4>Week</h4>
+		    <a href="ambient_light_week.png">
+				<img id="light_week" class="img-responsive layered-image hover-shadow cursor"
+					src="ambient_light_week.png"/>
+			</a>
+			<br>
+			<a href="ambient_light_week.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
+	</div>
+	<div class="row sky_left-margin">
+		<div class="col-md-6">
+			<h4>Month</h4>
+			<a href="ambient_light_month.png">
+				<img id="light_month" class="img-responsive layered-image hover-shadow cursor"
+					src="ambient_light_month.png"/>
+			</a>
+			<a href="ambient_light_month.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
+		<div class="col-md-6">
+			<h4>Year</h4>
+		    <a href="ambient_light_year.png">
+				<img id="light_year" class="img-responsive layered-image hover-shadow cursor"
+					src="ambient_light_year.png"/>
+			</a>
+			<br>
+			<a href="ambient_light_year.csv" download>
+				<h5>Download csv</h5>
+			</a>
+		</div>
 	</div>
 </div>
-<div class="row sky_left-margin">
-	<div class="col-md-5">
-		<h4>Month</h4>
-		<a href="external_dh22_month.png">
-			<img id="ambient_month" src="external_dh22_month.png" height="400"/>
-		</a>
-		<a href="external_dh22_month.csv" download>
-			<h5>Download csv</h5>
-		</a>
-	</div>
-	<div class="col-md-6">
-		<h4>Year</h4>
-		<a href="external_dh22_year.png">
-			<img id="ambient_year" src="external_dh22_year.png" height="400"/>
-		</a>
-		<br>
-		<a href="external_dh22_year.csv" download>
-			<h5>Download csv</h5>
-		</a>
-	</div>
-</div>
-
-<br>
-
-<h3 class="sky_left-margin">Light sensor - all data</h3>
-<div class="row sky_left-margin">
-	<div class="col-md-5">
-		<h4>Day</h4>
-		<a href="ambient_light_day.png">
-			<img id="light_day" src="ambient_light_day.png" height="400"/>
-		</a>
-		<a href="ambient_light_day.csv" download>
-			<h5>Download csv</h5>
-		</a>
-	</div>
-	<div class="col-md-6">
-		<h4>Week</h4>
-	    <a href="ambient_light_week.png">
-			<img id="light_week" src="ambient_light_week.png" height="400"/>
-		</a>
-		<br>
-		<a href="ambient_light_week.csv" download>
-			<h5>Download csv</h5>
-		</a>
-	</div>
-</div>
-<div class="row sky_left-margin">
-	<div class="col-md-5">
-		<h4>Month</h4>
-		<a href="ambient_light_month.png">
-			<img id="light_month" src="ambient_light_month.png" height="400"/>
-		</a>
-		<a href="ambient_light_month.csv" download>
-			<h5>Download csv</h5>
-		</a>
-	</div>
-	<div class="col-md-6">
-		<h4>Year</h4>
-	    <a href="ambient_light_year.png">
-			<img id="light_year" src="ambient_light_year.png" height="400"/>
-		</a>
-		<br>
-		<a href="ambient_light_year.csv" download>
-			<h5>Download csv</h5>
-		</a>
-	</div>
-</div>
-
-<br><br><br>
 
 <footer class="footer">
 	<div class="container">
-		<p class="text-muted-footer" style="center">
+		<p class="text-muted-footer text-center">
 			<br><br>Camera development: <a href="mailto:kutkov.o@yandex.ru?Subject=AllSky">Oleg Kutkov</a>
 			<br>Crimean astrophysical observatory, 2017
 		</p>

@@ -2,27 +2,28 @@
 <html>
 <head>
 
-<meta charset="utf-8">
+	<meta charset="utf-8">
 
-<title>AllSky camera web interface</title>
+	<title>AllSky camera web interface</title>
 
-<!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom styles -->
-<link href="css/sticky-footer.css" rel="stylesheet">
-<link href="css/margin.css" rel="stylesheet">
-<link href="css/gallery.css" rel="stylesheet">
+	<!-- Custom styles -->
+	<link href="css/sticky-footer.css" rel="stylesheet">
+	<link href="css/margin.css" rel="stylesheet">
+	<link href="css/gallery.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
 
-<!-- JS stuffs -->
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/gallery.js"></script>
-<script src="js/img-autoreload.js"></script>
+	<!-- JS stuffs -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/gallery.js"></script>
+	<script src="js/img-autoreload.js"></script>
 
-<!-- Meta -->
-<meta name="description" content="Allsky camera web interface. Crimean astrophysical observatory">
-<meta name="author" content="Oleg Kutkov">
+	<!-- Meta -->
+	<meta name="description" content="Allsky camera web interface. Crimean astrophysical observatory">
+	<meta name="author" content="Oleg Kutkov">
 
 <!--
                      (____) 
@@ -52,97 +53,122 @@
 		</ul>
 	</div>
 </nav>
+<div class="container container-footer-offset">
+	<h5>Note: All images reloads automatically</h5>
 
-<h5 class="sky_left-margin">Note: All images reloads automatically</h5>
-
-<div class="row sky_left-margin">
-	<div class="col-md-5">
-		<h3>Camera 1: Zenith</h3>
-		<h4>Observation conditions: <span id="current_cond"></span></h4>
-		<img id="cam1" src="cam1.jpg" height="420" onclick="openModal();currentSlide(1)" class="hover-shadow cursor" alt="Camera 1: Zenith">
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Camera 1: Zenith</h3>
+			<h4>Observation conditions: <span id="current_cond"></span></h4>
+			<img id="cam1" class="img-responsive layered-image hover-shadow cursor" src="cam1.jpg"
+				onclick="openModal();currentSlide(1)"
+				alt="Camera 1: Zenith">
+			<div id="cam1_progress" class="progress progress-slim">
+				<div class="progress-bar" role="progressbar" aria-valuenow="0"
+					aria-valuemin="0" aria-valuemax="100" style="width:0%">
+			</div>
+		</div>
 	</div>
-	<div class="col-md-6">
-		<h3>Cloud sensor</h3>
-		<h4>Current sky temperature: <span id="sky_temp"></span></h4>
-		<img id="cloud" src="cloud_sensor_day.png" height="430" onclick="openModal();currentSlide(3)" class="hover-shadow cursor" alt="Cloud sensor plot">
-		<br>
-		<a href="cloud_sensor_day.csv" download>
-			<h5>Download csv</h5>
-		</a>
+		<div class="col-md-6">
+			<h3>Cloud sensor</h3>
+			<h4>Current sky temperature: <span id="sky_temp"></span></h4>
+			<img id="cloud" class="img-responsive layered-image hover-shadow cursor" src="cloud_sensor_day.png"
+				onclick="openModal();currentSlide(3)" alt="Cloud sensor plot">
+			<div id="cloud_progress" class="progress progress-slim">
+				<div class="progress-bar" role="progressbar" aria-valuenow="0"
+					aria-valuemin="0" aria-valuemax="100" style="width:0%">
+				</div>
+			</div>
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_day.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+	</div>
+	<p>
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Camera 2: South</h3>
+			<h4>Actual image of our lab</h4>
+			<img class="img-responsive layered-image hover-shadow cursor" id="cam2" src="cam2.jpg"
+				onclick="openModal();currentSlide(2)" alt="Camera 2: South">
+			<div id="cam2_progress" class="progress progress-slim">
+				<div class="progress-bar" role="progressbar" aria-valuenow="0"
+					aria-valuemin="0" aria-valuemax="100" style="width:0%">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<h3>Ambient sensor</h3>
+			<h4>Current air temperature: <span id="air_temp"></span></h4>
+			<img class="img-responsive layered-image hover-shadow cursor" id="ambient" src="external_dh22_day.png"
+				onclick="openModal();currentSlide(4)" alt="Temperature/humidity plot">
+			<div id="ambient_progress" class="progress progress-slim">
+				<div class="progress-bar" role="progressbar" aria-valuenow="0"
+					aria-valuemin="0" aria-valuemax="100" style="width:0%">
+				</div>
+			</div>
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_day.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="modal" class="modal">
+		<span class="close cursor" onclick="closeModal()">&times;</span>
+		<div class="modal-content">
+			<div class="imgSlides">
+				<div class="numbertext">1 / 4</div>
+				<img id="cam1_modal" src="cam1.jpg" style="width:100%">
+			</div>
+
+			<div class="imgSlides">
+				<div class="numbertext">2 / 4</div>
+				<img id="cam2_modal" src="cam2.jpg" style="width:100%">
+			</div>
+			<div class="imgSlides">
+				<div class="numbertext">3 / 4</div>
+				<img id="cloud_modal" src="cloud_sensor_day.png" style="width:100%">
+			</div>
+			<div class="imgSlides">
+				<div class="numbertext">4 / 4</div>
+				<img id="ambient_modal" src="external_dh22_day.png" style="width:100%">
+			</div>
+
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+			<div class="caption-container">
+				<p id="caption"></p>
+			</div>
+			<div class="column">
+				<img id="cam1_column" class="demo cursor" src="cam1.jpg" style="width:40%"
+					onclick="currentSlide(1)">
+			</div>
+				<div class="column">
+				<img id="cam2_column" class="demo cursor" src="cam2.jpg" style="width:40%"
+					onclick="currentSlide(2)">
+			</div>
+			<div class="column">
+				<img id="cloud_column" class="demo cursor" src="cloud_sensor_day.png" style="width:40%"
+					onclick="currentSlide(3)">
+			</div>
+			<div class="column">
+				<img id="ambient_column" class="demo cursor" src="external_dh22_day.png" style="width:40%"
+					onclick="currentSlide(4)">
+			</div>
+		</div>
 	</div>
 </div>
-<p>
-<div class="row sky_left-margin">
-	<div class="col-md-5">
-		<h3>Camera 2: South</h3>
-		<img id="cam2" src="cam2.jpg" height="420" onclick="openModal();currentSlide(2)" class="hover-shadow cursor" alt="Camera 2: South">
-	</div>
-	<div class="col-md-6">
-		<h3>Ambient sensor</h3>
-		<h4>Current air temperature: <span id="air_temp"></span></h4>
-		<img id="ambient" src="external_dh22_day.png" height="450" onclick="openModal();currentSlide(4)" class="hover-shadow cursor" alt="Temperature/humidity plot">
-		<br>
-		<a href="external_dh22_day.csv" download>
-			<h5>Download csv</h5>
-		</a>
-	</div>
-</div>
-
-<div id="modal" class="modal">
-	<span class="close cursor" onclick="closeModal()">&times;</span>
-	<div class="modal-content">
-
-		<div class="imgSlides">
-			<div class="numbertext">1 / 4</div>
-			<img id="cam1_modal" src="cam1.jpg" style="width:100%">
-	    </div>
-
-		<div class="imgSlides">
-			<div class="numbertext">2 / 4</div>
-			<img id="cam2_modal" src="cam2.jpg" style="width:100%">
-		</div>
-
-		<div class="imgSlides">
-			<div class="numbertext">3 / 4</div>
-			<img id="cloud_modal" src="cloud_sensor_day.png" style="width:100%">
-		</div>
-
-		<div class="imgSlides">
-			<div class="numbertext">4 / 4</div>
-			<img id="ambient_modal" src="external_dh22_day.png" style="width:100%">
-		</div>
-
-		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-		<a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-		<div class="caption-container">
-			<p id="caption"></p>
-		</div>
-
-		<div class="column">
-			<img id="cam1_column" class="demo cursor" src="cam1.jpg" style="width:40%" onclick="currentSlide(1)">
-		</div>
-
-		<div class="column">
-			<img id="cam2_column" class="demo cursor" src="cam2.jpg" style="width:40%" onclick="currentSlide(2)">
-		</div>
-
-		<div class="column">
-			<img id="cloud_column" class="demo cursor" src="cloud_sensor_day.png" style="width:40%" onclick="currentSlide(3)">
-		</div>
-
-		<div class="column">
-			<img id="ambient_column" class="demo cursor" src="external_dh22_day.png" style="width:40%" onclick="currentSlide(4)">
-		</div>
-
-	</div>
-</div>
-
-<br><br><br><br><br>
 
 <footer class="footer">
 	<div class="container">
-		<p class="text-muted-footer" style="center">
+		<p class="text-muted-footer text-center">
 			<br><br>Camera development: <a href="mailto:kutkov.o@yandex.ru?Subject=AllSky">Oleg Kutkov</a>
 			<br>Crimean astrophysical observatory, 2017
 		</p>
