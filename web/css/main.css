@@ -1,0 +1,45 @@
+.no-border-radius {
+    border-radius: 0px !important;
+}
+
+/* Navbar */
+.navbar-minibal,
+.navbar-minimal .navbar-brand,
+.navbar-minimal .navbar-nav > li > a {
+    color: #777;
+    background: #fff;
+}
+
+.navbar-minimal .navbar-nav > li > a:focus,
+.navbar-minimal .navbar-nav > li > a:hover {
+    color: #333;
+    background: #fff;
+}
+
+.navbar-minimal .navbar-nav > .active > a,
+.navbar-minimal .navbar-nav > .active > a:focus,
+.navbar-minimal .navbar-nav > .active > a:hover {
+    color: #1f77b4;
+    background: #fff;
+}
+
+/* Gallery controls */
+.prev, .next,
+.prev:hover, .next:hover,
+.prev:focus, .next:focus {
+    text-decoration: none;
+}
+
+/* Images */
+.layered-image {
+    box-shadow: 1px 1px 5px #d4d4d4;
+}
+
+.progress-slim {
+    height: 6px;
+}
+
+/* Footer */
+.container-footer-offset {
+    padding-bottom: 130px;
+}
