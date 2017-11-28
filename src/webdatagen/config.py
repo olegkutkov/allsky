@@ -68,5 +68,7 @@ CSV_AMBIENT_LIGHT_MONTH = '/storage/webdata/ambient_light_month.csv'
 PLOT_AMBIENT_LIGHT_YEAR = '/storage/webdata/ambient_light_year.png'
 CSV_AMBIENT_LIGHT_YEAR = '/storage/webdata/ambient_light_year.csv'
 
-
+WEB_SKYTEMP_FILE = '/storage/webdata/sky_temp.txt'
+WEB_CURRENT_COND_FILE = '/storage/webdata/current_cond.txt'
+WEB_OUT_TEMP_FILE = '/storage/webdata/air_temp.txt'
 
