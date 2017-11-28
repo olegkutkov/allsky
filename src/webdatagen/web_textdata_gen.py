@@ -23,7 +23,7 @@ def build_airtemp_file(airtemp_data):
 		else:
 			current_air_temp_web_data += '<span class="text-success">'
 
-		current_air_temp_web_data += ' ' + str(curr_air_temp) + ' &#8451</span>'
+		current_air_temp_web_data += ' ' + str(curr_air_temp) + '</span> &#8451'
 
 	print 'Current air temperature: ' + current_air_temp_web_data
 
