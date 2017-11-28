@@ -35,7 +35,9 @@ last_humidity=`bc <<< "scale=2; ${last_humidity}/1"`
 current_date_time=`date +"%d.%m.%Y %H:%M"`
 
 convert -background '#00000080' -fill white -size 1024x45 label:"Nauchniy - CAM2\nDate: ${current_date_time}  Temperature: ${last_temp} C  Humidity: ${last_humidity} %  Luminosity: ${last_ambient_lux} lux"\
-	-gravity southwest /storage/web/__cam2.jpg +swap -gravity south -composite /storage/web/cam2.jpg
+	-gravity southwest /storage/web/__cam2.jpg +swap -gravity south -composite /storage/web/cam2_woverlay.jpg
+
+mv /storage/web/cam2_woverlay.jpg /storage/web/cam2.jpg
 
 /opt/allsky/bin/cam_to_arch.sh
 

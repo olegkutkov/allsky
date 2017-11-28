@@ -28,11 +28,11 @@ last_skytemp=`bc <<< "scale=2; ${last_skytemp}/1"`
 
 rm -f /storage/web/cam1_tmp.jpg
 
-#-e 70000 -g 30
+#-e 30000 -g 25
 
-/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 30000 -g 25 -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg -b 5
+/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 700 -g 1 -o /storage/web/cam1_tmp.jpg #-k /storage/web/dark.jpg -b 5
 
-convert -background '#00000080' -fill white -size 1280x50 label:"Nauchniy - CAM1\nDate: ${current_date_time}  Temperature: ${last_temp} C  Humidity: ${last_humidity} %  Luminosity: ${last_ambient_lux} lux  Skytemp: ${last_skytemp} C"\
+convert -background '#00000080' -fill white -size 1280x50 label:"Nauchniy - CAM1\nDate: ${current_date_time}  Temperature: ${last_temp} C  Humidity: ${last_humidity} %  Skytemp: ${last_skytemp} C"\
 	-gravity southwest /storage/web/cam1_tmp.jpg +swap -gravity south -set colorspace Gray -composite /storage/web/cam1_woverlay.jpg
 
 mv /storage/web/cam1_woverlay.jpg /storage/web/cam1.jpg
