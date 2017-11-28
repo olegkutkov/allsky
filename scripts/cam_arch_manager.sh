@@ -47,6 +47,7 @@ done
 if [ ! -d ${archpath} ]
 then
 	echo "Creating archive directory " ${archpath}
-	mkdir -p ${archpath}
+	mkdir -p ${archpath}/cam1
+	mkdir -p ${archpath}/cam2
 fi
 
