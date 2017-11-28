@@ -1,26 +1,26 @@
 window.onload = function() {
-	function updateImage() {
-		var cam1_image = document.getElementById('cam1');
-		var cam2_image = document.getElementById('cam2');
-		var cloud_plot = document.getElementById('cloud');
-		var ambient_plot = document.getElementById('ambient');
+	var images = [
+		{main: 'cam1', modal: 'cam1_modal'},
+		{main: 'cam2', modal: 'cam2_modal'},
+		{main: 'cloud', modal: 'cloud_modal'},
+		{main: 'ambient', modal: 'ambient_modal'}
+	];
 
-		var cam1_image_modal = document.getElementById('cam1_modal');
-		var cam2_image_modal = document.getElementById('cam2_modal');
-		var cloud_plot_modal = document.getElementById('cloud_modal');
-		var ambient_plot_modal = document.getElementById('ambient_modal');
+	var initImages = function () {
+		images.forEach(function (image) {
+			image.mainElement = document.getElementById(image.main);
+			image.modalElement = document.getElementById(image.modal);
+		});
+	};
 
-		cam1_image.src = cam1_image.src.split("?")[0] + "?" + new Date().getTime();
-		cam2_image.src = cam2_image.src.split("?")[0] + "?" + new Date().getTime();
-		cloud_plot.src = cloud_plot.src.split("?")[0] + "?" + new Date().getTime();
-		ambient_plot.src = ambient_plot.src.split("?")[0] + "?" + new Date().getTime();
-
-		cam1_image_modal.src = cam1_image_modal.src.split("?")[0] + "?" + new Date().getTime();
-		cam2_image_modal.src = cam2_image_modal.src.split("?")[0] + "?" + new Date().getTime();
-
-		cloud_plot_modal.src = cloud_plot_modal.src.split("?")[0] + "?" + new Date().getTime();
-		ambient_plot_modal.src = ambient_plot_modal.src.split("?")[0] + "?" + new Date().getTime();
-	}
+	var updateImages = function () {
+		images.forEach(function (image) {
+			image.mainElement.src =
+				image.mainElement.src.split("?")[0] + "?" + new Date().getTime();
+			image.modalElement.src =
+				image.modalElement.src.split("?")[0] + "?" + new Date().getTime();
+		});
+	};
 
 	function updateTextData() {
 		$('#sky_temp').load('/sky_temp.txt?' + new Date().getTime());
@@ -28,9 +28,10 @@ window.onload = function() {
 		$('#air_temp').load('/air_temp.txt?' + new Date().getTime());
 	}
 
+	initImages();
 	updateTextData();
 
 	setInterval(updateTextData, 40000);
-	setInterval(updateImage, 40000);
+	setInterval(updateImages, 40000);
 }
 
