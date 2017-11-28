@@ -23,14 +23,14 @@ window.onload = function() {
 	}
 
 	function updateTextData() {
-		$('#sky_temp').load('/sky_temp.txt');
-		$('#current_cond').load('/current_cond.txt');
-		$('#air_temp').load('/air_temp.txt');
+		$('#sky_temp').load('/sky_temp.txt?' + new Date().getTime());
+		$('#current_cond').load('/current_cond.txt?' + new Date().getTime());
+		$('#air_temp').load('/air_temp.txt?' + new Date().getTime());
 	}
 
 	updateTextData();
 
-	setInterval(updateTextData, 240000);
+	setInterval(updateTextData, 40000);
 	setInterval(updateImage, 40000);
 }
 
