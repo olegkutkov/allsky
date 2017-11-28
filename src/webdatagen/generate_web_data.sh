@@ -11,9 +11,9 @@ echo 'Cleanup first...'
 
 rm -f $SRC_DIR/*
 
-python ./sensors-graphgen.py
-python ./system-report.py
-python ./system-sensors.py
+python /opt/allsky/bin/webdatagen/sensors-graphgen.py
+python /opt/allsky/bin/webdatagen/system-report.py
+python /opt/allsky/bin/webdatagen/system-sensors.py
 
 echo 'Copying all generated content'
 
