@@ -7,6 +7,10 @@ DST_DIR='/storage/web'
 
 echo 'Webdata generator started at '$datetime
 
+echo 'Cleanup first...'
+
+rm -f $SRC_DIR/*
+
 python ./sensors-graphgen.py
 python ./system-report.py
 python ./system-sensors.py
