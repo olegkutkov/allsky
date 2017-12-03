@@ -7,10 +7,6 @@ DST_DIR='/storage/web'
 
 echo 'Webdata generator started at '$datetime
 
-echo 'Cleanup first...'
-
-rm -f $SRC_DIR/*
-
 python /opt/allsky/bin/webdatagen/web_textdata_gen.py
 
 cp -fv $SRC_DIR/*txt $DST_DIR/

@@ -35,6 +35,7 @@ def build_airtemp_file(airtemp_data):
 def build_skytemp_file(skytemp_data, airtemp_data):
 	current_sky_temp_web_data = 'Collecting data...'
 	curr_sky_temp = 0.0
+	curr_humidity = float(airtemp_data[0][1])
 
 	if len(skytemp_data) >= 2:
 		curr_sky_temp = float(skytemp_data[0][0])
@@ -62,17 +63,20 @@ def build_skytemp_file(skytemp_data, airtemp_data):
 
 	current_cond = 'Collecting data...'
 
-	if temper_delta <= 5:
-		current_cond = '<span class="text-danger">worst</span>'
+	if curr_humidity >= 60.0:
+		current_cond = '<span class="text-danger">worst, humidity is too high</span>'
 	else:
-		if temper_delta >= 5 and temper_delta <= 10:
-			current_cond = '<span class="text-danger">bad</span>'
-		elif temper_delta > 10 and temper_delta <= 15:
-			current_cond = '<span class="text-warning">normal</span>'
-		elif temper_delta > 15 and temper_delta <= 19:
-			current_cond = '<span class="text-info">good</span>'
-		elif temper_delta > 19:
-			current_cond = '<span class="text-success">best</span>'
+		if temper_delta <= 5:
+			current_cond = '<span class="text-danger">worst</span>'
+		else:
+			if temper_delta >= 5 and temper_delta <= 10:
+				current_cond = '<span class="text-danger">bad</span>'
+			elif temper_delta > 10 and temper_delta <= 15:
+				current_cond = '<span class="text-warning">normal</span>'
+			elif temper_delta > 15 and temper_delta <= 19:
+				current_cond = '<span class="text-info">good</span>'
+			elif temper_delta > 19:
+				current_cond = '<span class="text-success">best</span>'
 
 	print 'Current observation conditions for web: ' + current_cond
 
@@ -91,7 +95,7 @@ cur.execute("select ir_value from cloud_sensor order by time desc limit 2")
 
 skytemp_data = cur.fetchall()
 
-cur.execute("select temperature from external_dh22 order by time desc limit 2")
+cur.execute("select temperature, humidity from external_dh22 order by time desc limit 2")
 
 airtemp_data = cur.fetchall()
 
