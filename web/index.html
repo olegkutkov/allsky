@@ -52,10 +52,16 @@
 			<li><a href="system.html">System</a></li>
 			<li><a href="#">About</a></li>
 		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="https://www.youtube.com/channel/UC9mot5kKa6-PNMAXGx5_Sig" target="_blank">
+					<span class="glyphicon glyphicon-film" style="font-size: 15px; margin-right: 15px"></span>
+				</a>
+			</li>
+		</ul>
 	</div>
 </nav>
 <div class="container container-footer-offset">
-	<h5>Note: All data and images reloads automatically</h5>
+	<div id="twilight_info"></div>
 
 	<div class="row">
 		<div class="col-md-6">
@@ -125,20 +131,20 @@
 		<div class="modal-content">
 			<div class="imgSlides">
 				<div class="numbertext">1 / 4</div>
-				<img id="cam1_modal" src="cam1.jpg" style="width:100%">
+				<img id="cam1_modal" src="cam1.jpg" class="img-responsive layered-image">
 			</div>
 
 			<div class="imgSlides">
 				<div class="numbertext">2 / 4</div>
-				<img id="cam2_modal" src="cam2.jpg" style="width:100%">
+				<img id="cam2_modal" src="cam2.jpg" class="img-responsive layered-image">
 			</div>
 			<div class="imgSlides">
 				<div class="numbertext">3 / 4</div>
-				<img id="cloud_modal" src="cloud_sensor_day.png" style="width:100%">
+				<img id="cloud_modal" src="cloud_sensor_day.png" class="img-responsive layered-image">
 			</div>
 			<div class="imgSlides">
 				<div class="numbertext">4 / 4</div>
-				<img id="ambient_modal" src="external_dh22_day.png" style="width:100%">
+				<img id="ambient_modal" src="external_dh22_day.png" class="img-responsive layered-image">
 			</div>
 
 			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -147,6 +153,7 @@
 			<div class="caption-container">
 				<p id="caption"></p>
 			</div>
+<!--
 			<div class="column">
 				<img id="cam1_column" class="demo cursor" src="cam1.jpg" style="width:40%"
 					onclick="currentSlide(1)">
@@ -163,6 +170,8 @@
 				<img id="ambient_column" class="demo cursor" src="external_dh22_day.png" style="width:40%"
 					onclick="currentSlide(4)">
 			</div>
+-->
+
 		</div>
 	</div>
 </div>
