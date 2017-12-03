@@ -134,6 +134,11 @@ int readDHT(int pin) {
 			f *= -1;
 		}
 
+		// is some magic cases sensor returns very strange data (line T > 1000)
+		if (f > 80 || f < -40 || h < 0 || h > 100) {
+			return 0;
+		}
+
 		printf("temp=%.1f humidity=%.1f\n", f, h);
     
 		return 1;
