@@ -2,6 +2,26 @@
     border-radius: 0px !important;
 }
 
+.twilight_grad_night {
+    background: #ffffff; /* For browsers that do not support gradients */
+    border-radius: 5px;
+	padding-left: 1em;
+    background: -webkit-linear-gradient(left, #e0e8ff, #ffffff); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #e0e8ff, #ffffff); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #e0e8ff, #ffffff); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #e0e8ff, #ffffff); /* Standard syntax (must be last) */
+}
+
+.twilight_grad_day {
+    background: #ffffff; /* For browsers that do not support gradients */
+    border-radius: 5px;
+	padding-left: 1em;
+    background: -webkit-linear-gradient(left, #fffed3, #ffffff); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #fffed3, #ffffff); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #fffed3, #ffffff); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #fffed3, #ffffff); /* Standard syntax (must be last) */
+}
+
 /* Navbar */
 .navbar-minibal,
 .navbar-minimal .navbar-brand,
