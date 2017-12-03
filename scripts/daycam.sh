@@ -39,5 +39,5 @@ convert -background '#00000080' -fill white -size 1024x45 label:"Nauchniy - CAM2
 
 mv /storage/web/cam2_woverlay.jpg /storage/web/cam2.jpg
 
-/opt/allsky/bin/cam_to_arch.sh
+/opt/allsky/bin/cam_to_arch.sh cam2
 
