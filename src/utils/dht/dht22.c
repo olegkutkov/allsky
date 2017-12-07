@@ -139,6 +139,11 @@ int readDHT(int pin) {
 			return 0;
 		}
 
+		// yet another strange case
+		if (f == 0 && h == 0) {
+			return 0;
+		}
+
 		printf("temp=%.1f humidity=%.1f\n", f, h);
     
 		return 1;
