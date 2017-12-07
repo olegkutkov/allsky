@@ -5,7 +5,7 @@
 CC := gcc
 PROGRAM = fancontrol
 SRC := main.c dht.c
-CFLAGS := -Wall -std=gnu99
+CFLAGS := -Wall -std=gnu99 -g -ggdb
 LDFLAG := -l bcm2835 -lrt
 TARGET_DIR := /opt/allsky/bin
 
