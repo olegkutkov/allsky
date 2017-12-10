@@ -13,13 +13,18 @@
 }
 
 .twilight_grad_day {
-    background: #ffffff; /* For browsers that do not support gradients */
+    background: #ffffff; /* For browsers that do not support gradients */    
     border-radius: 5px;
 	padding-left: 1em;
     background: -webkit-linear-gradient(left, #fffed3, #ffffff); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(right, #fffed3, #ffffff); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(right, #fffed3, #ffffff); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to right, #fffed3, #ffffff); /* Standard syntax (must be last) */
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
 }
 
 /* Navbar */
