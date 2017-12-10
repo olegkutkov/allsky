@@ -63,20 +63,20 @@ def build_skytemp_file(skytemp_data, airtemp_data):
 
 	current_cond = 'Collecting data...'
 
-	if curr_humidity >= 60.0:
-		current_cond = '<span class="text-danger">worst, humidity is too high</span>'
+#	if curr_humidity >= 60.0:
+#		current_cond = '<span class="text-danger">worst, humidity is too high</span>'
+#	else:
+	if temper_delta <= 5:
+		current_cond = '<span class="text-danger">worst</span>'
 	else:
-		if temper_delta <= 5:
-			current_cond = '<span class="text-danger">worst</span>'
-		else:
-			if temper_delta >= 5 and temper_delta <= 10:
-				current_cond = '<span class="text-danger">bad</span>'
-			elif temper_delta > 10 and temper_delta <= 15:
-				current_cond = '<span class="text-warning">normal</span>'
-			elif temper_delta > 15 and temper_delta <= 19:
-				current_cond = '<span class="text-info">good</span>'
-			elif temper_delta > 19:
-				current_cond = '<span class="text-success">best</span>'
+		if temper_delta >= 5 and temper_delta <= 10:
+			current_cond = '<span class="text-danger">bad</span>'
+		elif temper_delta > 10 and temper_delta <= 15:
+			current_cond = '<span class="text-warning">normal</span>'
+		elif temper_delta > 15 and temper_delta <= 19:
+			current_cond = '<span class="text-info">good</span>'
+		elif temper_delta > 19:
+			current_cond = '<span class="text-success">best</span>'
 
 	print 'Current observation conditions for web: ' + current_cond
 
