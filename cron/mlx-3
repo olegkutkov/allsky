@@ -1,1 +1,1 @@
-*/5 * * * *	root	/opt/allsky/bin/mlx_sensor_to_db.sh
+*/2 * * * *	root	/opt/allsky/bin/mlx_sensor_to_db.sh
