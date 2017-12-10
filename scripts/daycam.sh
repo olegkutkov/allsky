@@ -6,23 +6,25 @@ last_ambient_lux=`echo "select * from ambient_sensor order by time desc limit 1;
 last_ambient_lux=`bc <<< "scale=2; ${last_ambient_lux}/1"`
 last_ambient_lux_for_iso=${last_ambient_lux%.*}
 
-ISO_VALUE=100
+ISO_VALUE=""
 EXPOCORRECTION=-2
+SHUTTER_SPEED=""
 
 if [ $last_ambient_lux_for_iso -lt 19 ]; then
         echo "Ambient lux="$last_ambient_lux
-        echo "Setting ISO=200"
-        ISO_VALUE=200
-        EXPOCORRECTION=0
+        echo "Setting ISO=400"
+        ISO_VALUE="-ISO 400"
+        EXPOCORRECTION=+1
+	SHUTTER_SPEED=" -ss 3000000"
 fi
 
 if [ $last_ambient_lux_for_iso -gt 10000 ]; then
-		echo "Ambient lux="$last_ambient_lux
-		echo "Correcting EV to -5"
-        EXPOCORRECTION=-4
+	echo "Ambient lux="$last_ambient_lux
+	echo "Correcting EV to -5"
+        EXPOCORRECTION=-5
 fi
 
-raspistill -ev $EXPOCORRECTION -w 1024 -h 768 -sh 60 --awb auto -ISO $ISO_VALUE -sa 40 -o /storage/web/__cam2.jpg
+raspistill $SHUTTER_SPEED -ev $EXPOCORRECTION -w 1024 -h 768 -sh 60 --awb auto $ISO_VALUE -sa 40 -sh 10 -o /storage/web/__cam2.jpg
 
 last_temp_humidity=`echo "select * from external_dh22 order by time desc limit 1;" | mysql -uallsky -pallsky allsky | tail -n1`
 

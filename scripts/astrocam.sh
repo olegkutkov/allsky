@@ -16,6 +16,11 @@ start_checker_exit_code=$?
 
 if [ $start_checker_exit_code -eq 0 ]; then
 	if [ -f ${CAM1_CHECK_RUN_FILE} ]; then
+
+		/opt/allsky/bin/iris_control c
+
+		/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 30000 -g 30 -o /storage/web/dark.jpg
+
 		rm -f $CAM1_CHECK_RUN_FILE
 	fi
 
@@ -60,7 +65,12 @@ rm -f /storage/web/cam1_tmp.jpg
 
 #-e 30000 -g 25
 
-/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 300 -g 20 -o /storage/web/cam1_tmp.jpg #-k /storage/web/dark.jpg -b 5
+optimal_shooting_params=`/opt/allsky/bin/ephem/get_optimal_night_cam_params.py`
+
+/opt/allsky/bin/qhy_camera -m "qhy5ii" ${optimal_shooting_params} -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg
+#/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 30000 -g 30 -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg  #-k /storage/web/bias.jpg #-k /storage/web/dark.jpg -b 5
+#/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 300 -g 5 -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg
+#/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 1000 -g 10 -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg
 
 convert -background '#00000080' -fill white -size 1280x50 label:"Nauchniy - CAM1\nDate: ${current_date_time}  Temperature: ${last_temp} C  Humidity: ${last_humidity} %  Skytemp: ${last_skytemp} C"\
 	-gravity southwest /storage/web/cam1_tmp.jpg +swap -gravity south -set colorspace Gray -composite /storage/web/cam1_woverlay.jpg
