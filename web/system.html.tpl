@@ -33,7 +33,7 @@
 			<li><a href="index.html">Main</a></li>
 			<li><a href="sensors.html">Sensors</a></li>
 			<li class="active"><a href="#">System</a></li>
-			<li><a href="#">About</a></li>
+			<li><a href="about.html">About</a></li>
 		</ul>
 	</div>
 </nav>
