@@ -71,11 +71,11 @@ def build_skytemp_file(skytemp_data, airtemp_data):
 	else:
 		if temper_delta >= 5 and temper_delta <= 10:
 			current_cond = '<span class="text-danger">bad</span>'
-		elif temper_delta > 10 and temper_delta <= 15:
+		elif temper_delta > 10 and temper_delta <= 19:
 			current_cond = '<span class="text-warning">normal</span>'
-		elif temper_delta > 15 and temper_delta <= 19:
+		elif temper_delta > 19 and temper_delta <= 23:
 			current_cond = '<span class="text-info">good</span>'
-		elif temper_delta > 19:
+		elif temper_delta > 23:
 			current_cond = '<span class="text-success">best</span>'
 
 	print 'Current observation conditions for web: ' + current_cond
