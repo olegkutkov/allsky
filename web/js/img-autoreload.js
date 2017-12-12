@@ -23,9 +23,11 @@ window.onload = function() {
 	};
 
 	function updateTextData() {
+		$('#twilight_info').load('/twilight_info.txt?' + new Date().getTime());
 		$('#sky_temp').load('/sky_temp.txt?' + new Date().getTime());
 		$('#current_cond').load('/current_cond.txt?' + new Date().getTime());
 		$('#air_temp').load('/air_temp.txt?' + new Date().getTime());
+		$('#air_humid').load('/air_humid.txt?' + new Date().getTime());
 	}
 
 	initImages();
