@@ -35,6 +35,13 @@
 			<li class="active"><a href="#">System</a></li>
 			<li><a href="about.html">About</a></li>
 		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a href="https://www.youtube.com/channel/UC9mot5kKa6-PNMAXGx5_Sig" target="_blank">
+					<span class="glyphicon glyphicon-film" style="font-size: 15px; margin-right: 15px"></span>
+				</a>
+			</li>
+		</ul>
 	</div>
 </nav>
 
