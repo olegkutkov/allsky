@@ -123,15 +123,15 @@
 				</table>
 			</div>
 			<h4>Disks usage</h4>
-			<img id="disks" class="img-responsive layered-image hover-shadow cursor"
+			<img id="disks" class="img-responsive layered-image"
 				src="disks_usage.png">
 		</div>
 		<div class="col-md-6">
 			<h4>Internal sensors</h4>
-			<img id="cput" class="img-responsive layered-image hover-shadow cursor"
+			<img id="cput" class="img-responsive layered-image"
 				src="cpu_temperature_day.png">
 			<br>
-			<img id="airth" class="img-responsive layered-image hover-shadow cursor"
+			<img id="airth" class="img-responsive layered-image"
 				src="internal_dh22_day.png">
 		</div>
 	</div>
