@@ -1,39 +1,51 @@
-window.onload = function() {
-	var images = [
-		{main: 'cam1', modal: 'cam1_modal'},
-		{main: 'cam2', modal: 'cam2_modal'},
-		{main: 'cloud', modal: 'cloud_modal'},
-		{main: 'ambient', modal: 'ambient_modal'}
-	];
+$(document).ready(function() {
+    var imageList = [
+        {main: 'cam1', modal: 'cam1_modal'},
+        {main: 'cam2', modal: 'cam2_modal'},
+        {main: 'cloud', modal: 'cloud_modal'},
+        {main: 'ambient', modal: 'ambient_modal'}
+    ];
+    var textList = ['twilight_info', 'sky_temp', 'current_cond', 'air_temp', 'air_humid'];
+    var REFRESH_INTERVAL = 40000;
 
-	var initImages = function () {
-		images.forEach(function (image) {
-			image.mainElement = document.getElementById(image.main);
-			image.modalElement = document.getElementById(image.modal);
-		});
-	};
+    var images = initImages(imageList);
 
-	var updateImages = function () {
-		images.forEach(function (image) {
-			image.mainElement.src =
-				image.mainElement.src.split("?")[0] + "?" + new Date().getTime();
-			image.modalElement.src =
-				image.modalElement.src.split("?")[0] + "?" + new Date().getTime();
-		});
-	};
+    updateTextData();
 
-	function updateTextData() {
-		$('#twilight_info').load('/twilight_info.txt?' + new Date().getTime());
-		$('#sky_temp').load('/sky_temp.txt?' + new Date().getTime());
-		$('#current_cond').load('/current_cond.txt?' + new Date().getTime());
-		$('#air_temp').load('/air_temp.txt?' + new Date().getTime());
-		$('#air_humid').load('/air_humid.txt?' + new Date().getTime());
-	}
+    setInterval(updateTextData, REFRESH_INTERVAL);
+    setInterval(updateImages, REFRESH_INTERVAL);
 
-	initImages();
-	updateTextData();
+    function initImages(img) {
+        return img.map(function (image) {
+            return {
+                mainElement: $('#' + image.main),
+                modalElement: $('#' + image.modal)
+            }
+        });
+    }
 
-	setInterval(updateTextData, 40000);
-	setInterval(updateImages, 40000);
-}
+    function updateImages() {
+        images.forEach(function (image) {
+            updateSrc(image.mainElement);
+            updateSrc(image.modalElement);
+        });
+    }
 
+    function updateSrc(elem) {
+        var newSrc = getSrcWithTimestamp(elem.attr('src'));
+        elem.attr('src', newSrc);
+    }
+
+    function getSrcWithTimestamp(src) {
+        return src.split('?')[0] + '?' + new Date().getTime()
+    }
+
+    function updateTextData() {
+        var timestemp = new Date().getTime();
+
+        textList.forEach(function (name) {
+            $('#' + name).load('/' + name + '.txt?' + timestemp);
+        });
+    }
+    }
+);
