@@ -38,7 +38,7 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li>
 				<a href="https://www.youtube.com/channel/UC9mot5kKa6-PNMAXGx5_Sig" target="_blank">
-					<span class="glyphicon glyphicon-film" style="font-size: 15px; margin-right: 15px"></span>
+					<img src="yt_logo_mono_light.png" class="img-responsive" style="padding-right: 10px">
 				</a>
 			</li>
 		</ul>
