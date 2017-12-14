@@ -103,8 +103,7 @@
 	<p>
 	<div class="row">
 		<div class="col-md-6">
-			<h3>Camera 2:</h3>
-			<h4>Direction: South - South-East</h4>
+			<h3 style="padding-bottom: 1.2em">Camera 2: South</h3>
 			<img class="img-responsive layered-image hover-shadow cursor" id="cam2" src="cam2.jpg"
 				onclick="openModal();currentSlide(2)" alt="Camera 2: South">
 			<div id="cam2_progress" class="progress progress-slim">
@@ -115,9 +114,12 @@
 		</div>
 		<div class="col-md-6">
 			<h3>Ambient sensor</h3>
-			<h4>Current air temperature: 
-				<span id="air_temp"> </span>
-				<span style="padding-left: 1.2em">Humidity: <span id="air_humid"></span> %</span>
+			<div>
+				<h4>Current air temperature:
+					<span id="air_temp" style="padding-right: 1.2em"> </span>
+					Humidity: <span id="air_humid"></span> %
+				</h4>
+			</div>
 			<img class="img-responsive layered-image hover-shadow cursor" id="ambient" src="external_dh22_day.png"
 				onclick="openModal();currentSlide(4)" alt="Temperature/humidity plot">
 			<div id="ambient_progress" class="progress progress-slim">
