@@ -26,10 +26,12 @@ if localtime < night_start:
 		print '-e 9000 -g 15'
 	elif tdelta <= 2400:
 		print '-e 1500 -g 10'
+	elif tdelta <= 2600:
+		print '-e 1200 -g 10'
 	elif tdelta <= 2700:
 		print '-e 1000 -g 10'
 	elif tdelta >= 2700:
-		print '-e 500 -g 5'
+		print '-e 500 -g 10'
 else:
 	sunrise_time = parser.parse(json_data['sunrise'])
 	sunrise_delta = (sunrise_time - localtime).total_seconds()
