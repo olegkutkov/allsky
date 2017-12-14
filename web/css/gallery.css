@@ -50,19 +50,21 @@ body {
 
 /* The Close Button */
 .close {
-  color: white;
+  color: #e0e0e0;
   position: absolute;
   top: 5px;
   right: 25px;
-  font-size: 35px;
+  font-size: 37px;
   font-weight: bold;
+  opacity: .6;
 }
 
 .close:hover,
 .close:focus {
-  color: #999;
+  color: #f9f9f9;
   text-decoration: none;
   cursor: pointer;
+  opacity: .9;
 }
 
 .imgSlides {
@@ -89,6 +91,7 @@ body {
   border-radius: 0 3px 3px 0;
   user-select: none;
   -webkit-user-select: none;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Position the "next button" to the right */
@@ -110,6 +113,7 @@ body {
   padding: 8px 12px;
   position: absolute;
   top: 0;
+  background-color: #c4c4c4;
 }
 
 img {
