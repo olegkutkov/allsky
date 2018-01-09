@@ -183,114 +183,136 @@ def plot_ambient_light(sensor_data, output_file, output_csv_file, one_day=False)
 
 	print 'Ambient light csv saved as ' + output_csv_file
 
+def generate_graphs_for_day(cur):
+	print 'Fetching cloud sensor data for 1 day'
 
-db = MySQLdb.connect(host=config.MYSQL_HOST, user=config.MYSQL_USER, \
-						passwd=config.MYSQL_PASSWORD, db=config.MYSQL_DB)
+	cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 DAY")
 
-cur = db.cursor()
+	plot_sky_temp(cur.fetchall(), one_day=True, output_file=config.PLOT_CLOUD_SENSOR_DAY, \
+								output_csv_file=config.CSV_CLOUD_SENSOR_DAY)
 
-###
-print 'Fetching cloud sensor data for 1 day'
+	###
 
-cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 DAY")
+	print '\nFetching external dh22 sensor data for 1 day'
 
-plot_sky_temp(cur.fetchall(), one_day=True, output_file=config.PLOT_CLOUD_SENSOR_DAY, \
-							output_csv_file=config.CSV_CLOUD_SENSOR_DAY)
+	cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 DAY")
 
-###
-print '\nFetching cloud sensor data for 1 week'
+	plot_ambient_temp(cur.fetchall(), one_day=True, output_file=config.PLOT_EXTERNAL_DH22_DAY,\
+										output_csv_file=config.CSV_EXTERNAL_DH22_DAY)
 
-cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 WEEK")
+	###
 
-plot_sky_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_CLOUD_SENSOR_WEEK,\
-							output_csv_file=config.CSV_CLOUD_SENSOR_WEEK)
+	print '\nFetching ambient light sensor data for 1 day'
 
-###
-print '\nFetching cloud sensor data for 1 month'
+	cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 DAY")
 
-cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 MONTH")
+	plot_ambient_light(cur.fetchall(), one_day=True, output_file=config.PLOT_AMBIENT_LIGHT_DAY,\
+										output_csv_file=config.CSV_AMBIENT_LIGHT_DAY)
 
-plot_sky_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_CLOUD_SENSOR_MONTH,\
-							output_csv_file=config.CSV_CLOUD_SENSOR_MONTH)
 
-###
-print '\nFetching cloud sensor data for 1 year'
+def generate_graphs_for_week(cur):
+	print '\nFetching cloud sensor data for 1 week'
 
-cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 YEAR")
+	cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 WEEK")
 
-plot_sky_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_CLOUD_SENSOR_YEAR,\
-							output_csv_file=config.CSV_CLOUD_SENSOR_YEAR)
+	plot_sky_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_CLOUD_SENSOR_WEEK,\
+								output_csv_file=config.CSV_CLOUD_SENSOR_WEEK)
 
-###
-###
-print '\nFetching external dh22 sensor data for 1 day'
+	###
 
-cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 DAY")
+	print '\nFetching external dh22 sensor data for 1 week'
 
-plot_ambient_temp(cur.fetchall(), one_day=True, output_file=config.PLOT_EXTERNAL_DH22_DAY,\
-									output_csv_file=config.CSV_EXTERNAL_DH22_DAY)
+	cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 WEEK")
 
-###
-print '\nFetching external dh22 sensor data for 1 week'
+	plot_ambient_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_EXTERNAL_DH22_WEEK,\
+										output_csv_file=config.CSV_EXTERNAL_DH22_WEEK)
 
-cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 WEEK")
+	###
 
-plot_ambient_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_EXTERNAL_DH22_WEEK,\
-									output_csv_file=config.CSV_EXTERNAL_DH22_WEEK)
+	print '\nFetching ambient light sensor data for 1 week'
 
-###
-print '\nFetching external dh22 sensor data for 1 month'
+	cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 WEEK")
 
-cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 MONTH")
+	plot_ambient_light(cur.fetchall(), one_day=False, output_file=config.PLOT_AMBIENT_LIGHT_WEEK,\
+										output_csv_file=config.CSV_AMBIENT_LIGHT_WEEK)
 
-plot_ambient_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_EXTERNAL_DH22_MONTH,\
-									output_csv_file=config.CSV_EXTERNAL_DH22_MONTH)
+def generate_graphs_for_month(cur):
+	print '\nFetching cloud sensor data for 1 month'
 
-###
-print '\nFetching external dh22 sensor data for 1 year'
+	cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 MONTH")
 
-cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 YEAR")
+	plot_sky_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_CLOUD_SENSOR_MONTH,\
+								output_csv_file=config.CSV_CLOUD_SENSOR_MONTH)
 
-plot_ambient_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_EXTERNAL_DH22_YEAR,\
-									output_csv_file=config.CSV_EXTERNAL_DH22_YEAR)
+	###
 
-###
-###
-print '\nFetching ambient light sensor data for 1 day'
+	print '\nFetching external dh22 sensor data for 1 month'
 
-cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 DAY")
+	cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 MONTH")
 
-plot_ambient_light(cur.fetchall(), one_day=True, output_file=config.PLOT_AMBIENT_LIGHT_DAY,\
-									output_csv_file=config.CSV_AMBIENT_LIGHT_DAY)
+	plot_ambient_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_EXTERNAL_DH22_MONTH,\
+										output_csv_file=config.CSV_EXTERNAL_DH22_MONTH)
 
-##
+	###
 
-print '\nFetching ambient light sensor data for 1 week'
+	print '\nFetching ambient light sensor data for 1 month'
 
-cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 WEEK")
+	cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 MONTH")
 
-plot_ambient_light(cur.fetchall(), one_day=False, output_file=config.PLOT_AMBIENT_LIGHT_WEEK,\
-									output_csv_file=config.CSV_AMBIENT_LIGHT_WEEK)
+	plot_ambient_light(cur.fetchall(), one_day=False, output_file=config.PLOT_AMBIENT_LIGHT_MONTH,\
+										output_csv_file=config.CSV_AMBIENT_LIGHT_MONTH)
 
-##
+def generate_graphs_for_year(cur):
+	print '\nFetching cloud sensor data for 1 year'
 
-print '\nFetching ambient light sensor data for 1 month'
+	cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 YEAR")
 
-cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 MONTH")
+	plot_sky_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_CLOUD_SENSOR_YEAR,\
+								output_csv_file=config.CSV_CLOUD_SENSOR_YEAR)
 
-plot_ambient_light(cur.fetchall(), one_day=False, output_file=config.PLOT_AMBIENT_LIGHT_MONTH,\
-									output_csv_file=config.CSV_AMBIENT_LIGHT_MONTH)
+	###
 
-##
+	print '\nFetching external dh22 sensor data for 1 year'
 
-print '\nFetching ambient light sensor data for 1 year'
+	cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 YEAR")
 
-cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 YEAR")
+	plot_ambient_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_EXTERNAL_DH22_YEAR,\
+										output_csv_file=config.CSV_EXTERNAL_DH22_YEAR)
 
-plot_ambient_light(cur.fetchall(), one_day=False, output_file=config.PLOT_AMBIENT_LIGHT_YEAR,\
+	###
+
+	print '\nFetching ambient light sensor data for 1 year'
+
+	cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 YEAR")
+
+	plot_ambient_light(cur.fetchall(), one_day=False, output_file=config.PLOT_AMBIENT_LIGHT_YEAR,\
 									output_csv_file=config.CSV_AMBIENT_LIGHT_YEAR)
 
-db.close()
+def main(args):
+	db = MySQLdb.connect(host=config.MYSQL_HOST, user=config.MYSQL_USER, \
+							passwd=config.MYSQL_PASSWORD, db=config.MYSQL_DB)
 
-print 'Done\n'
+	cur = db.cursor()
+
+	if len(args) == 1:
+		generate_graphs_for_day(cur)
+		generate_graphs_for_week(cur)	
+		generate_graphs_for_month(cur)
+		generate_graphs_for_year(cur)
+	else:
+		if args[1] == 'sensors-day':
+			generate_graphs_for_day(cur)
+		elif args[1] == 'sensors-week':
+			generate_graphs_for_week(cur)
+		elif args[1] == 'sensors-month':
+			generate_graphs_for_month(cur)
+		elif args[1] == 'sensors-year':
+			generate_graphs_for_year(cur)
+
+	db.close()
+
+	print 'Done\n'
+
+if __name__ == "__main__":
+    main(sys.argv)
 

@@ -71,4 +71,12 @@ CSV_AMBIENT_LIGHT_YEAR = '/storage/webdata/ambient_light_year.csv'
 WEB_SKYTEMP_FILE = '/storage/webdata/sky_temp.txt'
 WEB_CURRENT_COND_FILE = '/storage/webdata/current_cond.txt'
 WEB_OUT_TEMP_FILE = '/storage/webdata/air_temp.txt'
+WEB_OUT_HUMID_FILE = '/storage/webdata/air_humid.txt'
+
+###
+
+### cloud air datagen ###
+
+PLOT_SKY_AIR_TEMP = '/storage/webdata/sky_air_temp.png'
+WEBOUT_SKY_AIR_TEMP = '/storage/webdata/sky_air_temp.txt'
 

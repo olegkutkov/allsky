@@ -45,16 +45,16 @@ fi
 
 
 last_ambient_lux=`echo "select * from ambient_sensor order by time desc limit 1;" | mysql -uallsky -pallsky allsky | tail -n1 | awk '{print $3}'`
-last_ambient_lux=`bc <<< "scale=2; ${last_ambient_lux}/1"`
+last_ambient_lux=`printf '%.2f\n' ${last_ambient_lux}`
 last_ambient_lux_for_iso=${last_ambient_lux%.*}
 
 last_temp_humidity=`echo "select * from external_dh22 order by time desc limit 1;" | mysql -uallsky -pallsky allsky | tail -n1`
 
 last_temp=`echo ${last_temp_humidity} | awk '{print $3}'`
-last_temp=`bc <<< "scale=2; ${last_temp}/1"`
+last_temp=`printf '%.2f\n' ${last_temp}`
 
 last_humidity=`echo ${last_temp_humidity} | awk '{print $4}'`
-last_humidity=`bc <<< "scale=2; ${last_humidity}/1"`
+last_humidity=`printf '%.2f\n' ${last_humidity}`
 
 current_date_time=`date +"%d.%m.%Y %H:%M" `
 

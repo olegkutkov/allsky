@@ -7,6 +7,8 @@ import config
 def build_airtemp_file(airtemp_data):
 	current_air_temp_web_data = 'Collecting data...'
 
+	print airtemp_data
+
 	if len(airtemp_data) >= 2:
 		curr_air_temp = float(airtemp_data[0][0])
 		prev_air_temp = airtemp_data[1][0]
@@ -25,12 +27,25 @@ def build_airtemp_file(airtemp_data):
 
 		current_air_temp_web_data += ' ' + str(curr_air_temp) + '</span> &#8451'
 
+		current_air_humid_web_data = '<span class="text-info"> ' + str(airtemp_data[1][1]) \
+										+ '</span>'
+	else:
+		current_air_humid_web_data = '<span class="text-info"> ' + str(airtemp_data[0][1]) \
+										+ '</span>'
+
 	print 'Current air temperature: ' + current_air_temp_web_data
+	print 'Current air humidity: ' + current_air_humid_web_data
 
 	with open(config.WEB_OUT_TEMP_FILE, 'w') as web_outtemp_file:
 		web_outtemp_file.write(current_air_temp_web_data)
 
 	print 'Current air temperature stored to ' + config.WEB_OUT_TEMP_FILE
+
+	with open(config.WEB_OUT_HUMID_FILE, 'w') as web_outhum_file:
+		web_outhum_file.write(current_air_humid_web_data)
+
+	print 'Current air humidity stored to ' + config.WEB_OUT_HUMID_FILE
+
 
 def build_skytemp_file(skytemp_data, airtemp_data):
 	current_sky_temp_web_data = 'Collecting data...'
@@ -69,13 +84,17 @@ def build_skytemp_file(skytemp_data, airtemp_data):
 	if temper_delta <= 5:
 		current_cond = '<span class="text-danger">worst</span>'
 	else:
-		if temper_delta >= 5 and temper_delta <= 10:
+		if temper_delta >= 5 and temper_delta <= 11:
+			current_cond = '<span class="text-danger">very bad</span>'
+		elif temper_delta > 11 and temper_delta <= 16:
 			current_cond = '<span class="text-danger">bad</span>'
-		elif temper_delta > 10 and temper_delta <= 19:
+		elif temper_delta > 16 and temper_delta <= 19:
 			current_cond = '<span class="text-warning">normal</span>'
-		elif temper_delta > 19 and temper_delta <= 23:
+		elif temper_delta > 19 and temper_delta <= 22:
+			current_cond = '<span class="text-info">quite good</span>'
+		elif temper_delta > 22 and temper_delta <= 25:
 			current_cond = '<span class="text-info">good</span>'
-		elif temper_delta > 23:
+		elif temper_delta > 25:
 			current_cond = '<span class="text-success">best</span>'
 
 	print 'Current observation conditions for web: ' + current_cond

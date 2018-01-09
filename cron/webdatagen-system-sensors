@@ -1,0 +1,1 @@
+*/5 * * * *	allsky	/opt/allsky/bin/webdatagen/generate_web_data.sh system-report-sensors > /storage/webdata/webdatagen_system_sensors_last.log 2>&1

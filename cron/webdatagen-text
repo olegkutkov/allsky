@@ -1,0 +1,1 @@
+*/2 * * * *	allsky	/opt/allsky/bin/webdatagen/generate_web_data.sh textdata > /storage/webdata/webdatagen_text_last.log 2>&1

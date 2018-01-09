@@ -2,20 +2,50 @@
 
 datetime=`date`
 
+EXEC_DIR='/opt/allsky/bin/webdatagen'
 SRC_DIR='/storage/webdata'
 DST_DIR='/storage/web'
 
 echo 'Webdata generator started at '$datetime
 
-python /opt/allsky/bin/webdatagen/web_textdata_gen.py
+case $1 in
+	textdata)
+		python ${EXEC_DIR}/web_textdata_gen.py
+		cp -fv $SRC_DIR/*txt $DST_DIR/
+	;;
 
-cp -fv $SRC_DIR/*txt $DST_DIR/
+	sensors-day)
+		python ${EXEC_DIR}/sensors-graphgen.py $1
+		cp -fv $SRC_DIR/*day* $DST_DIR/
+	;;
 
-python /opt/allsky/bin/webdatagen/sensors-graphgen.py
-python /opt/allsky/bin/webdatagen/system-report.py
-python /opt/allsky/bin/webdatagen/system-sensors.py
+	sensors-week)
+		python ${EXEC_DIR}/sensors-graphgen.py $1
+		cp -fv $SRC_DIR/*week* $DST_DIR/
+	;;
 
-echo 'Copying all generated content'
+	sensors-month)
+		python ${EXEC_DIR}/sensors-graphgen.py $1
+		cp -fv $SRC_DIR/*month* $DST_DIR/
+	;;
 
-cp -fv $SRC_DIR/* $DST_DIR/
+	sensors-year)
+		python ${EXEC_DIR}/sensors-graphgen.py $1
+		cp -fv $SRC_DIR/*year* $DST_DIR/
+	;;
+
+	system-report-sensors)
+		python ${EXEC_DIR}/system-sensors.py
+		cp -fv $SRC_DIR/*cpu* $DST_DIR/
+		cp -fv $SRC_DIR/*internal* $DST_DIR/
+		cp -fv $SRC_DIR/*disk* $DST_DIR/
+	;;
+
+	system-report)
+		python ${EXEC_DIR}/system-report.py
+		cp -fv $SRC_DIR/*system* $DST_DIR/
+	;;
+esac
+
+exit 0
 

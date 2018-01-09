@@ -1,0 +1,1 @@
+0 0 * * *	allsky	/opt/allsky/bin/webdatagen/generate_web_data.sh sensors-week > /storage/webdata/webdatagen_week_last.log 2>&1
