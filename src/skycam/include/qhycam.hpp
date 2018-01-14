@@ -47,7 +47,11 @@ public:
 	int SetCameraGain(const unsigned short gain);
 
 	void StartCapture();
+
+	int GetFrameMemSize();
 	int GetFrame(cv::Mat &result_image);
+	int GetFrameRaw(unsigned char *buf, size_t data_size);
+
 	void StopCapture();
 
 private:

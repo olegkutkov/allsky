@@ -251,6 +251,11 @@ void QhyCam::StopCapture()
 	camera_interface->StopVideo();
 }
 
+int QhyCam::GetFrameMemSize()
+{
+	return camera_interface->GetImageMemorySize();
+}
+
 int QhyCam::GetFrame(cv::Mat &result_image)
 {
 	if (!camera_connected) {
@@ -285,5 +290,15 @@ int QhyCam::GetFrame(cv::Mat &result_image)
 	free(buf);
 
 	return res;
+}
+
+int QhyCam::GetFrameRaw(unsigned char *buf, size_t data_size)
+{
+	if (!camera_connected) {
+		log_error("Camera is not connected");
+		return QHYCCD_ERROR_NO_DEVICE;
+	}
+
+	return camera_interface->GetFrame(buf, data_size);
 }
 
