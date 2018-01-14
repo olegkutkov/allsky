@@ -6,7 +6,7 @@ CPP := g++
 PROGRAM = qhy_camera
 SRC := src/main.cpp src/qhycam.cpp src/qhy5ii.cpp src/logger.c
 CFLAGS := -I./include -Wall -Wno-write-strings  -g -ggdb #-DANNIYING_DEBUG
-LDFLAG := -l usb-1.0 -l opencv_highgui -l opencv_core -l opencv_imgproc -l opencv_photo
+LDFLAG := -l usb-1.0 -l opencv_highgui -l opencv_core -l opencv_imgproc -l opencv_photo -lcfitsio
 TARGET_DIR := /opt/allsky/bin
 
 all: $(PROGRAM)
