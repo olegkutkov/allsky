@@ -10,7 +10,7 @@ ISO_VALUE=""
 EXPOCORRECTION=-2
 SHUTTER_SPEED=""
 
-if [ $last_ambient_lux_for_iso -lt 19 ]; then
+if [ $last_ambient_lux_for_iso -lt 6 ]; then
         echo "Ambient lux="$last_ambient_lux
         echo "Setting ISO=400"
         ISO_VALUE="-ISO 400"
