@@ -29,7 +29,19 @@ hwclock -s
 # close qhy lens iris
 /opt/allsky/bin/iris_control c
 
+mkdir /storage/web
+chown allsky:allsky /storage/web
+
+mkdir /storage/ephemdata
+chown allsky:allsky /storage/ephemdata
+
+mkdir /storage/webdata
+chown allsky:allsky /storage/webdata
+
+/opt/allsky/bin/init_ram_disk.sh
+
 # start disks autoremounter daemon
-udisks-glue
+#udisks-glue
+
 
 exit 0

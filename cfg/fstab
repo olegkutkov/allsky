@@ -1,8 +1,11 @@
 proc            /proc           proc    defaults          0       0
-/dev/mmcblk0p5  /boot           vfat    defaults          0       2
-/dev/mmcblk0p6 /               ext4    defaults,noatime  0       1
-# a swapfile is not a swap partition, so no using swapon|off from here on, use  dphys-swapfile swap[on|off]  for that
+/dev/mmcblk0p1  /boot           vfat    defaults          0       2
+/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1
+# a swapfile is not a swap partition, no line here
+#   use  dphys-swapfile swap[on|off]  for that
+
+tmpfs       /storage tmpfs   nodev,nosuid,noexec,nodiratime,size=100M   0 0
 
 # storage usb device
-UUID=17dc6c4d-f378-440f-842a-5fe53ef803c6	/storage	ext4	defaults,nofail,noatime,commit=600	0	2
+#UUID=17dc6c4d-f378-440f-842a-5fe53ef803c6	/storage	ext4	defaults,nofail,noatime,commit=600	0	2
 
