@@ -42,7 +42,7 @@ if json_data['night']:
 else:
 	web_text = '<div class="twilight_grad_day"><div><strong>Recommended time for shooting flat fields: </strong>' \
 					+ parser.parse(json_data['civil_twilight_start']).strftime("%H:%M") \
-					+ ' ' + time.tzname[0] + '</div><div><strong>Reccomended time to start observations: </strong>' \
+					+ ' ' + time.tzname[0] + '</div><div><strong>Recommended time to start observations: </strong>' \
 					+ parser.parse(json_data['astro_twilight_start']).strftime("%H:%M") + ' ' + time.tzname[0] + '</div></div>'
 
 print web_text
