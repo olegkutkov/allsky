@@ -78,5 +78,6 @@ WEB_OUT_HUMID_FILE = '/storage/webdata/air_humid.txt'
 ### cloud air datagen ###
 
 PLOT_SKY_AIR_TEMP = '/storage/webdata/sky_air_temp.png'
-WEBOUT_SKY_AIR_TEMP = '/storage/webdata/sky_air_temp.txt'
+WEB_OUT_TDELTA_FILE = '/storage/webdata/sky_air_delta.txt'
+WEB_OUT_TMM_FILE = '/storage/webdata/sky_max_min.txt'
 

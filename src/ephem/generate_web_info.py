@@ -21,11 +21,28 @@ web_text = ''
 
 if json_data['night']:
 	web_text = '<div class="twilight_grad_night"><strong>Sunrise at:</strong> ' + parser.parse(json_data['sunrise']).strftime("%H:%M") \
-				+ ' ' + time.tzname[0] + '</div>'
+				+ ' ' + time.tzname[0]
+
+	if json_data['moon_correction']:
+		moon_angle = json_data['moon_alt_deg']
+
+		if moon_angle > 1:
+			moon_alt_str = str(round(moon_angle, 2))
+
+			web_text += '<br><strong>Bright Moon at ' + moon_alt_str + '&deg over the horizon on ' + json_data['moon_place'] + '.'
+
+			if moon_angle > 5:
+				web_text += ' Camera images may be overexposed.</strong></div>'
+			else:
+				web_text += '</strong></div>'
+		else:
+			web_text += '</div>'
+	else:
+		web_text += '</div>'
 else:
 	web_text = '<div class="twilight_grad_day"><div><strong>Recommended time for shooting flat fields: </strong>' \
 					+ parser.parse(json_data['civil_twilight_start']).strftime("%H:%M") \
-					+ ' ' + time.tzname[0] + '</div><div><strong>Reccomended time to start observations: </strong>' \
+					+ ' ' + time.tzname[0] + '</div><div><strong>Recommended time to start observations: </strong>' \
 					+ parser.parse(json_data['astro_twilight_start']).strftime("%H:%M") + ' ' + time.tzname[0] + '</div></div>'
 
 print web_text

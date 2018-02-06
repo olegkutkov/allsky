@@ -45,6 +45,11 @@ case $1 in
 		python ${EXEC_DIR}/system-report.py
 		cp -fv $SRC_DIR/*system* $DST_DIR/
 	;;
+
+	sky-ambient)
+		python ${EXEC_DIR}/sky-ambient-datagen.py
+		cp -fv $SRC_DIR/sky* $DST_DIR/
+	;;
 esac
 
 exit 0

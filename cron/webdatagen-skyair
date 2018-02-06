@@ -1,0 +1,1 @@
+*/2 * * * *	allsky	/opt/allsky/bin/webdatagen/generate_web_data.sh sky-ambient > /storage/webdata/webdatagen_sky-ambient_last.log 2>&1

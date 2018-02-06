@@ -94,8 +94,10 @@ def build_skytemp_file(skytemp_data, airtemp_data):
 			current_cond = '<span class="text-info">quite good</span>'
 		elif temper_delta > 22 and temper_delta <= 25:
 			current_cond = '<span class="text-info">good</span>'
-		elif temper_delta > 25:
+		elif temper_delta > 25 and temper_delta <= 35:
 			current_cond = '<span class="text-success">best</span>'
+		elif temper_delta > 35:
+			current_cond = '<span class="text-success">best of the best</span>'
 
 	print 'Current observation conditions for web: ' + current_cond
 
