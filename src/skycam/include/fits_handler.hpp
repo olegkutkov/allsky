@@ -20,18 +20,36 @@
 #define FITS_HANDLER_HPP
 
 #include <string>
+#include <exception>
+
+class FitsException : public std::exception
+{
+public:
+	FitsException(int error);
+
+	virtual const char* what() const throw();
+
+private:
+	int errcode;
+	char buf[32];
+};
 
 class FitsHandler
 {
-	FitsHandler(const std::string &filename);
+public:
+	FitsHandler(const std::string &filename, bool creat = true);
 	~FitsHandler();
 
-	bool lLoadData();
+	bool LoadData();
 	bool SaveData();
 	bool ReleaseData();
 
-	void operator-();
+	void operator-(const FitsHandler& rhs);
 
+private:
+	fitsfile *fhandle;
+	long *imagebuf;
+	std::string fname;
 };
 
 #endif 

@@ -16,5 +16,61 @@
 */
 
 #include <fitsio.h>
+#include "fits_handler.hpp"
 
+FitsException::FitsException(int error)
+	: errcode (error)
+{	
+}
+
+const char* FitsException::what() const throw()
+{
+	fits_get_errstatus(errcode, buf);
+
+	return strdup(buf);
+}
+
+FitsHandler::FitsHandler(const std::string &filename, bool creat)
+	: fhandle (NULL)
+	, imagebuf (NULL)
+	, fname (filename)
+{
+	int status = 0;
+
+	if (creat) {
+		fits_create_file(&fhandle, fname.c_str(), &status);
+	} else {
+		fits_open_file(&fhandle, fname.c_str(), READONLY, &status);
+	}
+
+	if (status != 0) {
+		throw FitsException(status);
+	}
+//fits_get_errstatus(status, buf);
+}
+
+FitsHandler::~FitsHandler()
+{
+	
+}
+
+bool FitsHandler::LoadData()
+{
+	
+}
+
+bool FitsHandler::SaveData()
+{
+	
+}
+
+bool FitsHandler::ReleaseData()
+{
+	
+}
+
+void FitsHandler::operator-(const FitsHandler& rhs)
+{
+	
+}
 
