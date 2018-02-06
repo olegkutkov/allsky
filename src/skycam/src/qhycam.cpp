@@ -292,6 +292,18 @@ int QhyCam::GetFrame(cv::Mat &result_image)
 	return res;
 }
 
+bool QhyCam::GetFrame(FitsHandler &result_fits)
+{
+	if (!camera_connected) {
+		log_error("Camera is not connected");
+		return QHYCCD_ERROR_NO_DEVICE;
+	}
+
+	size_t data_size = GetFrameMemSize();
+
+	
+}
+
 int QhyCam::GetFrameRaw(unsigned char *buf, size_t data_size)
 {
 	if (!camera_connected) {

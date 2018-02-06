@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <opencv2/imgproc/imgproc.hpp>
+#include "fits_handler.hpp"
 #include "qhycam.hpp"
 #include "logger.h"
 
@@ -79,6 +80,12 @@ int main(int argc, char **argv)
 {
 	logger_reset_state();
 	logger_set_out_stdout();
+
+	try {
+		FitsHandler fhandler("myfile.fits");
+	} catch (FitsException& ex) {
+		std::cout << "Error: " << ex.what() << std::endl;
+	}
 
 	QhyCam::InitializeSystem();
 

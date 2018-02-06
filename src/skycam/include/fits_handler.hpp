@@ -20,6 +20,7 @@
 #define FITS_HANDLER_HPP
 
 #include <string>
+#include <fitsio.h>
 #include <exception>
 
 class FitsException : public std::exception
@@ -31,7 +32,27 @@ public:
 
 private:
 	int errcode;
-	char buf[32];
+
+};
+
+class ImageBuf
+{
+public:
+	ImageBuf(size_t size)
+		: buf(NULL)
+	{
+		buf = new long[size];
+	}
+
+	~ImageBuf()
+	{
+		delete[] buf;
+	}
+
+	long* Raw() { return buf; };
+
+private:
+	long* buf;
 };
 
 class FitsHandler
@@ -40,15 +61,20 @@ public:
 	FitsHandler(const std::string &filename, bool creat = true);
 	~FitsHandler();
 
-	bool LoadData();
-	bool SaveData();
-	bool ReleaseData();
+	void SetImageWH(const int width, const int height);
+
+	bool LoadImageData();
+	bool SetImegeData();
+	bool SaveImageData();
+	bool ReleaseImageData();
 
 	void operator-(const FitsHandler& rhs);
 
 private:
 	fitsfile *fhandle;
 	long *imagebuf;
+	int imgwidth;
+	int imgheight;
 	std::string fname;
 };
 

@@ -15,7 +15,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.  
 */
 
-#include <fitsio.h>
+#include <string.h>
 #include "fits_handler.hpp"
 
 FitsException::FitsException(int error)
@@ -25,9 +25,13 @@ FitsException::FitsException(int error)
 
 const char* FitsException::what() const throw()
 {
-	fits_get_errstatus(errcode, buf);
+	char buf_str[32];
 
-	return strdup(buf);
+	fits_get_errstatus(errcode, buf_str);
+
+	const char* ret = strdup(buf_str);
+
+	return ret;
 }
 
 FitsHandler::FitsHandler(const std::string &filename, bool creat)
@@ -46,25 +50,39 @@ FitsHandler::FitsHandler(const std::string &filename, bool creat)
 	if (status != 0) {
 		throw FitsException(status);
 	}
-//fits_get_errstatus(status, buf);
 }
 
 FitsHandler::~FitsHandler()
 {
-	
+	int status = 0;
+
+	if (fhandle) {
+		fits_close_file(fhandle, &status);
+	}
 }
 
-bool FitsHandler::LoadData()
+void FitsHandler::SetImageWH(const int width, const int height)
+{
+	imgwidth = width;
+	imgheight = height;
+}
+
+bool FitsHandler::LoadImageData()
 {
 	
 }
 
-bool FitsHandler::SaveData()
+bool FitsHandler::SetImegeData()
 {
 	
 }
 
-bool FitsHandler::ReleaseData()
+bool FitsHandler::SaveImageData()
+{
+	
+}
+
+bool FitsHandler::ReleaseImageData()
 {
 	
 }
