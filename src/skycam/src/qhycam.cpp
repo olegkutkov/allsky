@@ -301,6 +301,10 @@ bool QhyCam::GetFrame(FitsHandler &result_fits)
 
 	size_t data_size = GetFrameMemSize();
 
+	ImageBuf img(data_size);
+
+	int res = camera_interface->GetFrame(img.Raw(), data_size);
+
 	
 }
 

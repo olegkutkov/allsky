@@ -20,6 +20,7 @@
 #define FITS_HANDLER_HPP
 
 #include <string>
+#include <stdint.h>
 #include <fitsio.h>
 #include <exception>
 
@@ -41,7 +42,7 @@ public:
 	ImageBuf(size_t size)
 		: buf(NULL)
 	{
-		buf = new long[size];
+		buf = new uint8_t[size];
 	}
 
 	~ImageBuf()
@@ -49,10 +50,10 @@ public:
 		delete[] buf;
 	}
 
-	long* Raw() { return buf; };
+	uint8_t* Raw() { return buf; };
 
 private:
-	long* buf;
+	uint8_t* buf;
 };
 
 class FitsHandler
