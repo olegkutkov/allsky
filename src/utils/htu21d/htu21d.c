@@ -191,7 +191,7 @@ void read_data_from_sensor(const int fdev, int pretty)
 
 	if (pretty) {
 		printf("Temperature: %.2f C\n", temp_c);
-		printf("Humidity: %.2f \%%\n", humid);
+		printf("Humidity: %.2f %%\n", humid);
 	} else {
 		printf("temp=%.2f humidity=%.2f\n", temp_c, humid);
 	}
@@ -264,7 +264,7 @@ int main(int argc, char **argv)
 	int fdev = get_device(bus_num, i2c_addr);
 
 	if (fdev < 0) {
-		fprintf(stderr, "Failed to open device 0x%X02 on bus %i\n", i2c_addr, bus_num);
+		fprintf(stderr, "Failed to open device 0x%.2X on bus %i\n", i2c_addr, bus_num);
 		return -1;
 	}
 
