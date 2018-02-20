@@ -117,8 +117,8 @@ unsigned int read_from_device(const int fdev)
 	// device response, 14-bit ADC value:
 	//  first 8 bit part ACK  second 8 bit part        CRC
 	// [0 1 2 3 4 5 6 7] [8] [9 10 11 12 13 14 15 16] [17 18 19 20 21 22 23 24]
-    // bit 15 - measurement type (‘0’: temperature, ‘1’: humidity)
-    // bit 16 - currently not assigned
+	// bit 15 - measurement type (‘0’: temperature, ‘1’: humidity)
+	// bit 16 - currently not assigned
 
 	if (crc8(buf, 3) != 0) {
 		fprintf(stderr, "CRC failed!\n");
