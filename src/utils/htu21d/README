@@ -1,0 +1,40 @@
+====
+ HTU21D sensor utility for Raspberry PI.
+ Supports reading of the temperature and humidity in "Hold master" and "No Hold master" modes
+
+ Tested on Raspbian with Linux kernel 4.4.15+
+
+ Kutkov Oleg <elenbert@gmail.com>
+
+---
+ Requirments:
+   libi2c-dev
+
+ Building:
+	make
+
+ * * *
+
+---
+ Usage:
+ * Read data in "No Hold master" mode:
+    $ ./read_htu21d 
+    temp=18.97 humidity=30.76
+
+ * Read data in "Hold master" mode:
+    $ ./read_htu21d -l
+    temp=19.01 humidity=30.76
+
+ * Pretty output:
+    $ ./read_htu21d -p
+    Temperature: 18.97 C
+    Humidity: 30.73 %
+
+ * Use specified i2c bus:
+    $ ./read_htu21d -b 0
+    Failed to open I2C interface /dev/i2c-0 Error: No such file or directory
+    Failed to open device 0x40 on bus 0
+
+    $ ./read_htu21d -b 1
+    temp=18.97 humidity=30.76
+
