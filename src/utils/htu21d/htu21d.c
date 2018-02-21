@@ -264,7 +264,7 @@ int main(int argc, char **argv)
 	int fdev = get_device(bus_num, i2c_addr);
 
 	if (fdev < 0) {
-		fprintf(stderr, "Failed to open device 0x%.2X on bus %i\n", i2c_addr, bus_num);
+		fprintf(stderr, "Failed to open device 0x%X on bus %i\n", i2c_addr, bus_num);
 		return -1;
 	}
 
