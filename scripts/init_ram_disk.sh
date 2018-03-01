@@ -24,6 +24,7 @@ cp -v ${SRC_DIR}/yt_logo_mono_light.png /storage/web
 cp -v ${SRC_DIR}/th_1.png /storage/web
 cp -v ${SRC_DIR}/th_2.png /storage/web
 cp -v ${SRC_DIR}/mlx_1.png /storage/web
+cp -v ${SRC_DIR}/light_sensor.png /storage/web
 
 cp -v ${SRC_DIR}/manifest.json /storage/web
 cp -v ${SRC_DIR}/browserconfig.xml /storage/web
