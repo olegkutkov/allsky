@@ -44,11 +44,11 @@ else
 fi
 
 
-last_ambient_lux=`echo "select * from ambient_sensor order by time desc limit 1;" | mysql -uallsky -pallsky allsky | tail -n1 | awk '{print $3}'`
+last_ambient_lux=`echo "select * from ambient_sensor order by time desc limit 1;" | mysql --connect-timeout=10 -uallsky -pallsky allsky -h 192.168.8.1 | tail -n1 | awk '{print $3}'`
 last_ambient_lux=`printf '%.2f\n' ${last_ambient_lux}`
 last_ambient_lux_for_iso=${last_ambient_lux%.*}
 
-last_temp_humidity=`echo "select * from external_dh22 order by time desc limit 1;" | mysql -uallsky -pallsky allsky | tail -n1`
+last_temp_humidity=`echo "select * from external_dh22 order by time desc limit 1;" | mysql --connect-timeout=10 -uallsky -pallsky allsky -h 192.168.8.1 | tail -n1`
 
 last_temp=`echo ${last_temp_humidity} | awk '{print $3}'`
 last_temp=`printf '%.2f\n' ${last_temp}`
@@ -58,7 +58,7 @@ last_humidity=`printf '%.2f\n' ${last_humidity}`
 
 current_date_time=`date +"%d.%m.%Y %H:%M" `
 
-last_skytemp=`echo "select * from cloud_sensor order by time desc limit 1;" | mysql -uallsky -pallsky allsky | tail -n1 | awk '{print $3}'`
+last_skytemp=`echo "select * from cloud_sensor order by time desc limit 1;" | mysql --connect-timeout=10 -uallsky -pallsky allsky -h 192.168.8.1 | tail -n1 | awk '{print $3}'`
 last_skytemp=`bc <<< "scale=2; ${last_skytemp}/1"`
 
 rm -f /storage/web/cam1_tmp.jpg
@@ -72,10 +72,16 @@ optimal_shooting_params=`/opt/allsky/bin/ephem/get_optimal_night_cam_params.py`
 #/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 300 -g 5 -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg
 #/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 1000 -g 10 -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg
 
+#convert /storage/web/cam1_tmp.jpg -rotate 180 /storage/web/cam1_tmp_rotated.jpg
+convert /storage/web/cam1_tmp.jpg \( -rotate 180 \) \( -fill white -gravity West -pointsize 21 -annotate +5-220 'N' -gravity North -pointsize 21 \
+	-annotate +195+5 'W' -gravity East -pointsize 21 -annotate +5+190 'S' \) /storage/web/cam1_tmp_rotated.jpg
+
 convert -background '#00000080' -fill white -size 1280x50 label:"Nauchniy - CAM1\nDate: ${current_date_time}  Temperature: ${last_temp} C  Humidity: ${last_humidity} %  Skytemp: ${last_skytemp} C"\
-	-gravity southwest /storage/web/cam1_tmp.jpg +swap -gravity south -set colorspace Gray -composite /storage/web/cam1_woverlay.jpg
+	-gravity southwest /storage/web/cam1_tmp_rotated.jpg +swap -gravity south -set colorspace Gray -composite /storage/web/cam1_woverlay.jpg
 
 mv /storage/web/cam1_woverlay.jpg /storage/web/cam1.jpg
+
+rm /storage/web/cam1_tmp_rotated.jpg
 
 /opt/allsky/bin/cam_to_arch.sh cam1
 

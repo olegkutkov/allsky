@@ -13,7 +13,7 @@ put_to_db()
 	ambient_infrared=`bc <<< "$ambient_infrared*$DOME_DIMMING_FACTOR"`
 	ambient_lux=`bc <<< "$ambient_lux*$DOME_DIMMING_FACTOR"`
 
-	echo "INSERT INTO ambient_sensor (light_value, ir_value) VALUES ($ambient_lux, $ambient_infrared);" | tee | mysql -uallsky -pallsky allsky
+	echo "INSERT INTO ambient_sensor (light_value, ir_value) VALUES ($ambient_lux, $ambient_infrared);" | tee | mysql --connect-timeout=10 -uallsky -pallsky allsky -h 192.168.8.1
 }
 
 sensor_data=`${SENSOR_UTIL}`
