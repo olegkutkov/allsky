@@ -91,6 +91,12 @@ int readDHT(int pin) {
 
 	// wait for pin to drop?
 	while (bcm2835_gpio_lev(pin) == 1) {
+		counter++;
+
+		if (counter == 1000) {
+			break;
+		}
+
 		usleep(1);
 	}
 
