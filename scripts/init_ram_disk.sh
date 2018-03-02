@@ -42,3 +42,7 @@ cp -v ${SRC_DIR}/browserconfig.xml /storage/web
 /opt/allsky/bin/webdatagen/generate_web_data.sh system-report-sensors > /storage/webdata/webdatagen_system_sensors_last.log 2>&1
 /opt/allsky/bin/webdatagen/generate_web_data.sh system-report > /storage/webdata/webdatagen_system_all_last.log 2>&1
 
+chown allsky:allsky /storage/web/*
+chown allsky:allsky /storage/webdata/*
+chown allsky:allsky /storage/ephemdata/*
+
