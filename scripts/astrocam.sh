@@ -1,6 +1,7 @@
 #!/bin/bash
 
 CAM1_CHECK_RUN_FILE='/storage/ephemdata/cam1_blackbox'
+CAM1_DARK_IMAGE="/storage/web/dark.jpg"
 
 process=`ps ax | grep qhy_camera | grep -v grep | wc -l`
 
@@ -16,12 +17,13 @@ start_checker_exit_code=$?
 
 if [ $start_checker_exit_code -eq 0 ]; then
 	if [ -f ${CAM1_CHECK_RUN_FILE} ]; then
+		rm -f $CAM1_CHECK_RUN_FILE
+	fi
 
+	if [ ! -f ${CAM1_DARK_IMAGE} ]; then
 		/opt/allsky/bin/iris_control c
 
-		/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 30000 -g 30 -o /storage/web/dark.jpg
-
-		rm -f $CAM1_CHECK_RUN_FILE
+		/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 30000 -g 30 -o ${CAM1_DARK_IMAGE}
 	fi
 
 	/opt/allsky/bin/iris_control o
@@ -39,6 +41,8 @@ else
 	mv /storage/web/cam1_tmp.jpg /storage/web/cam1.jpg
 
 	touch $CAM1_CHECK_RUN_FILE
+
+	rm ${CAM1_DARK_IMAGE}
 
 	exit 1
 fi
