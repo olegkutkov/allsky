@@ -290,7 +290,7 @@ def generate_graphs_for_year(cur):
 
 def main(args):
 	db = MySQLdb.connect(host=config.MYSQL_HOST, user=config.MYSQL_USER, \
-							passwd=config.MYSQL_PASSWORD, db=config.MYSQL_DB, connect_timeout=15)
+							passwd=config.MYSQL_PASSWORD, db=config.MYSQL_DB, connect_timeout=90)
 
 	cur = db.cursor()
 

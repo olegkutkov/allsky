@@ -70,7 +70,7 @@ def plot_sky_ambient_temp(data, output_file):
 	print 'Sky temperature max min saved to', config.WEB_OUT_TMM_FILE
 
 db = MySQLdb.connect(host=config.MYSQL_HOST, user=config.MYSQL_USER, \
-						passwd=config.MYSQL_PASSWORD, db=config.MYSQL_DB, connect_timeout=15)
+						passwd=config.MYSQL_PASSWORD, db=config.MYSQL_DB, connect_timeout=90)
 
 cur = db.cursor()
 

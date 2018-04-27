@@ -108,7 +108,7 @@ def build_skytemp_file(skytemp_data, airtemp_data):
 
 
 db = MySQLdb.connect(host=config.MYSQL_HOST, user=config.MYSQL_USER, \
-						passwd=config.MYSQL_PASSWORD, db=config.MYSQL_DB, connect_timeout=15)
+						passwd=config.MYSQL_PASSWORD, db=config.MYSQL_DB, connect_timeout=90)
 
 cur = db.cursor()
 
