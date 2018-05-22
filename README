@@ -1,3 +1,15 @@
 
  AllSky camera software
  ---
+
+ * Raspberry PI
+ * QHY5-MII
+ * Raspberry PI Camera module
+ * HTU21D
+ * MLX90614
+ * DHT22
+
+Please read about this camera:
+
+http://olegkutkov.me/2018/03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/
+
