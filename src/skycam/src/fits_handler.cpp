@@ -176,7 +176,7 @@ bool FitsHandler::ReleaseImageData()
 	return true;
 }
 
-void FitsHandler::operator-(const FitsHandler& rhs)
+void FitsHandler::Substract(const FitsHandler& rhs)
 {
 	for (long i = 0; i < imgwidth * imgheight; ++i) {
 		imagebuf->Raw()[i] -= rhs.imagebuf->Raw()[i];

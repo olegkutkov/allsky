@@ -94,7 +94,7 @@ public:
 
 	bool SetHeader();
 
-	void operator-(const FitsHandler& rhs);
+	void Substract(const FitsHandler& rhs);
 
 private:
 	fitsfile *fhandle;

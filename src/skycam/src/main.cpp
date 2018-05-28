@@ -106,6 +106,7 @@ int main(int argc, char **argv)
 	unsigned short gain = 0;
 	int res_w = 1280, res_h = 960;
 	bool color_mode = false;
+	bool substract_dark = false;
 	int stack_frames = 0;
 	bool use_blur = false;
 	unsigned short blur_kernel = 1;
@@ -204,6 +205,8 @@ int main(int argc, char **argv)
 
 	if (darkframe_file.size()) {
 		dark_fits = new FitsHandler(darkframe_file, false);
+		dark_fits->LoadImageData();
+		substract_dark = true;
 	}
 
 	QhyCam qcam;
@@ -230,7 +233,11 @@ int main(int argc, char **argv)
 
 	output_fits->CreateNewImage(8);
 	output_fits->SetHeader();
-	output_fits - dark_fits;
+
+	if (substract_dark) {
+		output_fits->Substract(*dark_fits);
+	}
+
 	output_fits->SaveImageData();
 
 	delete output_fits;
