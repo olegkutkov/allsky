@@ -59,6 +59,8 @@ FitsHandler::~FitsHandler()
 	if (fhandle) {
 		fits_close_file(fhandle, &status);
 	}
+
+	ReleaseImageData();
 }
 
 void FitsHandler::SetImageWH(const int width, const int height)
@@ -70,7 +72,7 @@ void FitsHandler::SetImageWH(const int width, const int height)
 bool FitsHandler::LoadImageData()
 {
 	
-	
+	return true;
 }
 
 bool FitsHandler::SetImegeData(size_t data_size, uint8_t *data)
@@ -88,8 +90,16 @@ bool FitsHandler::SetImegeData(size_t data_size, uint8_t *data)
 
 bool FitsHandler::SaveImageData()
 {
+	if (!imagebuf) {
+		return false;
+	}
 
-	return true;
+	int status = 0;
+	long fpx[2] = { 1L, 1L };
+
+	fits_write_pix(fhandle, TBYTE, fpx, imgwidth * imgheight, imagebuf->Raw(), &status);	
+
+	return status == 0;
 }
 
 bool FitsHandler::ReleaseImageData()

@@ -309,9 +309,12 @@ bool QhyCam::GetFrame(FitsHandler &result_fits)
 		return res;
 	}
 
+	result_fits.SetImageWH(width, height);
 	result_fits.SetImegeData(data_size, tmp_buf);
 
 	free(tmp_buf);
+
+	return res;
 }
 
 int QhyCam::GetFrameRaw(unsigned char *buf, size_t data_size)

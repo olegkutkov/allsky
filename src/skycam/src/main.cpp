@@ -192,10 +192,14 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	FitsHandler *output_fits, *dark_fits;
+
 	try {
-		FitsHandler fhandler("output_filename");
+		output_fits = new FitsHandler(output_filename);
 	} catch (FitsException& ex) {
-		std::cout << "Error: " << ex.what() << std::endl;
+		log_error("Failed to create FitsHandler, %s", ex.what());
+		QhyCam::ReleaseSystem();
+		return -1;
 	}
 
 	QhyCam qcam;
@@ -218,11 +222,11 @@ int main(int argc, char **argv)
 
 	qcam.StartCapture();
 
-	qcam.GetFrame(fhandler);
+	qcam.GetFrame(*output_fits);
 
-//	FitsHandler dark_frame;
+	output_fits->SaveImageData();
 
-	
+	delete output_fits;
 
 /*	cv::Mat dark;
 
