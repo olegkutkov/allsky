@@ -202,6 +202,10 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	if (darkframe_file.size()) {
+		dark_fits = new FitsHandler(darkframe_file, false);
+	}
+
 	QhyCam qcam;
 
 	int result = qcam.ConnectCamera(dev_type);
@@ -226,9 +230,14 @@ int main(int argc, char **argv)
 
 	output_fits->CreateNewImage(8);
 	output_fits->SetHeader();
+	output_fits - dark_fits;
 	output_fits->SaveImageData();
 
 	delete output_fits;
+
+	if (dark_fits) {
+		delete dark_fits;
+	}
 
 /*	cv::Mat dark;
 
