@@ -70,21 +70,36 @@ void FitsHandler::SetImageWH(const int width, const int height)
 bool FitsHandler::LoadImageData()
 {
 	
+	
 }
 
-bool FitsHandler::SetImegeData()
+bool FitsHandler::SetImegeData(size_t data_size, uint8_t *data)
 {
-	
+	ReleaseImageData();
+
+	imagebuf = new ImageBuf(data_size, data);
+
+	if (!imagebuf) {
+		return false;
+	}
+
+	return true;
 }
 
 bool FitsHandler::SaveImageData()
 {
-	
+
+	return true;
 }
 
 bool FitsHandler::ReleaseImageData()
 {
-	
+	if (imagebuf) {
+		delete imagebuf;
+		imagebuf = NULL;
+	}
+
+	return true;
 }
 
 void FitsHandler::operator-(const FitsHandler& rhs)

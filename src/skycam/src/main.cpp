@@ -81,12 +81,6 @@ int main(int argc, char **argv)
 	logger_reset_state();
 	logger_set_out_stdout();
 
-	try {
-		FitsHandler fhandler("myfile.fits");
-	} catch (FitsException& ex) {
-		std::cout << "Error: " << ex.what() << std::endl;
-	}
-
 	QhyCam::InitializeSystem();
 
 	static struct option long_options[] = {
@@ -198,6 +192,12 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	try {
+		FitsHandler fhandler("output_filename");
+	} catch (FitsException& ex) {
+		std::cout << "Error: " << ex.what() << std::endl;
+	}
+
 	QhyCam qcam;
 
 	int result = qcam.ConnectCamera(dev_type);
@@ -218,7 +218,13 @@ int main(int argc, char **argv)
 
 	qcam.StartCapture();
 
-	cv::Mat dark;
+	qcam.GetFrame(fhandler);
+
+//	FitsHandler dark_frame;
+
+	
+
+/*	cv::Mat dark;
 
 	if (darkframe_file.size()) {
 		dark = cv::imread(darkframe_file.c_str(), 0);
@@ -262,8 +268,8 @@ int main(int argc, char **argv)
 		}
 
 		log_status("Writing captured data to %s", output_filename.c_str());
-		cv::imwrite(output_filename.c_str(), blured /*cam_image*/);
+//		cv::imwrite(output_filename.c_str(), blured //cam_image);
 	}
-
+*/
 	return 0;
 }

@@ -300,12 +300,18 @@ bool QhyCam::GetFrame(FitsHandler &result_fits)
 	}
 
 	size_t data_size = GetFrameMemSize();
+	unsigned char *tmp_buf = (unsigned char*) malloc(data_size);
 
-	ImageBuf img(data_size);
+	int res = camera_interface->GetFrame(tmp_buf, data_size);
 
-	int res = camera_interface->GetFrame(img.Raw(), data_size);
+	if (res != QHYCCD_SUCCESS) {
+		free(tmp_buf);
+		return res;
+	}
 
-	
+	result_fits.SetImegeData(data_size, tmp_buf);
+
+	free(tmp_buf);
 }
 
 int QhyCam::GetFrameRaw(unsigned char *buf, size_t data_size)

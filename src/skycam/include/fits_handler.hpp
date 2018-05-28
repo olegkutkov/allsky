@@ -1,8 +1,7 @@
 /*
  QHY camera tool
 
- Copyright 2016  Oleg Kutkov <kutkov.o@yandex.ru>
- Based on original QHY code from https://github.com/qhyccd-lzr
+ Copyright 2018  Oleg Kutkov <kutkov.o@yandex.ru>
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -39,21 +38,32 @@ private:
 class ImageBuf
 {
 public:
-	ImageBuf(size_t size)
+	ImageBuf(size_t size, uint8_t *src)
 		: buf(NULL)
+		, data_size(size)
 	{
-		buf = new uint8_t[size];
+		buf = new uint8_t[data_size];
+
+		if (!buf) {
+			throw FitsException(errno);
+		}
+
+		memcpy(buf, src, data_size);
 	}
 
 	~ImageBuf()
 	{
-		delete[] buf;
+		if (buf) {
+			delete[] buf;
+			buf = NULL;
+		}
 	}
 
-	uint8_t* Raw() { return buf; };
+	uint8_t *Raw() { return buf; };
 
 private:
 	uint8_t* buf;
+	size_t data_size;
 };
 
 class FitsHandler
@@ -65,7 +75,7 @@ public:
 	void SetImageWH(const int width, const int height);
 
 	bool LoadImageData();
-	bool SetImegeData();
+	bool SetImegeData(size_t data_size, uint8_t *data);
 	bool SaveImageData();
 	bool ReleaseImageData();
 
@@ -73,7 +83,7 @@ public:
 
 private:
 	fitsfile *fhandle;
-	long *imagebuf;
+	ImageBuf *imagebuf;
 	int imgwidth;
 	int imgheight;
 	std::string fname;
