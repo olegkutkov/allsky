@@ -2,7 +2,7 @@
 # Configuration file for webdata generator
 # 
 
-MYSQL_HOST = 'localhost'
+MYSQL_HOST = '192.168.8.1'
 MYSQL_USER = 'allsky'
 MYSQL_PASSWORD = 'allsky'
 MYSQL_DB = 'allsky'
