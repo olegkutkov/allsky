@@ -71,7 +71,7 @@ rm -f /storage/web/cam1_tmp.jpg
 
 optimal_shooting_params=`/opt/allsky/bin/ephem/get_optimal_night_cam_params.py`
 
-/opt/allsky/bin/qhy_camera -m "qhy5ii" ${optimal_shooting_params} -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg
+/opt/allsky/bin/qhy_camera -m "qhy5ii" ${optimal_shooting_params} -o /storage/web/cam1_tmp.jpg -k ${CAM1_DARK_IMAGE}
 #/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 30000 -g 30 -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg  #-k /storage/web/bias.jpg #-k /storage/web/dark.jpg -b 5
 #/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 300 -g 5 -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg
 #/opt/allsky/bin/qhy_camera -m "qhy5ii" -e 1000 -g 10 -o /storage/web/cam1_tmp.jpg -k /storage/web/dark.jpg
