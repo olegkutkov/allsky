@@ -38,6 +38,7 @@ const char* FitsException::what() const throw()
 FitsHandler::FitsHandler(const std::string &filename, bool creat)
 	: fhandle (NULL)
 	, imagebuf (NULL)
+	, bitpix (0)
 	, fname (filename)
 {
 	int status = 0;
@@ -72,7 +73,34 @@ void FitsHandler::SetImageWH(const int width, const int height)
 
 bool FitsHandler::LoadImageData()
 {
-	
+	ReleaseImageData();
+
+	int status = 0;
+	long anaxes[2] = { 1, 1 };
+
+	fits_get_img_size(fhandle, 2, anaxes, &status);
+
+	imgwidth = anaxes[0];
+	imgheight = anaxes[1];
+
+	fits_get_img_type(fhandle, &bitpix, &status);
+
+	if (status != 0) {
+		return false;
+	}
+
+	long firstpix[2] = { 1, 1 };
+	size_t numpix = imgwidth * imgheight;
+
+	imagebuf = new ImageBuf(numpix);
+
+	if (!imagebuf) {
+		return false;
+	}
+
+	fits_read_pix(fhandle, TBYTE, firstpix,
+		numpix, NULL, imagebuf->Raw(), NULL, &status);
+
 	return true;
 }
 
@@ -81,6 +109,8 @@ bool FitsHandler::CreateNewImage(int bitpixel)
 	unsigned int naxis = 2;
 	long naxes[2] = { imgwidth, imgheight };
 	int status = 0;
+
+	bitpix = bitpixel;
 
 	fits_create_img(fhandle, bitpixel, naxis, naxes, &status);
 
@@ -148,6 +178,8 @@ bool FitsHandler::ReleaseImageData()
 
 void FitsHandler::operator-(const FitsHandler& rhs)
 {
-	
+	for (long i = 0; i < imgwidth * imgheight; ++i) {
+		imagebuf->Raw()[i] -= rhs.imagebuf->Raw()[i];
+	}
 }
 

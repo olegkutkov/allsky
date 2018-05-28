@@ -39,6 +39,17 @@ private:
 class ImageBuf
 {
 public:
+	ImageBuf(size_t size)
+		: buf(NULL)
+		, data_size(size)
+	{
+		buf = new uint8_t[data_size];
+
+		if (!buf) {
+			throw FitsException(errno);
+		}
+	}
+
 	ImageBuf(size_t size, uint8_t *src)
 		: buf(NULL)
 		, data_size(size)
@@ -90,6 +101,7 @@ private:
 	ImageBuf *imagebuf;
 	int imgwidth;
 	int imgheight;
+	int bitpix;
 	std::string fname;
 };
 
