@@ -224,6 +224,8 @@ int main(int argc, char **argv)
 
 	qcam.GetFrame(*output_fits);
 
+	output_fits->CreateNewImage(8);
+	output_fits->SetHeader();
 	output_fits->SaveImageData();
 
 	delete output_fits;

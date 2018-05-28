@@ -75,9 +75,12 @@ public:
 	void SetImageWH(const int width, const int height);
 
 	bool LoadImageData();
+	bool CreateNewImage(int bitpixel);
 	bool SetImegeData(size_t data_size, uint8_t *data);
 	bool SaveImageData();
 	bool ReleaseImageData();
+
+	bool SetHeader();
 
 	void operator-(const FitsHandler& rhs);
 

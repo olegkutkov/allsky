@@ -16,6 +16,7 @@
 */
 
 #include <string.h>
+#include <time.h>
 #include "fits_handler.hpp"
 
 FitsException::FitsException(int error)
@@ -75,6 +76,17 @@ bool FitsHandler::LoadImageData()
 	return true;
 }
 
+bool FitsHandler::CreateNewImage(int bitpixel)
+{
+	unsigned int naxis = 2;
+	long naxes[2] = { imgwidth, imgheight };
+	int status = 0;
+
+	fits_create_img(fhandle, bitpixel, naxis, naxes, &status);
+
+	return status == 0;
+}
+
 bool FitsHandler::SetImegeData(size_t data_size, uint8_t *data)
 {
 	ReleaseImageData();
@@ -95,9 +107,31 @@ bool FitsHandler::SaveImageData()
 	}
 
 	int status = 0;
+
 	long fpx[2] = { 1L, 1L };
 
 	fits_write_pix(fhandle, TBYTE, fpx, imgwidth * imgheight, imagebuf->Raw(), &status);	
+
+	return status == 0;
+}
+
+void get_current_datetime(char *dst)
+{
+	time_t lt = time(NULL);
+	struct tm *utc_tm = gmtime(&lt);
+
+	strftime(dst, 25, "%Y-%m-%dT%H:%M:%S", utc_tm);
+}
+
+bool FitsHandler::SetHeader()
+{
+	int status = 0;
+
+	char time_now[25];
+	get_current_datetime(time_now);
+
+//	fits_write_key(fhandle, TSTRING, "CREATOR", "ALLSKY", "Creator", &status);
+	fits_write_key(fhandle, TSTRING, "DATE", time_now, "Fits creation date, UTC", &status);
 
 	return status == 0;
 }
