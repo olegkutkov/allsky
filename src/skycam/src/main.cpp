@@ -18,9 +18,9 @@
 #include <iostream>
 #include <stdexcept>
 #include <algorithm>
+#include <memory>
 #include <unistd.h>
 #include <getopt.h>
-#include <opencv2/imgproc/imgproc.hpp>
 #include "fits_handler.hpp"
 #include "qhycam.hpp"
 #include "logger.h"
@@ -94,12 +94,10 @@ int main(int argc, char **argv)
 		{ "output_file", required_argument, NULL, 'o' },
 		{ "color_required", no_argument, NULL, 'c' },
 		{ "darkframe_subtraction", required_argument, NULL, 'k' },
-		{ "stack_frames", required_argument, NULL, 's' },
-		{ "blur_gaussian", required_argument, NULL, 'b' }
 	};
 
 	int option_index = 0;
-	int opt = getopt_long(argc, argv, "hdlm:e:g:r:o:ck:s:b:", long_options, &option_index);
+	int opt = getopt_long(argc, argv, "hdlm:e:g:r:o:ck:", long_options, &option_index);
 
 	std::string model_camera, output_filename, darkframe_file;
 	int expo_time = 100;
@@ -107,9 +105,6 @@ int main(int argc, char **argv)
 	int res_w = 1280, res_h = 960;
 	bool color_mode = false;
 	bool substract_dark = false;
-	int stack_frames = 0;
-	bool use_blur = false;
-	unsigned short blur_kernel = 1;
 
     while (opt != -1) {
 		switch (opt) {
@@ -160,16 +155,7 @@ int main(int argc, char **argv)
 			case 'k':
 				darkframe_file = optarg;
 				break;
-
-			case 's':
-				stack_frames = atoi(optarg);
-				break;
-
-			case 'b':
-				use_blur = true;
-				blur_kernel = atoi(optarg);
-				break;
-
+	
 			default:
 				show_usage();
 				abort();
@@ -193,10 +179,11 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	FitsHandler *output_fits, *dark_fits;
+	std::unique_ptr<FitsHandler> output_fits;
+	std::unique_ptr<FitsHandler> dark_fits;
 
 	try {
-		output_fits = new FitsHandler(output_filename);
+		output_fits = std::unique_ptr<FitsHandler>(new FitsHandler(output_filename));
 	} catch (FitsException& ex) {
 		log_error("Failed to create FitsHandler, %s", ex.what());
 		QhyCam::ReleaseSystem();
@@ -204,7 +191,7 @@ int main(int argc, char **argv)
 	}
 
 	if (darkframe_file.size()) {
-		dark_fits = new FitsHandler(darkframe_file, false);
+		dark_fits = std::unique_ptr<FitsHandler>(new FitsHandler(darkframe_file, false));
 		dark_fits->LoadImageData();
 		substract_dark = true;
 	}
@@ -227,71 +214,29 @@ int main(int argc, char **argv)
 	qcam.SetCameraExposureTime(expo_time);
 	qcam.SetCameraGain(gain);
 
+	log_status("Starting capture");
+
 	qcam.StartCapture();
 
 	qcam.GetFrame(*output_fits);
-
-	output_fits->CreateNewImage(8);
-	output_fits->SetHeader();
-
-	if (substract_dark) {
-		output_fits->Substract(*dark_fits);
-	}
-
-	output_fits->SaveImageData();
-
-	delete output_fits;
-
-	if (dark_fits) {
-		delete dark_fits;
-	}
-
-/*	cv::Mat dark;
-
-	if (darkframe_file.size()) {
-		dark = cv::imread(darkframe_file.c_str(), 0);
-	}
-
-	cv::Mat cam_image;
-
-	qcam.GetFrame(cam_image);
 
 	log_status("Capture finished");
 
 	qcam.DisconnectCamera();
 	QhyCam::ReleaseSystem();
 
-	if (!stack_frames) {
+	log_status("Creating new FITS image with header");
+	output_fits->CreateNewImage(8);
+	output_fits->SetHeader();
 
-		if (darkframe_file.size()) {
-			log_status("Substracting dark frame %s\n", darkframe_file.c_str());
-			dark = cv::imread(darkframe_file.c_str(), 0);
-			cv::Mat dark_grey;
-
-///			cvtColor(dark, dark_grey, CV_BGR2GRAY);
-
-			cam_image -= dark;
-		}
-
-		cv::Mat result;
-
-//		cv::fastNlMeansDenoising(cam_image, result, 3);
-
-		cv::Mat blured = cam_image.clone();
-
-		if (use_blur) {
-			log_status("Applying Gaussian blur with kernel size = %i\n", blur_kernel);
-
-			for ( int i = 1; i < blur_kernel; i = i + 2 ) {
-				cv::GaussianBlur(cam_image, blured, cv::Size(i, i), 0, 0);
-			}
-
-//			cv::addWeighted(cam_image, 1.5, blured, -0.5, 0, blured);
-		}
-
-		log_status("Writing captured data to %s", output_filename.c_str());
-//		cv::imwrite(output_filename.c_str(), blured //cam_image);
+	if (substract_dark) {
+		log_status("Substracting dark file %s", darkframe_file.c_str());
+		output_fits->Substract(*dark_fits);
 	}
-*/
+
+	log_status("Saving image as %s", output_filename.c_str());
+
+	output_fits->SaveImageData();
+
 	return 0;
 }

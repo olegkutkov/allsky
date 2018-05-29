@@ -19,11 +19,6 @@
 #ifndef QHYCAM_HPP
 #define QHYCAM_HPP
 
-#include <opencv2/opencv.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/core/core.hpp>
-#include <opencv2/core/mat.hpp>
-
 #include "fits_handler.hpp"
 #include "qhybase.hpp"
 
@@ -51,7 +46,6 @@ public:
 	void StartCapture();
 
 	int GetFrameMemSize();
-	int GetFrame(cv::Mat &result_image);
 	bool GetFrame(FitsHandler &result_fits);
 	int GetFrameRaw(unsigned char *buf, size_t data_size);
 

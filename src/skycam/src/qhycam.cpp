@@ -256,42 +256,6 @@ int QhyCam::GetFrameMemSize()
 	return camera_interface->GetImageMemorySize();
 }
 
-int QhyCam::GetFrame(cv::Mat &result_image)
-{
-	if (!camera_connected) {
-		log_error("Camera is not connected");
-		return QHYCCD_ERROR_NO_DEVICE;
-	}
-
-	size_t data_size = camera_interface->GetImageMemorySize();
-	unsigned char *buf;
-
-	buf = (unsigned char*) malloc(data_size);
-
-	int res = camera_interface->GetFrame(buf, data_size);
-
-	if (res != QHYCCD_SUCCESS) {
-		free(buf);
-		return res;
-	}
-
-	cv::Mat bayer_image(height, width, CV_8UC1, buf);
-
-	if (!grayscale_mode) {
-		log_status("Camera is in color mode, perfom BAYER to RGB conversion");
-
-		cv::Mat color_image(height, width, CV_8UC3);
-		cv::cvtColor(bayer_image, result_image, CV_BayerGR2RGB);
-	} else {
-		log_status("Camera is in grayscale mode");
-		result_image = bayer_image.clone();
-	}
-
-	free(buf);
-
-	return res;
-}
-
 bool QhyCam::GetFrame(FitsHandler &result_fits)
 {
 	if (!camera_connected) {

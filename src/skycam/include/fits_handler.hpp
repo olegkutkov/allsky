@@ -22,6 +22,7 @@
 #include <stdint.h>
 #include <fitsio.h>
 #include <errno.h>
+#include <string.h>
 #include <exception>
 
 class FitsException : public std::exception
