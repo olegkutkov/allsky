@@ -19,6 +19,7 @@
 #define FITS_HANDLER_HPP
 
 #include <string>
+#include <vector>
 #include <stdint.h>
 #include <fitsio.h>
 #include <errno.h>
@@ -79,6 +80,11 @@ private:
 	size_t data_size;
 };
 
+typedef struct fits_header_data {
+	char key[16];
+	char val[72];
+} fits_header_data_t;
+
 class FitsHandler
 {
 public:
@@ -93,7 +99,7 @@ public:
 	bool SaveImageData();
 	bool ReleaseImageData();
 
-	bool SetHeader();
+	bool SetHeader(std::vector<fits_header_data_t>& data);
 
 	void Substract(const FitsHandler& rhs);
 

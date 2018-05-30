@@ -19,6 +19,8 @@
 #include <stdexcept>
 #include <algorithm>
 #include <memory>
+#include <sstream>
+#include <fstream>
 #include <unistd.h>
 #include <getopt.h>
 #include "fits_handler.hpp"
@@ -76,6 +78,32 @@ DEVICE_TYPE get_device_type_from_model_name(const std::string& model_camera)
 	return DEVICE_UNKNOWN_DEVICE;
 }
 
+void LoadFitsHeaderData(std::string &file, std::vector<fits_header_data_t> &dst_data)
+{
+	std::ifstream datfile(file);
+
+	if (!datfile.is_open()) {
+		std::string error = "Unable to open header data file " + file;
+		throw std::runtime_error(error.c_str());
+	}
+
+	std::string line;
+	fits_header_data_t fdata;
+
+	while (std::getline(datfile, line)) {
+		std::string key = line.substr(0, line.find(' '));
+		std::string val = line.substr(line.find(' ') + 1, line.size());
+
+		strncpy(fdata.key, key.c_str(), key.size());
+		fdata.key[key.size()] = '\0';
+
+		strncpy(fdata.val, val.c_str(), val.size());
+		fdata.val[val.size()] = '\0';
+
+		dst_data.push_back(fdata);
+	}
+}
+
 int main(int argc, char **argv)
 {
 	logger_reset_state();
@@ -94,17 +122,20 @@ int main(int argc, char **argv)
 		{ "output_file", required_argument, NULL, 'o' },
 		{ "color_required", no_argument, NULL, 'c' },
 		{ "darkframe_subtraction", required_argument, NULL, 'k' },
+		{ "extra_header_data", required_argument, NULL, 'x' }
 	};
 
 	int option_index = 0;
-	int opt = getopt_long(argc, argv, "hdlm:e:g:r:o:ck:", long_options, &option_index);
+	int opt = getopt_long(argc, argv, "hdlm:e:g:r:o:ck:x:", long_options, &option_index);
 
-	std::string model_camera, output_filename, darkframe_file;
+	std::string model_camera, output_filename, darkframe_file, header_data_file;
 	int expo_time = 100;
 	unsigned short gain = 0;
 	int res_w = 1280, res_h = 960;
 	bool color_mode = false;
 	bool substract_dark = false;
+
+	std::vector<fits_header_data_t> fits_head_data;
 
     while (opt != -1) {
 		switch (opt) {
@@ -155,13 +186,18 @@ int main(int argc, char **argv)
 			case 'k':
 				darkframe_file = optarg;
 				break;
+
+			case 'x':
+				header_data_file = optarg;
+				LoadFitsHeaderData(header_data_file, fits_head_data);
+				break;
 	
 			default:
 				show_usage();
 				abort();
 		}
 
-		opt = getopt_long(argc, argv, "dlm:e:g:r:o:ck:s:b:", long_options, &option_index);
+		opt = getopt_long(argc, argv, "dlm:e:g:r:o:ck:s:b:x:", long_options, &option_index);
 	}
 
 	if (!model_camera.size() || !output_filename.size()) {
@@ -227,7 +263,8 @@ int main(int argc, char **argv)
 
 	log_status("Creating new FITS image with header");
 	output_fits->CreateNewImage(8);
-	output_fits->SetHeader();
+
+	output_fits->SetHeader(fits_head_data);
 
 	if (substract_dark) {
 		log_status("Substracting dark file %s", darkframe_file.c_str());

@@ -153,15 +153,20 @@ void get_current_datetime(char *dst)
 	strftime(dst, 25, "%Y-%m-%dT%H:%M:%S", utc_tm);
 }
 
-bool FitsHandler::SetHeader()
+bool FitsHandler::SetHeader(std::vector<fits_header_data_t>& data)
 {
 	int status = 0;
 
 	char time_now[25];
 	get_current_datetime(time_now);
 
-//	fits_write_key(fhandle, TSTRING, "CREATOR", "ALLSKY", "Creator", &status);
 	fits_write_key(fhandle, TSTRING, "DATE", time_now, "Fits creation date, UTC", &status);
+
+	std::vector<fits_header_data_t>::iterator dat_ir = data.begin();
+
+	for ( ; dat_ir != data.end(); dat_ir++) {
+		fits_write_key(fhandle, TSTRING, dat_ir->key, dat_ir->val, "", &status);
+	}
 
 	return status == 0;
 }
