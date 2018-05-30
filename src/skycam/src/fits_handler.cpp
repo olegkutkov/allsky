@@ -140,7 +140,7 @@ bool FitsHandler::SaveImageData()
 
 	long fpx[2] = { 1L, 1L };
 
-	fits_write_pix(fhandle, TBYTE, fpx, imgwidth * imgheight, imagebuf->Raw(), &status);	
+	fits_write_pix(fhandle, TUSHORT, fpx, imgwidth * imgheight, imagebuf->Raw(), &status);
 
 	return status == 0;
 }

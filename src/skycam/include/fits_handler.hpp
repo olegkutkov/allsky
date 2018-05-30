@@ -45,7 +45,7 @@ public:
 		: buf(NULL)
 		, data_size(size)
 	{
-		buf = new uint8_t[data_size];
+		buf = new uint16_t[data_size];
 
 		if (!buf) {
 			throw FitsException(errno);
@@ -56,13 +56,16 @@ public:
 		: buf(NULL)
 		, data_size(size)
 	{
-		buf = new uint8_t[data_size];
+		buf = new uint16_t[data_size];
 
 		if (!buf) {
 			throw FitsException(errno);
 		}
 
-		memcpy(buf, src, data_size);
+		for (size_t i = 0; i < data_size; i++) {
+			buf[i] = uint16_t(src[i]);
+		}
+		//memcpy(buf, src, data_size);
 	}
 
 	~ImageBuf()
@@ -73,10 +76,10 @@ public:
 		}
 	}
 
-	uint8_t *Raw() { return buf; };
+	uint16_t *Raw() { return buf; };
 
 private:
-	uint8_t* buf;
+	uint16_t* buf;
 	size_t data_size;
 };
 
