@@ -98,7 +98,7 @@ bool FitsHandler::LoadImageData()
 		return false;
 	}
 
-	fits_read_pix(fhandle, TBYTE, firstpix,
+	fits_read_pix(fhandle, TUSHORT, firstpix,
 		numpix, NULL, imagebuf->Raw(), NULL, &status);
 
 	return true;
