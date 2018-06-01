@@ -45,4 +45,5 @@ cp -v ${SRC_DIR}/browserconfig.xml /storage/web
 chown allsky:allsky /storage/web/*
 chown allsky:allsky /storage/webdata/*
 chown allsky:allsky /storage/ephemdata/*
+chown allsky::allsky /storage/fits
 
