@@ -27,22 +27,24 @@ if [ $start_checker_exit_code -eq 0 ]; then
 		rm -f $CAM1_CHECK_RUN_FILE
 	fi
 
+	optimal_shooting_params=`/opt/allsky/bin/ephem/get_optimal_night_cam_params.py`
+
 	if [ ! -f ${CAM1_DARK_IMAGE} ]; then
 		echo "Shooting dark frame "${CAM1_DARK_IMAGE}
 
 		/opt/allsky/bin/iris_control c
 
-		/opt/allsky/bin/qhy_camera_new -m "qhy5ii" -e 30000 -g 30 -o ${CAM1_DARK_IMAGE}
-
-		rm -f ${CAM1_BIAS_IMAGE}
+		/opt/allsky/bin/qhy_camera_new -m "qhy5ii" ${optimal_shooting_params} -o ${CAM1_DARK_IMAGE}
 	fi
 
 	if [ ! -f ${CAM1_BIAS_IMAGE} ]; then
 		echo "Shooting bias frame "${CAM1_BIAS_IMAGE}
 
+		bias_gain=`echo ${optimal_shooting_params} | awk '{print $3}'`
+
 		/opt/allsky/bin/iris_control c
 
-		/opt/allsky/bin/qhy_camera_new -m "qhy5ii" -e 1 -g 30 -o ${CAM1_BIAS_IMAGE}
+		/opt/allsky/bin/qhy_camera_new -m "qhy5ii" -e 1 -g ${bias_gain} -o ${CAM1_BIAS_IMAGE}
 	fi
 
 	/opt/allsky/bin/iris_control o
@@ -65,6 +67,29 @@ else
 	rm ${CAM1_BIAS_IMAGE}
 
 	exit 1
+fi
+
+optimal_shooting_params=`/opt/allsky/bin/ephem/get_optimal_night_cam_params.py`
+
+if test "`find ${CAM1_DARK_IMAGE} -mmin +60`"; then
+	echo "Calibration frames is to old, renew!"
+
+	rm -f ${CAM1_DARK_IMAGE}
+	rm -f ${CAM1_BIAS_IMAGE}
+
+	/opt/allsky/bin/iris_control c
+
+	echo "Shooting new dark frame"
+
+	/opt/allsky/bin/qhy_camera_new -m "qhy5ii" ${optimal_shooting_params} -o ${CAM1_DARK_IMAGE}
+
+	bias_gain=`echo ${optimal_shooting_params} | awk '{print $3}'`
+
+	echo -e "\nShooting new bias frame"
+
+	/opt/allsky/bin/qhy_camera_new -m "qhy5ii" -e 1 -g ${bias_gain} -o ${CAM1_BIAS_IMAGE}
+
+	/opt/allsky/bin/iris_control o
 fi
 
 
@@ -92,8 +117,6 @@ echo "    Humidity: "${last_humidity}
 echo "    Sky temperature: "${last_skytemp}
 
 rm -f /storage/web/cam1_tmp.jpg
-
-optimal_shooting_params=`/opt/allsky/bin/ephem/get_optimal_night_cam_params.py`
 
 echo -e "\nSelected camera exposure and gain: "${optimal_shooting_params}""
 
