@@ -122,18 +122,20 @@ int main(int argc, char **argv)
 		{ "output_file", required_argument, NULL, 'o' },
 		{ "color_required", no_argument, NULL, 'c' },
 		{ "darkframe_subtraction", required_argument, NULL, 'k' },
-		{ "extra_header_data", required_argument, NULL, 'x' }
+		{ "extra_header_data", required_argument, NULL, 'x' },
+		{ "bias_substraction", required_argument, NULL, 'b' }
 	};
 
 	int option_index = 0;
-	int opt = getopt_long(argc, argv, "hdlm:e:g:r:o:ck:x:", long_options, &option_index);
+	int opt = getopt_long(argc, argv, "hdlm:e:g:r:o:ck:x:b:", long_options, &option_index);
 
-	std::string model_camera, output_filename, darkframe_file, header_data_file;
+	std::string model_camera, output_filename, darkframe_file, biasframe_file, header_data_file;
 	int expo_time = 100;
 	unsigned short gain = 0;
 	int res_w = 1280, res_h = 960;
 	bool color_mode = false;
 	bool substract_dark = false;
+	bool substract_bias = false;
 
 	std::vector<fits_header_data_t> fits_head_data;
 
@@ -185,6 +187,7 @@ int main(int argc, char **argv)
 
 			case 'k':
 				darkframe_file = optarg;
+				substract_dark = true;
 				break;
 
 			case 'x':
@@ -192,12 +195,17 @@ int main(int argc, char **argv)
 				LoadFitsHeaderData(header_data_file, fits_head_data);
 				break;
 	
+			case 'b':
+				biasframe_file = optarg;
+				substract_bias = true;
+				break;
+
 			default:
 				show_usage();
 				abort();
 		}
 
-		opt = getopt_long(argc, argv, "dlm:e:g:r:o:ck:s:b:x:", long_options, &option_index);
+		opt = getopt_long(argc, argv, "dlm:e:g:r:o:ck:s:b:x:b:", long_options, &option_index);
 	}
 
 	if (!model_camera.size() || !output_filename.size()) {
@@ -217,6 +225,7 @@ int main(int argc, char **argv)
 
 	std::unique_ptr<FitsHandler> output_fits;
 	std::unique_ptr<FitsHandler> dark_fits;
+	std::unique_ptr<FitsHandler> bias_fits;
 
 	try {
 		output_fits = std::unique_ptr<FitsHandler>(new FitsHandler(output_filename));
@@ -226,10 +235,18 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	if (darkframe_file.size()) {
+	if (substract_dark) {
 		dark_fits = std::unique_ptr<FitsHandler>(new FitsHandler(darkframe_file, false));
 		dark_fits->LoadImageData();
-		substract_dark = true;
+	}
+
+	if (substract_bias) {
+		bias_fits = std::unique_ptr<FitsHandler>(new FitsHandler(biasframe_file, false));
+		bias_fits->LoadImageData();
+
+		log_status("Calibrating dark frame with bias file %s", biasframe_file.c_str());
+
+		dark_fits->Substract(*bias_fits);
 	}
 
 	QhyCam qcam;
@@ -269,6 +286,11 @@ int main(int argc, char **argv)
 	if (substract_dark) {
 		log_status("Substracting dark file %s", darkframe_file.c_str());
 		output_fits->Substract(*dark_fits);
+	}
+
+	if (substract_bias) {
+		log_status("Substracting bias file %s", biasframe_file.c_str());
+		output_fits->Substract(*bias_fits);
 	}
 
 	log_status("Saving image as %s", output_filename.c_str());
