@@ -4,6 +4,7 @@ CAM1_CHECK_RUN_FILE="/storage/ephemdata/cam1_blackbox"
 CAM1_LAST_IMAGE="/storage/fits/last.fits"
 CAM1_PREV_IMAGE="/storage/fits/prev.fits"
 CAM1_DARK_IMAGE="/storage/fits/dark.fits"
+CAM1_BIAS_IMAGE="/storage/fits/bias.fits"
 
 CAM1_TMP_ROTATED="/storage/web/cam1_tmp_rotated.tiff"
 
@@ -32,6 +33,16 @@ if [ $start_checker_exit_code -eq 0 ]; then
 		/opt/allsky/bin/iris_control c
 
 		/opt/allsky/bin/qhy_camera_new -m "qhy5ii" -e 30000 -g 30 -o ${CAM1_DARK_IMAGE}
+
+		rm -f ${CAM1_BIAS_IMAGE}
+	fi
+
+	if [ ! -f ${CAM1_BIAS_IMAGE} ]; then
+		echo "Shooting bias frame "${CAM1_BIAS_IMAGE}
+
+		/opt/allsky/bin/iris_control c
+
+		/opt/allsky/bin/qhy_camera_new -m "qhy5ii" -e 1 -g 30 -o ${CAM1_BIAS_IMAGE}
 	fi
 
 	/opt/allsky/bin/iris_control o
@@ -50,6 +61,8 @@ else
 	touch $CAM1_CHECK_RUN_FILE
 
 	rm ${CAM1_DARK_IMAGE}
+
+	rm ${CAM1_BIAS_IMAGE}
 
 	exit 1
 fi
@@ -112,7 +125,7 @@ mv -f ${CAM1_LAST_IMAGE}  ${CAM1_PREV_IMAGE}
 
 echo -e "\nStarting camera utility..."
 
-/opt/allsky/bin/qhy_camera_new -m "qhy5ii" ${optimal_shooting_params} -o ${CAM1_LAST_IMAGE} -k ${CAM1_DARK_IMAGE} -x ${FITS_HEADER_DATA_FILE}
+/opt/allsky/bin/qhy_camera_new -m "qhy5ii" ${optimal_shooting_params} -o ${CAM1_LAST_IMAGE} -b ${CAM1_BIAS_IMAGE} -k ${CAM1_DARK_IMAGE}  -x ${FITS_HEADER_DATA_FILE}
 
 echo -e "\nRotating original image on 180 degree and applying SNWE overlay..."
 
