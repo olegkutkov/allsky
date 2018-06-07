@@ -17,7 +17,6 @@ $(PROGRAM): $(OBJECTS)
 install:
 	mkdir -p $(TARGET_DIR)
 	cp $(PROGRAM) $(TARGET_DIR)
-	cp dht_to_db.sh $(TARGET_DIR)
 
 clean:
 	rm -fr $(PROGRAM) $(PROGRAM).o
