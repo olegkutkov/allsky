@@ -183,110 +183,122 @@ def plot_ambient_light(sensor_data, output_file, output_csv_file, one_day=False)
 
 	print 'Ambient light csv saved as ' + output_csv_file
 
-def generate_graphs_for_day(cur):
+
+def generate_graphs_for_day(cur, th_sensor_table, out_sky_img_file, out_sky_csv_file, out_amb_img_file, out_amb_csv_file, \
+									out_light_img_file, out_light_csv_file):
 	print 'Fetching cloud sensor data for 1 day'
 
 	cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 DAY")
 
-	plot_sky_temp(cur.fetchall(), one_day=True, output_file=config.PLOT_CLOUD_SENSOR_DAY, \
-								output_csv_file=config.CSV_CLOUD_SENSOR_DAY)
+	plot_sky_temp(cur.fetchall(), one_day=True, output_file=out_sky_img_file, \
+								output_csv_file=out_sky_csv_file)
 
 	###
 
-	print '\nFetching external dh22 sensor data for 1 day'
+	print '\nFetching external sensor data for 1 day'
 
-	cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 DAY")
+	cur.execute("SELECT * from " + th_sensor_table + " WHERE time >= NOW() - INTERVAL 1 DAY")
 
-	plot_ambient_temp(cur.fetchall(), one_day=True, output_file=config.PLOT_EXTERNAL_DH22_DAY,\
-										output_csv_file=config.CSV_EXTERNAL_DH22_DAY)
+	plot_ambient_temp(cur.fetchall(), one_day=True, output_file=out_amb_img_file,\
+										output_csv_file=out_amb_csv_file)
 
 	###
 
-	print '\nFetching ambient light sensor data for 1 day'
+	if out_light_img_file is not None:
+		print '\nFetching ambient light sensor data for 1 day'
 
-	cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 DAY")
+		cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 DAY")
 
-	plot_ambient_light(cur.fetchall(), one_day=True, output_file=config.PLOT_AMBIENT_LIGHT_DAY,\
-										output_csv_file=config.CSV_AMBIENT_LIGHT_DAY)
+		plot_ambient_light(cur.fetchall(), one_day=True, output_file=out_light_img_file,\
+											output_csv_file=out_light_csv_file)
 
 
-def generate_graphs_for_week(cur):
+def generate_graphs_for_week(cur, th_sensor_table, out_sky_img_file, out_sky_csv_file, out_amb_img_file, out_amb_csv_file, \
+									out_light_img_file, out_light_csv_file):
+
 	print '\nFetching cloud sensor data for 1 week'
 
 	cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 WEEK")
 
-	plot_sky_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_CLOUD_SENSOR_WEEK,\
-								output_csv_file=config.CSV_CLOUD_SENSOR_WEEK)
+	plot_sky_temp(cur.fetchall(), one_day=False, output_file=out_sky_img_file,\
+								output_csv_file=out_sky_csv_file)
 
 	###
 
-	print '\nFetching external dh22 sensor data for 1 week'
+	print '\nFetching external sensor data for 1 week'
 
-	cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 WEEK")
+	cur.execute("SELECT * from " + th_sensor_table + " WHERE time >= NOW() - INTERVAL 1 WEEK")
 
-	plot_ambient_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_EXTERNAL_DH22_WEEK,\
-										output_csv_file=config.CSV_EXTERNAL_DH22_WEEK)
+	plot_ambient_temp(cur.fetchall(), one_day=False, output_file=out_amb_img_file,\
+										output_csv_file=out_amb_csv_file)
 
 	###
 
-	print '\nFetching ambient light sensor data for 1 week'
+	if out_light_img_file is not None:
+		print '\nFetching ambient light sensor data for 1 week'
 
-	cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 WEEK")
+		cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 WEEK")
 
-	plot_ambient_light(cur.fetchall(), one_day=False, output_file=config.PLOT_AMBIENT_LIGHT_WEEK,\
-										output_csv_file=config.CSV_AMBIENT_LIGHT_WEEK)
+		plot_ambient_light(cur.fetchall(), one_day=False, output_file=out_light_img_file,\
+											output_csv_file=out_light_csv_file)
 
-def generate_graphs_for_month(cur):
+def generate_graphs_for_month(cur, th_sensor_table, out_sky_img_file, out_sky_csv_file, out_amb_img_file, out_amb_csv_file, \
+									out_light_img_file, out_light_csv_file):
+
 	print '\nFetching cloud sensor data for 1 month'
 
 	cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 MONTH")
 
-	plot_sky_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_CLOUD_SENSOR_MONTH,\
-								output_csv_file=config.CSV_CLOUD_SENSOR_MONTH)
+	plot_sky_temp(cur.fetchall(), one_day=False, output_file=out_sky_img_file,\
+								output_csv_file=out_sky_csv_file)
 
 	###
 
-	print '\nFetching external dh22 sensor data for 1 month'
+	print '\nFetching external sensor data for 1 month'
 
-	cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 MONTH")
+	cur.execute("SELECT * from " + th_sensor_table + " WHERE time >= NOW() - INTERVAL 1 MONTH")
 
-	plot_ambient_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_EXTERNAL_DH22_MONTH,\
-										output_csv_file=config.CSV_EXTERNAL_DH22_MONTH)
+	plot_ambient_temp(cur.fetchall(), one_day=False, output_file=out_amb_img_file,\
+										output_csv_file=out_amb_csv_file)
 
 	###
 
-	print '\nFetching ambient light sensor data for 1 month'
+	if out_light_img_file is not None:
+		print '\nFetching ambient light sensor data for 1 month'
 
-	cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 MONTH")
+		cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 MONTH")
 
-	plot_ambient_light(cur.fetchall(), one_day=False, output_file=config.PLOT_AMBIENT_LIGHT_MONTH,\
-										output_csv_file=config.CSV_AMBIENT_LIGHT_MONTH)
+		plot_ambient_light(cur.fetchall(), one_day=False, output_file=out_light_img_file,\
+											output_csv_file=out_light_csv_file)
 
-def generate_graphs_for_year(cur):
+def generate_graphs_for_year(cur, th_sensor_table, out_sky_img_file, out_sky_csv_file, out_amb_img_file, out_amb_csv_file, \
+									out_light_img_file, out_light_csv_file):
+
 	print '\nFetching cloud sensor data for 1 year'
 
 	cur.execute("SELECT * from cloud_sensor WHERE time >= NOW() - INTERVAL 1 YEAR")
 
-	plot_sky_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_CLOUD_SENSOR_YEAR,\
-								output_csv_file=config.CSV_CLOUD_SENSOR_YEAR)
+	plot_sky_temp(cur.fetchall(), one_day=False, output_file=out_sky_img_file,\
+								output_csv_file=out_sky_csv_file)
 
 	###
 
 	print '\nFetching external dh22 sensor data for 1 year'
 
-	cur.execute("SELECT * from external_dh22 WHERE time >= NOW() - INTERVAL 1 YEAR")
+	cur.execute("SELECT * from " + th_sensor_table + " WHERE time >= NOW() - INTERVAL 1 YEAR")
 
-	plot_ambient_temp(cur.fetchall(), one_day=False, output_file=config.PLOT_EXTERNAL_DH22_YEAR,\
-										output_csv_file=config.CSV_EXTERNAL_DH22_YEAR)
+	plot_ambient_temp(cur.fetchall(), one_day=False, output_file=out_amb_img_file,\
+										output_csv_file=out_amb_csv_file)
 
 	###
 
-	print '\nFetching ambient light sensor data for 1 year'
+	if out_light_img_file is not None:
+		print '\nFetching ambient light sensor data for 1 year'
 
-	cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 YEAR")
+		cur.execute("SELECT * from ambient_sensor WHERE time >= NOW() - INTERVAL 1 YEAR")
 
-	plot_ambient_light(cur.fetchall(), one_day=False, output_file=config.PLOT_AMBIENT_LIGHT_YEAR,\
-									output_csv_file=config.CSV_AMBIENT_LIGHT_YEAR)
+		plot_ambient_light(cur.fetchall(), one_day=False, output_file=out_light_img_file,\
+										output_csv_file=out_light_csv_file)
 
 def main(args):
 	db = MySQLdb.connect(host=config.MYSQL_HOST, user=config.MYSQL_USER, \
@@ -294,20 +306,85 @@ def main(args):
 
 	cur = db.cursor()
 
+	th_sensor_table = "external_dh22"
+
 	if len(args) == 1:
-		generate_graphs_for_day(cur)
-		generate_graphs_for_week(cur)	
-		generate_graphs_for_month(cur)
-		generate_graphs_for_year(cur)
+		generate_graphs_for_day(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_DAY, config.CSV_CLOUD_SENSOR_DAY, \
+									config.PLOT_EXTERNAL_DH22_DAY, config.CSV_EXTERNAL_DH22_DAY, \
+									config.PLOT_AMBIENT_LIGHT_DAY, config.CSV_AMBIENT_LIGHT_DAY)
+
+		generate_graphs_for_week(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_WEEK, config.CSV_CLOUD_SENSOR_WEEK, \
+									config.PLOT_EXTERNAL_DH22_WEEK, config.CSV_EXTERNAL_DH22_WEEK, \
+									config.PLOT_AMBIENT_LIGHT_WEEK, config.CSV_AMBIENT_LIGHT_WEEK)
+
+		generate_graphs_for_month(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_MONTH, config.CSV_CLOUD_SENSOR_MONTH, \
+									config.PLOT_EXTERNAL_DH22_MONTH, config.CSV_EXTERNAL_DH22_MONTH, \
+									config.PLOT_AMBIENT_LIGHT_MONTH, config.CSV_AMBIENT_LIGHT_MONTH)
+
+		generate_graphs_for_year(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_YEAR, config.CSV_CLOUD_SENSOR_YEAR, \
+									config.PLOT_EXTERNAL_DH22_YEAR, config.CSV_EXTERNAL_DH22_YEAR, \
+									config.PLOT_AMBIENT_LIGHT_YEAR, config.CSV_AMBIENT_LIGHT_YEAR)
 	else:
 		if args[1] == 'sensors-day':
-			generate_graphs_for_day(cur)
+			generate_graphs_for_day(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_DAY, config.CSV_CLOUD_SENSOR_DAY, \
+										config.PLOT_EXTERNAL_DH22_DAY, config.CSV_EXTERNAL_DH22_DAY, \
+										config.PLOT_AMBIENT_LIGHT_DAY, config.CSV_AMBIENT_LIGHT_DAY)
+
 		elif args[1] == 'sensors-week':
-			generate_graphs_for_week(cur)
+			generate_graphs_for_week(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_WEEK, config.CSV_CLOUD_SENSOR_WEEK, \
+									config.PLOT_EXTERNAL_DH22_WEEK, config.CSV_EXTERNAL_DH22_WEEK, \
+									config.PLOT_AMBIENT_LIGHT_WEEK, config.CSV_AMBIENT_LIGHT_WEEK)
+
 		elif args[1] == 'sensors-month':
-			generate_graphs_for_month(cur)
+			generate_graphs_for_month(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_MONTH, config.CSV_CLOUD_SENSOR_MONTH, \
+									config.PLOT_EXTERNAL_DH22_MONTH, config.CSV_EXTERNAL_DH22_MONTH, \
+									config.PLOT_AMBIENT_LIGHT_MONTH, config.CSV_AMBIENT_LIGHT_MONTH)
+
 		elif args[1] == 'sensors-year':
-			generate_graphs_for_year(cur)
+			generate_graphs_for_year(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_YEAR, config.CSV_CLOUD_SENSOR_YEAR, \
+										config.PLOT_EXTERNAL_DH22_YEAR, config.CSV_EXTERNAL_DH22_YEAR, \
+										config.PLOT_AMBIENT_LIGHT_YEAR, config.CSV_AMBIENT_LIGHT_YEAR)
+
+	db.close()
+
+### do the same things for Simeiz
+
+	db = MySQLdb.connect(host=config.MYSQL_HOST, user=config.MYSQL_USER, \
+							passwd=config.MYSQL_PASSWORD, db=config.MYSQL_DB_SIMEIZ, connect_timeout=90)
+
+	cur = db.cursor()
+
+	th_sensor_table = "ambient_sensor"
+
+	if len(args) == 1:
+		generate_graphs_for_day(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_DAY_SIMEIZ, config.CSV_CLOUD_SENSOR_DAY_SIMEIZ, \
+							config.PLOT_AMBIENT_SENSOR_DAY_SIMEIZ, config.CSV_AMBIENT_SENSOR_DAY_SIMEIZ, None, None)
+
+		generate_graphs_for_week(cur, cth_sensor_table, onfig.PLOT_CLOUD_SENSOR_WEEK_SIMEIZ, config.CSV_CLOUD_SENSOR_WEEK_SIMEIZ, \
+							config.PLOT_AMBIENT_SENSOR_WEEK_SIMEIZ, config.CSV_AMBIENT_SENSOR_WEEK_SIMEIZ, None, None)
+
+		generate_graphs_for_month(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_MONTH_SIMEIZ, config.CSV_CLOUD_SENSOR_MONTH_SIMEIZ, \
+							config.PLOT_AMBIENT_SENSOR_MONTH_SIMEIZ, config.CSV_AMBIENT_SENSOR_MONTH_SIMEIZ, None, None)
+
+		generate_graphs_for_year(cur, cth_sensor_table, onfig.PLOT_CLOUD_SENSOR_YEAR_SIMEIZ, config.CSV_CLOUD_SENSOR_YEAR_SIMEIZ, \
+							config.PLOT_AMBIENT_SENSOR_YEAR_SIMEIZ, config.CSV_AMBIENT_SENSOR_YEAR_SIMEIZ, None, None)
+
+	else:
+		if args[1] == 'sensors-day':
+			generate_graphs_for_day(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_DAY_SIMEIZ, config.CSV_CLOUD_SENSOR_DAY_SIMEIZ, \
+								config.PLOT_AMBIENT_SENSOR_DAY_SIMEIZ, config.CSV_AMBIENT_SENSOR_DAY_SIMEIZ, None, None)
+
+		elif args[1] == 'sensors-week':
+			generate_graphs_for_week(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_WEEK_SIMEIZ, config.CSV_CLOUD_SENSOR_WEEK_SIMEIZ, \
+								config.PLOT_AMBIENT_SENSOR_WEEK_SIMEIZ, config.CSV_AMBIENT_SENSOR_WEEK_SIMEIZ, None, None)
+
+		elif args[1] == 'sensors-month':
+			generate_graphs_for_month(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_MONTH_SIMEIZ, config.CSV_CLOUD_SENSOR_MONTH_SIMEIZ, \
+								config.PLOT_AMBIENT_SENSOR_MONTH_SIMEIZ, config.CSV_AMBIENT_SENSOR_MONTH_SIMEIZ, None, None)
+
+		elif args[1] == 'sensors-year':
+			generate_graphs_for_year(cur, th_sensor_table, config.PLOT_CLOUD_SENSOR_YEAR_SIMEIZ, config.CSV_CLOUD_SENSOR_YEAR_SIMEIZ, \
+								config.PLOT_AMBIENT_SENSOR_YEAR_SIMEIZ, config.CSV_AMBIENT_SENSOR_YEAR_SIMEIZ, None, None)
 
 	db.close()
 

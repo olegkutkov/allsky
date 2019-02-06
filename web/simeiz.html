@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+
+	<title>Cloud sensor in Simeiz, Crimea</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles -->
+	<link href="css/sticky-footer.css" rel="stylesheet">
+	<link href="css/margin.css" rel="stylesheet">
+	<link href="css/gallery.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+
+	<!-- JS stuffs -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/gallery.js"></script>
+	<script src="js/img-autoreload-simeiz.js"></script>
+
+	<!-- Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Allsky camera web interface. Crimean astrophysical observatory">
+	<meta name="author" content="Oleg Kutkov">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="manifest.json">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="index.html">AllSky 2.0</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="index.html">Main</a></li>
+			<li class="active"><a href="#">Simeiz</a></li>
+			<li><a href="sqm.html">SQM</a></li>
+			<li><a href="sensors.html">Sensors</a></li>
+			<li><a href="system.html">System</a></li>
+			<li><a href="about.html">About</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="https://www.youtube.com/channel/UC9mot5kKa6-PNMAXGx5_Sig" target="_blank">
+					<img src="yt_logo_mono_light.png" class="img-responsive" style="padding-right: 10px">
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<div class="container container-footer-offset">
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Cloud sensor</h3>
+			<h4>Current sky temperature: <span id="sky_temp_simeiz"></span></h4>
+			<h4>Observation conditions: <span id="current_cond_simeiz"></span></h4>
+			<h4 class="sensors_grad_blue">Day</h4>
+			<img id="cloud_sensor" class="img-responsive layered-image hover-shadow cursor" src="cloud_sensor_day_simeiz.png"
+				onclick="openModal();currentSlide(1)" alt="Cloud sensor plot"
+				alt="Cloud sensor">
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_day_simeiz.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<h3>Ambient sensor</h3>
+			<h4>Current air temperature: <span id="air_temp_simeiz" style="padding-right: 1.2em"> </span></h4>
+			<h4>Humidity: <span id="air_humid_simeiz"></span> %</h4>
+			<br>
+			<img id="ambient_sensor" class="img-responsive layered-image hover-shadow cursor" src="ambient_sensor_day_simeiz.png"
+				onclick="openModal();currentSlide(2)" alt="Ambient sensor plot">
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="ambient_sensor_day_simeiz.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-md-6">
+			<h4 class="sensors_grad_blue">Week</h4>
+			<img id="cloud_sensor" class="img-responsive layered-image hover-shadow cursor" src="cloud_sensor_week_simeiz.png"
+				onclick="openModal();currentSlide(3)" alt="Cloud sensor plot"
+				alt="Cloud sensor">
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_week_simeiz.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<br>
+			<img id="ambient_sensor" class="img-responsive layered-image hover-shadow cursor" src="ambient_sensor_week_simeiz.png"
+				onclick="openModal();currentSlide(4)" alt="Ambient sensor plot">
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="ambient_sensor_week_simeiz.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-md-6">
+			<h4 class="sensors_grad_blue">Month</h4>
+			<img id="cloud_sensor" class="img-responsive layered-image hover-shadow cursor" src="cloud_sensor_month_simeiz.png"
+				onclick="openModal();currentSlide(5)" alt="Cloud sensor plot"
+				alt="Cloud sensor">
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_month_simeiz.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<br>
+			<img id="ambient_sensor" class="img-responsive layered-image hover-shadow cursor" src="ambient_sensor_month_simeiz.png"
+				onclick="openModal();currentSlide(6)" alt="Ambient sensor plot">
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="ambient_sensor_month_simeiz.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="col-md-6">
+			<h4 class="sensors_grad_blue">Year</h4>
+			<img id="cloud_sensor" class="img-responsive layered-image hover-shadow cursor" src="cloud_sensor_year_simeiz.png"
+				onclick="openModal();currentSlide(7)" alt="Cloud sensor plot"
+				alt="Cloud sensor">
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_year_simeiz.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<br>
+			<img id="ambient_sensor" class="img-responsive layered-image hover-shadow cursor" src="ambient_sensor_year_simeiz.png"
+				onclick="openModal();currentSlide(8)" alt="Ambient sensor plot">
+			<br>
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="ambient_sensor_year_simeiz.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="modal" class="modal">
+		<span class="close cursor" onclick="closeModal()">&times;</span>
+		<div class="modal-content">
+			<div class="imgSlides">
+				<div class="numbertext">1 / 8</div>
+				<img id="cloud_sensor_modal" src="cloud_sensor_day_simeiz.png" class="img-responsive layered-image">
+			</div>
+			<div class="imgSlides">
+				<div class="numbertext">2 / 8</div>
+				<img id="ambient_sensor_modal" src="ambient_sensor_day_simeiz.png" class="img-responsive layered-image">
+			</div>
+
+			<div class="imgSlides">
+				<div class="numbertext">3 / 8</div>
+				<img src="cloud_sensor_week_simeiz.png" class="img-responsive layered-image">
+			</div>
+			<div class="imgSlides">
+				<div class="numbertext">4 / 8</div>
+				<img src="ambient_sensor_week_simeiz.png" class="img-responsive layered-image">
+			</div>
+
+			<div class="imgSlides">
+				<div class="numbertext">5 / 8</div>
+				<img src="cloud_sensor_month_simeiz.png" class="img-responsive layered-image">
+			</div>
+			<div class="imgSlides">
+				<div class="numbertext">6 / 8</div>
+				<img src="ambient_sensor_month_simeiz.png" class="img-responsive layered-image">
+			</div>
+
+			<div class="imgSlides">
+				<div class="numbertext">7 / 8</div>
+				<img src="cloud_sensor_year_simeiz.png" class="img-responsive layered-image">
+			</div>
+			<div class="imgSlides">
+				<div class="numbertext">8 / 8</div>
+				<img src="ambient_sensor_year_simeiz.png" class="img-responsive layered-image">
+			</div>
+
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+			<div class="caption-container">
+				<p id="caption"></p>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<footer class="footer">
+	<div class="container">
+		<p class="text-muted-footer text-center">
+			<br><br>Cloud sensor development: <a href="mailto:kutkov.o@yandex.ru?Subject=CloudSimeiz">Oleg Kutkov</a>
+			<br>Crimean astrophysical observatory, 2017 - <script>document.write(new Date().getFullYear())</script>
+		</p>
+	</div>
+</footer>
+
+</body>
+</html>
+

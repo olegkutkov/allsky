@@ -40,6 +40,8 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li><a href="index.html">Main</a></li>
+			<li><a href="simeiz.html">Simeiz</a></li>
+			<li><a href="sqm.html">SQM</a></li>
 			<li><a href="sensors.html">Sensors</a></li>
 			<li class="active"><a href="#">System</a></li>
 			<li><a href="about.html">About</a></li>
