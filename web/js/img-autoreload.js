@@ -5,7 +5,7 @@ $(document).ready(function() {
         {main: 'cloud', modal: 'cloud_modal'},
         {main: 'ambient', modal: 'ambient_modal'}
     ];
-    var textList = ['twilight_info', 'sky_temp', 'current_cond', 'air_temp', 'air_humid'];
+    var textList = ['twilight_info', 'sky_temp', 'current_cond', 'air_temp', 'air_humid', 'current_sqm_val'];
     var REFRESH_INTERVAL = 40000;
 
     var images = initImages(imageList);
