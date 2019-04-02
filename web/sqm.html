@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+
+	<title>AllSky camera web interface</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles -->
+	<link href="css/sticky-footer.css" rel="stylesheet">
+	<link href="css/margin.css" rel="stylesheet">
+	<link href="css/gallery.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+
+	<!-- JS stuffs -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/gallery.js"></script>
+	<script src="js/img-autoreload.js"></script>
+
+	<!-- Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Allsky camera web interface. Crimean astrophysical observatory">
+	<meta name="author" content="Oleg Kutkov">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="manifest.json">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="index.html">AllSky 2.0</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="index.html">Main</a></li>
+			<li><a href="simeiz.html">Simeiz</a></li>
+			<li class="active"><a href="#">SQM</a></li>
+			<li><a href="sensors.html">Sensors</a></li>
+			<li><a href="system.html">System</a></li>
+			<li><a href="about.html">About</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="https://www.youtube.com/channel/UC9mot5kKa6-PNMAXGx5_Sig" target="_blank">
+					<img src="yt_logo_mono_light.png" class="img-responsive" style="padding-right: 10px">
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class="container container-footer-offset">
+    <h4>Sky quality meter</h4>
+    <h5>Measures the brightness of the night sky in magnitudes per square arcsecond</h5>
+	<br>Instrument: Unihedron SQM LE #4220
+	<br>Filter: <a href="http://unihedron.com/projects/darksky/hcm500_files/CM500.pdf">HOYA CM-500</a> Sensor field of view: 20
+	<p>Note: this sensor is not working in a daytime which causes "drops" on the graphs between observation nights!</p>
+
+	<h4>Current sky brightness: <span id="current_sqm_val"></span></h4>
+
+	<div class="row">
+		<div class="col-md-6">
+			<h4 class="sensors_grad_blue">Day</h4>
+			<img id="sqm_day" class="img-responsive layered-image hover-shadow cursor" 
+				src="sqm_sensor_day.png" onclick="openModal();currentSlide(1)"/>
+			<br>
+<!--
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_day.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+-->
+		</div>
+		<div class="col-md-6">
+			<h4 class="sensors_grad_blue">Week</h4>
+			<img id="sqm_week" class="img-responsive layered-image hover-shadow cursor"
+				src="sqm_sensor_week.png" onclick="openModal();currentSlide(2)"/>
+			<br>
+<!--
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_week.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+-->
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<h4 class="sensors_grad_blue">Month</h4>
+			<img id="sqm_month" class="img-responsive layered-image hover-shadow cursor"
+				src="sqm_sensor_month.png" onclick="openModal();currentSlide(3)"/>
+			<br>
+<!--
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_month.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+-->
+		</div>
+		<div class="col-md-6">
+			<h4 class="sensors_grad_blue">Year</h4>
+			<img id="sqm_year" class="img-responsive layered-image hover-shadow cursor"
+				src="sqm_sensor_year.png" onclick="openModal();currentSlide(4)"/>
+			<br>
+<!--
+			<div class="text-center">
+				<a class="btn btn-default btn-xs" href="cloud_sensor_year.csv" download>
+					<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download csv
+				</a>
+			</div>
+-->
+		</div>
+	</div>
+
+	<div id="modal" class="modal">
+		<span class="close cursor" onclick="closeModal()">&times;</span>
+		<div class="modal-content">
+			<div class="imgSlides">
+				<div class="numbertext">1 / 4</div>
+				<img src="sqm_sensor_day.png" class="img-responsive layered-image" alt="SQM sensor - Day">
+				<br>
+				<p>SQM sensor - 1 Day</p>
+			</div>
+
+			<div class="imgSlides">
+				<div class="numbertext">2 / 4</div>
+				<img src="sqm_sensor_week.png" class="img-responsive layered-image" alt="SQM sensor - Week">
+				<br>
+				<p>SQM sensor - 1 Week</p>
+			</div>
+			<div class="imgSlides">
+				<div class="numbertext">3 / 4</div>
+				<img src="sqm_sensor_month.png" class="img-responsive layered-image" alt="SQM sensor - Month">
+				<br>
+				<p>SQM sensor - 1 Month</p>
+			</div>
+			<div class="imgSlides">
+				<div class="numbertext">4 / 4</div>
+				<img src="sqm_sensor_year.png" class="img-responsive layered-image" alt="SQM sensor - Year">
+				<br>
+				<p>SQM sensor - 1 Year</p>
+			</div>
+
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+			<div class="caption-container">
+				<p id="caption"></p>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+<footer class="footer">
+	<div class="container">
+		<p class="text-muted-footer text-center">
+			<br><br>Camera development: <a href="mailto:kutkov.o@yandex.ru?Subject=AllSky">Oleg Kutkov</a>
+			<br>Crimean astrophysical observatory, 2017 - <script>document.write(new Date().getFullYear())</script>
+		</p>
+	</div>
+</footer>
+
+</body>
+</html>
+
