@@ -7,6 +7,8 @@ MYSQL_USER = 'allsky'
 MYSQL_PASSWORD = 'allsky'
 MYSQL_DB = 'allsky'
 
+MYSQL_DB_SQM = 'sqm_crao'
+
 MYSQL_DB_SIMEIZ = 'cloudsensor_simeiz'
 
 ### system report ###
@@ -31,6 +33,20 @@ PLOT_INTERNAL_DH22_DAY = '/storage/webdata/internal_dh22_day.png'
 ###
 
 ### sensor graphgen ###
+
+SQM_SENSOR_DAY = '/storage/webdata/sqm_sensor_day.png'
+DAT_SQM_SENSOR_DAY = '/storage/webdata/sqm_sensor_day.dat'
+
+SQM_SENSOR_WEEK = '/storage/webdata/sqm_sensor_week.png'
+DAT_SQM_SENSOR_WEEK = '/storage/webdata/sqm_sensor_week.dat'
+
+SQM_SENSOR_MONTH = '/storage/webdata/sqm_sensor_month.png'
+DAT_SQM_SENSOR_MONTH = '/storage/webdata/sqm_sensor_month.dat'
+
+SQM_SENSOR_YEAR = '/storage/webdata/sqm_sensor_year.png'
+DAT_SQM_SENSOR_YEAR = '/storage/webdata/sqm_sensor_year.dat'
+
+SQM_CURRENT_VAL = '/storage/webdata/current_sqm_val.txt'
 
 PLOT_CLOUD_SENSOR_DAY = '/storage/webdata/cloud_sensor_day.png'
 CSV_CLOUD_SENSOR_DAY = '/storage/webdata/cloud_sensor_day.csv'
@@ -58,6 +74,7 @@ CSV_CLOUD_SENSOR_YEAR = '/storage/webdata/cloud_sensor_year.csv'
 
 PLOT_CLOUD_SENSOR_YEAR_SIMEIZ = '/storage/webdata/cloud_sensor_year_simeiz.png'
 CSV_CLOUD_SENSOR_YEAR_SIMEIZ = '/storage/webdata/cloud_sensor_year_simeiz.csv'
+
 
 
 PLOT_EXTERNAL_DH22_DAY = '/storage/webdata/external_dh22_day.png'

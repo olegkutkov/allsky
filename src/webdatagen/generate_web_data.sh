@@ -16,21 +16,25 @@ case $1 in
 
 	sensors-day)
 		python ${EXEC_DIR}/sensors-graphgen.py $1
+		python ${EXEC_DIR}/sqm-graphgen.py sqm-day
 		cp -fv $SRC_DIR/*day* $DST_DIR/
 	;;
 
 	sensors-week)
 		python ${EXEC_DIR}/sensors-graphgen.py $1
+		python ${EXEC_DIR}/sqm-graphgen.py sqm-week
 		cp -fv $SRC_DIR/*week* $DST_DIR/
 	;;
 
 	sensors-month)
 		python ${EXEC_DIR}/sensors-graphgen.py $1
+		python ${EXEC_DIR}/sqm-graphgen.py sqm-month
 		cp -fv $SRC_DIR/*month* $DST_DIR/
 	;;
 
 	sensors-year)
 		python ${EXEC_DIR}/sensors-graphgen.py $1
+		python ${EXEC_DIR}/sqm-graphgen.py sqm-year
 		cp -fv $SRC_DIR/*year* $DST_DIR/
 	;;
 
