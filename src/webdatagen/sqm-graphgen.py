@@ -74,7 +74,7 @@ def plot_sqm(sensor_data, output_file, output_dat_file, one_day=False):
 def generate_graph_for_day(cur, sensor_table, out_img_file, out_dat_file):
 	print 'Fetching sqm sensor data for 1 day'
 
-	cur.execute("SELECT time, sky_brightness from " + sensor_table + " WHERE time >= NOW() - INTERVAL 1 DAY")
+	cur.execute("SELECT time, sky_brightness from " + sensor_table + " WHERE time >= NOW() - INTERVAL 2 DAY")
 
 	plot_sqm(cur.fetchall(), one_day=True, output_file=out_img_file, \
 								output_dat_file=out_dat_file)
