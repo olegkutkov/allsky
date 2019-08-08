@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <getopt.h>
 #include <stdlib.h>
+#include <linux/i2c.h>
 #include <linux/i2c-dev.h>
 #include <errno.h>
 #include "mlx_addrs.h"
