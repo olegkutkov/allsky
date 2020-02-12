@@ -23,6 +23,9 @@
   To activate combined mode please run this command as root (not sudo):
     echo -n 1 > /sys/module/i2c_bcm2708/parameters/combined
 
+  UPD: On modern devices with modern OS this is not required! I2C bus works correctly :)
+  Tested on Raspberry PI 3 and newer, Raspbian version is 10.1 (Buster)
+
  * * *
 
 ---
