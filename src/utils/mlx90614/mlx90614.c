@@ -30,6 +30,14 @@
 #include <errno.h>
 #include "mlx_addrs.h"
 
+/* Just in case */ 
+#ifndef I2C_SMBUS_READ
+#define I2C_SMBUS_READ 1
+#endif
+#ifndef I2C_SMBUS_WRITE
+#define I2C_SMBUS_WRITE 0
+#endif
+
 // buffer for data reading or writing
 typedef union i2c_smbus_data i2c_data;
 
