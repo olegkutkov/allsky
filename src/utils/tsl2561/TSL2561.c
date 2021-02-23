@@ -196,7 +196,7 @@ static uint32_t TSL2561_CALCULATE_LUX(TSL2561 *sensor, uint16_t broadband, uint1
 	
 	// return 0 lux if the sensor is saturated
 	if ((broadband > clipThreshold) || (ir > clipThreshold)) {
-		return 0;
+		return 65535;
 	}
 	
 	// get the correct scale depending on the intergration time
